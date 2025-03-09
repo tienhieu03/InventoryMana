@@ -4,9 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0c1b1943faee4dbdb54bd5011e427f79" Name="Diagram1">
+      <Diagram DiagramId="0c1b1943faee4dbdb54bd5011e427f79" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Company" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerModel.tb_Department" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Inventory" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Invoice" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_InvoiceDetail" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
@@ -18,12 +17,13 @@
         <EntityTypeShape EntityType="InventoryManagerModel.tb_SYS_REPORT" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_SYS_RIGHT" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_SYS_RIGHT_REP" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerModel.tb_SYS_USER" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerModel.tb_SYS_USER" Width="1.5" PointX="2.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Unit" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.V_FUNC_SYS_RIGHT" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerModel.V_REP_SYS_RIGHT_REP" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerModel.V_REP_SYS_RIGHT_REP" Width="1.5" PointX="4.5" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.V_USER_IN_GROUP" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerModel.V_USER_NOTION_GROUP" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerModel.tb_Department" Width="1.5" PointX="2.75" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

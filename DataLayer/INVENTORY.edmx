@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="InventoryManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="InventoryManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tb_Company">
           <Key>
             <PropertyRef Name="CompanyID" />
@@ -33,13 +33,16 @@
           <Property Name="DepartmentFax" Type="nvarchar" MaxLength="20" />
           <Property Name="DepartmentEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="DepartmentAddress" Type="nvarchar" MaxLength="500" />
-          <Property Name="CompanyID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Warehouse" Type="bit" />
+          <Property Name="Symbol" Type="nvarchar" MaxLength="10" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="DeletedDate" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+          <Property Name="IsDisabled" Type="bit" />
         </EntityType>
         <EntityType Name="tb_Inventory">
           <Key>
@@ -375,8 +378,7 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
     FROM [dbo].[V_USER_NOTION_GROUP] AS [V_USER_NOTION_GROUP]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InventoryManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -397,24 +399,6 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="IsDisabled" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="tb_Department">
-          <Key>
-            <PropertyRef Name="DepartmentID" />
-          </Key>
-          <Property Name="DepartmentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentFax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Int32" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
         </EntityType>
         <EntityType Name="tb_Inventory">
           <Key>
@@ -670,7 +654,6 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tb_Company" EntityType="Self.tb_Company" />
-          <EntitySet Name="tb_Department" EntityType="Self.tb_Department" />
           <EntitySet Name="tb_Inventory" EntityType="Self.tb_Inventory" />
           <EntitySet Name="tb_Invoice" EntityType="Self.tb_Invoice" />
           <EntitySet Name="tb_InvoiceDetail" EntityType="Self.tb_InvoiceDetail" />
@@ -688,7 +671,29 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <EntitySet Name="V_REP_SYS_RIGHT_REP" EntityType="Self.V_REP_SYS_RIGHT_REP" />
           <EntitySet Name="V_USER_IN_GROUP" EntityType="Self.V_USER_IN_GROUP" />
           <EntitySet Name="V_USER_NOTION_GROUP" EntityType="Self.V_USER_NOTION_GROUP" />
+          <EntitySet Name="tb_Department" EntityType="InventoryManagerModel.tb_Department" />
         </EntityContainer>
+        <EntityType Name="tb_Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentFax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Warehouse" Type="Boolean" />
+          <Property Name="Symbol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="IsDisabled" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -711,25 +716,6 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_Department">
-            <EntityTypeMapping TypeName="InventoryManagerModel.tb_Department">
-              <MappingFragment StoreEntitySet="tb_Department">
-                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-                <ScalarProperty Name="DepartmentPhone" ColumnName="DepartmentPhone" />
-                <ScalarProperty Name="DepartmentFax" ColumnName="DepartmentFax" />
-                <ScalarProperty Name="DepartmentEmail" ColumnName="DepartmentEmail" />
-                <ScalarProperty Name="DepartmentAddress" ColumnName="DepartmentAddress" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -991,6 +977,28 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Department">
+            <EntityTypeMapping TypeName="InventoryManagerModel.tb_Department">
+              <MappingFragment StoreEntitySet="tb_Department">
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+                <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="DepartmentAddress" ColumnName="DepartmentAddress" />
+                <ScalarProperty Name="DepartmentEmail" ColumnName="DepartmentEmail" />
+                <ScalarProperty Name="DepartmentFax" ColumnName="DepartmentFax" />
+                <ScalarProperty Name="DepartmentPhone" ColumnName="DepartmentPhone" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

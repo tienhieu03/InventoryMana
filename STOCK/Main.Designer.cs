@@ -83,6 +83,7 @@
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlSidebar);
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventory Management";
             this.Load += new System.EventHandler(this.Main_Load);
             this.pnlSidebar.ResumeLayout(false);
