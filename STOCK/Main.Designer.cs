@@ -28,35 +28,72 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.kryptonDataGridView1 = new Krypton.Toolkit.KryptonDataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView1)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            this.pnlSidebar = new System.Windows.Forms.Panel();
+            this.flpMenu = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlMain = new System.Windows.Forms.Panel();
+            this.imgListMenu = new System.Windows.Forms.ImageList(this.components);
+            this.pnlSidebar.SuspendLayout();
             this.SuspendLayout();
             // 
-            // kryptonDataGridView1
+            // pnlSidebar
             // 
-            this.kryptonDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.kryptonDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.kryptonDataGridView1.Location = new System.Drawing.Point(212, 131);
-            this.kryptonDataGridView1.Name = "kryptonDataGridView1";
-            this.kryptonDataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.kryptonDataGridView1.TabIndex = 0;
+            this.pnlSidebar.BackColor = System.Drawing.Color.LightGray;
+            this.pnlSidebar.Controls.Add(this.flpMenu);
+            this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlSidebar.Location = new System.Drawing.Point(3, 64);
+            this.pnlSidebar.Name = "pnlSidebar";
+            this.pnlSidebar.Size = new System.Drawing.Size(200, 659);
+            this.pnlSidebar.TabIndex = 0;
+            // 
+            // flpMenu
+            // 
+            this.flpMenu.AutoScroll = true;
+            this.flpMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpMenu.Location = new System.Drawing.Point(0, 0);
+            this.flpMenu.Name = "flpMenu";
+            this.flpMenu.Size = new System.Drawing.Size(200, 659);
+            this.flpMenu.TabIndex = 0;
+            this.flpMenu.WrapContents = false;
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.BackColor = System.Drawing.Color.White;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(203, 64);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(1101, 659);
+            this.pnlMain.TabIndex = 1;
+            // 
+            // imgListMenu
+            // 
+            this.imgListMenu.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListMenu.ImageStream")));
+            this.imgListMenu.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListMenu.Images.SetKeyName(0, "INVOICE.png");
+            this.imgListMenu.Images.SetKeyName(1, "MANAGEMENT.png");
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 450);
-            this.Controls.Add(this.kryptonDataGridView1);
+            this.ClientSize = new System.Drawing.Size(1307, 726);
+            this.Controls.Add(this.pnlMain);
+            this.Controls.Add(this.pnlSidebar);
             this.Name = "Main";
-            this.Text = "Main";
+            this.Text = "Inventory Management";
             this.Load += new System.EventHandler(this.Main_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView1)).EndInit();
+            this.pnlSidebar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Krypton.Toolkit.KryptonDataGridView kryptonDataGridView1;
+        private System.Windows.Forms.Panel pnlSidebar;
+        private System.Windows.Forms.FlowLayoutPanel flpMenu;
+        private System.Windows.Forms.Panel pnlMain;
+        private System.Windows.Forms.ImageList imgListMenu;
     }
 }
