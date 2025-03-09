@@ -71,8 +71,9 @@
             // 
             this.imgListMenu.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListMenu.ImageStream")));
             this.imgListMenu.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListMenu.Images.SetKeyName(0, "INVOICE.png");
-            this.imgListMenu.Images.SetKeyName(1, "MANAGEMENT.png");
+            this.imgListMenu.Images.SetKeyName(0, "DASHBOARD");
+            this.imgListMenu.Images.SetKeyName(1, "INVOICE");
+            this.imgListMenu.Images.SetKeyName(2, "MANAGEMENT");
             // 
             // Main
             // 

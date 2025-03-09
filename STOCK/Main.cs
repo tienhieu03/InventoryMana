@@ -34,6 +34,19 @@ namespace STOCK
             _func = new SYS_FUNC();
             leftMenu();
         }
+
+        private Image GetIcon(string funcCode)
+        {
+            string key = funcCode.ToUpper(); // Chuyển FUNC_CODE thành chữ hoa
+
+            if (imgListMenu.Images.ContainsKey(key))
+            {
+                return imgListMenu.Images[key]; // Trả về icon tương ứng
+            }
+            return imgListMenu.Images["default"]; // Trả về icon mặc định nếu không có
+        }
+
+
         void leftMenu()
         {
             flpMenu.Controls.Clear(); // Xóa menu cũ trước khi load mới
@@ -41,19 +54,20 @@ namespace STOCK
             // 🏠 **Thêm nút Dashboard lên đầu menu**
             Button btnDashboard = new Button
             {
-                Text = "🏠 Dashboard",
+                Text = "     Dashboard",
                 Width = flpMenu.Width - 10,
                 Height = 40,
                 TextAlign = ContentAlignment.MiddleLeft,
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.LightBlue,
-                Font = new Font("Jetbrain Mono", 10),
-                Name = "Dashboard"
+                Font = new Font("Arial", 10, FontStyle.Bold),
+                Name = "Dashboard",
+                Image = GetIcon("Dashboard"), // Lấy icon Dashboard nếu có
+                ImageAlign = ContentAlignment.MiddleLeft
             };
-            btnDashboard.Click += BtnDashboard_Click; // Sự kiện click
+            btnDashboard.Click += BtnDashboard_Click;
             flpMenu.Controls.Add(btnDashboard);
 
-            int i = 0;
             var _IsParent = _func.getParent(); // Lấy danh mục cha từ database
 
             foreach (var _pr in _IsParent)
@@ -61,14 +75,19 @@ namespace STOCK
                 // 🔹 **Tạo nút danh mục cha**
                 Button btnParent = new Button
                 {
-                    Text = " " + _pr.Description,
+                    Text = "     " + _pr.Description, // Thêm khoảng trắng trước chữ để tạo khoảng cách
                     Width = flpMenu.Width - 10,
                     Height = 40,
-                    TextAlign = ContentAlignment.MiddleLeft,
                     FlatStyle = FlatStyle.Flat,
                     BackColor = Color.LightBlue,
-                    Name = _pr.FUNC_CODE
+                    Font = new Font("Arial", 10, FontStyle.Bold),
+                    Name = _pr.FUNC_CODE,
+                    Image = GetIcon(_pr.FUNC_CODE), // Lấy icon từ ImageList
+                    ImageAlign = ContentAlignment.MiddleLeft, // Cố định icon bên trái
+                    TextAlign = ContentAlignment.MiddleLeft // Chữ nằm sát bên phải icon
                 };
+
+
 
                 // 🔹 **Tạo panel chứa danh mục con (ẩn ban đầu)**
                 FlowLayoutPanel subMenuPanel = new FlowLayoutPanel
@@ -84,14 +103,20 @@ namespace STOCK
                 {
                     Button btnChild = new Button
                     {
-                        Text = "   " + _ch.Description,
+                        Text = "     " + _ch.Description, // Thêm khoảng trắng trước chữ
                         Width = flpMenu.Width - 20,
                         Height = 30,
-                        TextAlign = ContentAlignment.MiddleLeft,
                         FlatStyle = FlatStyle.Flat,
-                        BackColor = Color.WhiteSmoke,
-                        Name = _ch.FUNC_CODE
+                        BackColor = Color.LightBlue,
+                        ForeColor = Color.Black,
+                        Font = new Font("Arial", 9, FontStyle.Regular),
+                        Name = _ch.FUNC_CODE,
+                        Image = GetIcon(_ch.FUNC_CODE), // Lấy icon từ ImageList
+                        ImageAlign = ContentAlignment.MiddleLeft, // Icon ở bên trái
+                        TextAlign = ContentAlignment.MiddleLeft // Chữ nằm cạnh icon
                     };
+
+
 
                     // Xử lý sự kiện click mở form tương ứng
                     btnChild.Click += (sender, e) => MessageBox.Show("Mở: " + _ch.Description);
