@@ -12,7 +12,7 @@ using DataLayer;
 using MaterialSkin.Controls;
 using Krypton.Toolkit;
 
-namespace STOCK
+namespace STOCK.Forms
 {
     public partial class formConnect: MaterialForm
     {

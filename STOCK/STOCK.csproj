@@ -63,24 +63,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="formConnect.cs">
+    <Compile Include="Controls\DepartmentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DepartmentControl.Designer.cs">
+      <DependentUpon>DepartmentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formConnect.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formConnect.Designer.cs">
+    <Compile Include="Forms\formConnect.Designer.cs">
       <DependentUpon>formConnect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main.cs">
+    <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main.Designer.cs">
+    <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="formConnect.resx">
+    <EmbeddedResource Include="Controls\DepartmentControl.resx">
+      <DependentUpon>DepartmentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formConnect.resx">
       <DependentUpon>formConnect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
+    <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -116,6 +125,7 @@
       <Name>DataLayer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

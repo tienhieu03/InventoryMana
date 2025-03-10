@@ -1,4 +1,4 @@
-﻿namespace STOCK
+﻿namespace STOCK.Forms
 {
     partial class Main
     {
@@ -44,7 +44,7 @@
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSidebar.Location = new System.Drawing.Point(3, 64);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Size = new System.Drawing.Size(200, 659);
+            this.pnlSidebar.Size = new System.Drawing.Size(222, 659);
             this.pnlSidebar.TabIndex = 0;
             // 
             // flpMenu
@@ -54,7 +54,7 @@
             this.flpMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpMenu.Location = new System.Drawing.Point(0, 0);
             this.flpMenu.Name = "flpMenu";
-            this.flpMenu.Size = new System.Drawing.Size(200, 659);
+            this.flpMenu.Size = new System.Drawing.Size(222, 659);
             this.flpMenu.TabIndex = 0;
             this.flpMenu.WrapContents = false;
             // 
@@ -62,9 +62,9 @@
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(203, 64);
+            this.pnlMain.Location = new System.Drawing.Point(225, 64);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1101, 659);
+            this.pnlMain.Size = new System.Drawing.Size(1079, 659);
             this.pnlMain.TabIndex = 1;
             // 
             // imgListMenu
@@ -79,6 +79,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1307, 726);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlSidebar);
