@@ -12,6 +12,7 @@ using BusinessLayer;
 using DataLayer;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using STOCK.Controls;
 
 namespace STOCK.Forms
 {
@@ -33,7 +34,7 @@ namespace STOCK.Forms
         private void Main_Load(object sender, EventArgs e)
         {
             _func = new SYS_FUNC();
-            leftMenu();
+            LeftMenu();;
         }
 
         private void ShowUserControl(UserControl uc)
@@ -63,7 +64,7 @@ namespace STOCK.Forms
         }
 
 
-        void leftMenu()
+        void LeftMenu()
         {
             flpMenu.Controls.Clear();
 
