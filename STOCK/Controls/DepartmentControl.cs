@@ -21,6 +21,18 @@ namespace STOCK.Controls
         bool _add;
         string _departmentid;
 
+        private void DepartmentControl_Load(object sender, EventArgs e)
+        {
+            _department = new DEPARTMENT();
+            _company = new COMPANY();
+            LoadCompany();
+            ShowHideControls(true);
+            _enable(false);
+            txtId.Enabled = false;
+            CboCp.SelectedIndexChanged += CboCp_SelectedIndexChanged;
+            LoadDpByCp();
+        }
+
         private void ShowHideControls(bool t)
         {
             btnAdd.Visible = t;
@@ -68,9 +80,12 @@ namespace STOCK.Controls
 
         private void LoadDpByCp()
         {
+            gvList.AutoGenerateColumns = false;
             gvList.DataSource = _department.getAll(CboCp.SelectedValue.ToString());
             gvList.ReadOnly = true;
+            gvList.ClearSelection();
         }
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -91,12 +106,28 @@ namespace STOCK.Controls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you want to delete this record?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (gvList.SelectedRows.Count > 0)
             {
-                _department.delete(_departmentid);
+                string departmentID = gvList.SelectedRows[0].Cells["DepartmentID"].Value?.ToString();
+
+                if (string.IsNullOrEmpty(departmentID))
+                {
+                    MessageBox.Show("Can not find Department ID!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (MessageBox.Show("Do you want to delete this record?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    _department.delete(departmentID);
+                    LoadDpByCp(); // Load lại danh sách sau khi xóa
+                }
             }
-            LoadDpByCp();
+            else
+            {
+                MessageBox.Show("Please select a record to delete!", "NOTIFICATION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -111,20 +142,34 @@ namespace STOCK.Controls
                     DepartmentAddress = txtAddress.Text,
                     DepartmentFax = txtFax.Text,
                     DepartmentEmail = txtEmail.Text,
-                    IsDisabled = chkDisable.Checked
+                    Warehouse = chkWarehouse.Checked,
+                    Symbol = txtSymbol.Text,
+                    IsDisabled = chkDisable.Checked,
+                    CreatedDate = DateTime.Now,  // Gán ngày tạo mới
+                    DeletedDate = null,         // Mặc định NULL
+                    UpdatedDate = null,
+                    RestoredDate = null
                 };
                 _department.add(dp);
             }
             else
             {
                 tb_Department dp = _department.getItem(_departmentid);
+                bool wasDisabled = dp.IsDisabled ?? false;
                 dp.CompanyID = CboCp.SelectedValue.ToString();
                 dp.DepartmentName = txtName.Text;
                 dp.DepartmentPhone = txtPhone.Text;
                 dp.DepartmentAddress = txtAddress.Text;
                 dp.DepartmentFax = txtFax.Text;
                 dp.DepartmentEmail = txtEmail.Text;
+                dp.Warehouse = chkWarehouse.Checked;
+                dp.Symbol = txtSymbol.Text;
                 dp.IsDisabled = chkDisable.Checked;
+                dp.UpdatedDate = DateTime.Now;
+                if (wasDisabled && !chkDisable.Checked)
+                {
+                    dp.RestoredDate = DateTime.Now;
+                }
                 _department.update(dp);
             }
             _add = false;
@@ -141,7 +186,6 @@ namespace STOCK.Controls
             ShowHideControls(true);
             txtId.Enabled = false;
             LoadDpByCp();
-            ResetFields();
         }
 
 
@@ -170,17 +214,5 @@ namespace STOCK.Controls
             LoadDpByCp();
         }
 
-        private void DepartmentControl_Load(object sender, EventArgs e)
-        {
-            MessageBox.Show("DepartmentControl Loaded!");
-            _department = new DEPARTMENT();
-            _company = new COMPANY();
-            LoadCompany();
-            ShowHideControls(true);
-            _enable(false);
-            txtId.Enabled = false;
-            CboCp.SelectedIndexChanged += CboCp_SelectedIndexChanged;
-            LoadDpByCp();
-        }
     }
 }
