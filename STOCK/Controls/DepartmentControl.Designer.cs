@@ -34,8 +34,9 @@
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.btnClear = new System.Windows.Forms.ToolStripButton();
+            this.btnCancel = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtAddress = new Krypton.Toolkit.KryptonRichTextBox();
             this.chkWarehouse = new System.Windows.Forms.CheckBox();
             this.chkDisable = new System.Windows.Forms.CheckBox();
             this.txtEmail = new Krypton.Toolkit.KryptonTextBox();
@@ -45,7 +46,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtAddress = new Krypton.Toolkit.KryptonTextBox();
             this.CboCp = new Krypton.Toolkit.KryptonComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtFax = new Krypton.Toolkit.KryptonTextBox();
@@ -82,7 +82,7 @@
             this.btnEdit,
             this.btnDelete,
             this.btnSave,
-            this.btnClear});
+            this.btnCancel});
             this.kryptonToolStrip1.Location = new System.Drawing.Point(0, 0);
             this.kryptonToolStrip1.Name = "kryptonToolStrip1";
             this.kryptonToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -126,17 +126,18 @@
             this.btnSave.Text = "Save";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnClear
+            // btnCancel
             // 
-            this.btnClear.Image = ((System.Drawing.Image)(resources.GetObject("btnClear.Image")));
-            this.btnClear.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(63, 32);
-            this.btnClear.Text = "Cancel";
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(63, 32);
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtAddress);
             this.groupBox1.Controls.Add(this.chkWarehouse);
             this.groupBox1.Controls.Add(this.chkDisable);
             this.groupBox1.Controls.Add(this.txtEmail);
@@ -146,7 +147,6 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.txtAddress);
             this.groupBox1.Controls.Add(this.CboCp);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtFax);
@@ -157,17 +157,26 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 304);
+            this.groupBox1.Location = new System.Drawing.Point(0, 303);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(948, 232);
+            this.groupBox1.Size = new System.Drawing.Size(948, 197);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
             // 
+            // txtAddress
+            // 
+            this.txtAddress.Location = new System.Drawing.Point(544, 125);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(286, 22);
+            this.txtAddress.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAddress.TabIndex = 37;
+            this.txtAddress.Text = "";
+            // 
             // chkWarehouse
             // 
             this.chkWarehouse.AutoSize = true;
-            this.chkWarehouse.Location = new System.Drawing.Point(544, 185);
+            this.chkWarehouse.Location = new System.Drawing.Point(544, 167);
             this.chkWarehouse.Name = "chkWarehouse";
             this.chkWarehouse.Size = new System.Drawing.Size(106, 24);
             this.chkWarehouse.TabIndex = 36;
@@ -177,7 +186,7 @@
             // chkDisable
             // 
             this.chkDisable.AutoSize = true;
-            this.chkDisable.Location = new System.Drawing.Point(323, 185);
+            this.chkDisable.Location = new System.Drawing.Point(323, 167);
             this.chkDisable.Name = "chkDisable";
             this.chkDisable.Size = new System.Drawing.Size(88, 24);
             this.chkDisable.TabIndex = 35;
@@ -186,26 +195,26 @@
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(125, 125);
+            this.txtEmail.Location = new System.Drawing.Point(125, 124);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(286, 29);
-            this.txtEmail.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Size = new System.Drawing.Size(286, 32);
+            this.txtEmail.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.TabIndex = 34;
             // 
             // txtPhone
             // 
-            this.txtPhone.Location = new System.Drawing.Point(125, 90);
+            this.txtPhone.Location = new System.Drawing.Point(125, 89);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(286, 29);
-            this.txtPhone.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhone.Size = new System.Drawing.Size(286, 32);
+            this.txtPhone.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPhone.TabIndex = 33;
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(125, 55);
+            this.txtId.Location = new System.Drawing.Point(125, 54);
             this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(286, 29);
-            this.txtId.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtId.Size = new System.Drawing.Size(286, 32);
+            this.txtId.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtId.TabIndex = 32;
             // 
             // label3
@@ -248,22 +257,14 @@
             this.label9.TabIndex = 28;
             this.label9.Text = "Company";
             // 
-            // txtAddress
-            // 
-            this.txtAddress.Location = new System.Drawing.Point(544, 125);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(286, 29);
-            this.txtAddress.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAddress.TabIndex = 26;
-            // 
             // CboCp
             // 
             this.CboCp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboCp.DropDownWidth = 317;
             this.CboCp.Location = new System.Drawing.Point(125, 20);
             this.CboCp.Name = "CboCp";
-            this.CboCp.Size = new System.Drawing.Size(286, 28);
-            this.CboCp.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CboCp.Size = new System.Drawing.Size(286, 31);
+            this.CboCp.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CboCp.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.CboCp.TabIndex = 22;
             this.CboCp.SelectedIndexChanged += new System.EventHandler(this.CboCp_SelectedIndexChanged);
@@ -282,8 +283,8 @@
             // 
             this.txtFax.Location = new System.Drawing.Point(544, 90);
             this.txtFax.Name = "txtFax";
-            this.txtFax.Size = new System.Drawing.Size(286, 29);
-            this.txtFax.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFax.Size = new System.Drawing.Size(286, 32);
+            this.txtFax.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFax.TabIndex = 15;
             // 
             // label6
@@ -300,8 +301,8 @@
             // 
             this.txtName.Location = new System.Drawing.Point(544, 55);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(286, 29);
-            this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtName.Size = new System.Drawing.Size(286, 32);
+            this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.TabIndex = 13;
             // 
             // label5
@@ -318,8 +319,8 @@
             // 
             this.txtSymbol.Location = new System.Drawing.Point(544, 20);
             this.txtSymbol.Name = "txtSymbol";
-            this.txtSymbol.Size = new System.Drawing.Size(286, 29);
-            this.txtSymbol.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSymbol.Size = new System.Drawing.Size(286, 32);
+            this.txtSymbol.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSymbol.TabIndex = 11;
             // 
             // label4
@@ -450,7 +451,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.kryptonToolStrip1);
             this.Name = "DepartmentControl";
-            this.Size = new System.Drawing.Size(948, 536);
+            this.Size = new System.Drawing.Size(948, 500);
             this.Load += new System.EventHandler(this.DepartmentControl_Load);
             this.kryptonToolStrip1.ResumeLayout(false);
             this.kryptonToolStrip1.PerformLayout();
@@ -469,7 +470,7 @@
         private System.Windows.Forms.ToolStripButton btnEdit;
         private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.ToolStripButton btnSave;
-        private System.Windows.Forms.ToolStripButton btnClear;
+        private System.Windows.Forms.ToolStripButton btnCancel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView gvList;
         private System.Windows.Forms.Label label8;
@@ -480,7 +481,6 @@
         private Krypton.Toolkit.KryptonTextBox txtSymbol;
         private System.Windows.Forms.Label label4;
         private Krypton.Toolkit.KryptonComboBox CboCp;
-        private Krypton.Toolkit.KryptonTextBox txtAddress;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -500,5 +500,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Symbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn Warehouse;
+        private Krypton.Toolkit.KryptonRichTextBox txtAddress;
     }
 }

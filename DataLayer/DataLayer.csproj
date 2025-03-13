@@ -93,6 +93,9 @@
     <Compile Include="tb_Product.cs">
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>
+    <Compile Include="tb_ProductType.cs">
+      <DependentUpon>INVENTORY.tt</DependentUpon>
+    </Compile>
     <Compile Include="tb_Supplier.cs">
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>

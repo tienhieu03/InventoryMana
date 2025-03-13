@@ -54,6 +54,7 @@
     <Compile Include="COMPANY.cs" />
     <Compile Include="DEPARTMENT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SUPPLIER.cs" />
     <Compile Include="SYS_FUNC.cs" />
     <Compile Include="UNIT.cs" />
   </ItemGroup>

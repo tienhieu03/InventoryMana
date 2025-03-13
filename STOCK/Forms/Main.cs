@@ -139,11 +139,15 @@ namespace STOCK.Forms
                     {
                         if (_ch.FUNC_CODE == "COMPANY")
                         {
-                            //ShowUserControl(new CompanyManagementControl());
+                            ShowUserControl(new CompanyControl());
                         }
                         else if (_ch.FUNC_CODE == "DEPARTMENT")
                         {
                             ShowUserControl(new DepartmentControl());
+                        }
+                        else if(_ch.FUNC_CODE == "SUPPLIER")
+                        {
+                            ShowUserControl(new SupplierControl());
                         }
                         else
                         {

@@ -39,7 +39,7 @@ namespace STOCK.Controls
             btnEdit.Visible = t;
             btnDelete.Visible = t;
             btnSave.Visible = !t;
-            btnClear.Visible = !t;
+            btnCancel.Visible = !t;
         }
         private void _enable(bool t)
         {
@@ -90,19 +90,26 @@ namespace STOCK.Controls
         private void btnAdd_Click(object sender, EventArgs e)
         {
             _add = true;
-            ResetFields();
             _enable(true);
+            ResetFields();
             ShowHideControls(false);
             txtId.Enabled = true;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (gvList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a department before editing!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             _add = false;
             _enable(true);
             ShowHideControls(false);
             txtId.Enabled = false;
         }
+
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -179,10 +186,11 @@ namespace STOCK.Controls
             txtId.Enabled = false;
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             _add = false;
             _enable(false);
+            ResetFields();
             ShowHideControls(true);
             txtId.Enabled = false;
             LoadDpByCp();

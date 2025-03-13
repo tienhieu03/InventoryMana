@@ -23,6 +23,7 @@ namespace DataLayer
         public Nullable<double> Price { get; set; }
         public Nullable<int> SupplierID { get; set; }
         public Nullable<int> Orgin { get; set; }
+        public Nullable<int> TypeID { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
