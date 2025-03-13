@@ -43,7 +43,7 @@ namespace DataLayer
         public virtual DbSet<V_USER_IN_GROUP> V_USER_IN_GROUP { get; set; }
         public virtual DbSet<V_USER_NOTION_GROUP> V_USER_NOTION_GROUP { get; set; }
         public virtual DbSet<tb_Product> tb_Product { get; set; }
-        public virtual DbSet<tb_ProductType> tb_ProductType { get; set; }
         public virtual DbSet<tb_Supplier> tb_Supplier { get; set; }
+        public virtual DbSet<tb_ProductCategory> tb_ProductCategory { get; set; }
     }
 }

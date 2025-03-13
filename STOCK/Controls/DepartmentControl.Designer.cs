@@ -385,7 +385,7 @@
             this.DepartmentID.HeaderText = "Department ID";
             this.DepartmentID.Name = "DepartmentID";
             this.DepartmentID.ReadOnly = true;
-            this.DepartmentID.Visible = false;
+            this.DepartmentID.Width = 125;
             // 
             // DepartmentName
             // 
@@ -409,7 +409,7 @@
             this.DepartmentFax.HeaderText = "Department Fax";
             this.DepartmentFax.Name = "DepartmentFax";
             this.DepartmentFax.ReadOnly = true;
-            this.DepartmentFax.Width = 150;
+            this.DepartmentFax.Width = 140;
             // 
             // DepartmentEmail
             // 
@@ -490,6 +490,7 @@
         private Krypton.Toolkit.KryptonTextBox txtId;
         private System.Windows.Forms.CheckBox chkDisable;
         private System.Windows.Forms.CheckBox chkWarehouse;
+        private Krypton.Toolkit.KryptonRichTextBox txtAddress;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsDisabled;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyID;
         private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentID;
@@ -500,6 +501,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Symbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn Warehouse;
-        private Krypton.Toolkit.KryptonRichTextBox txtAddress;
     }
 }

@@ -43,20 +43,20 @@
             this.SupplierFax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SupplierEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SupplierAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtId = new Krypton.Toolkit.KryptonTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtAddress = new Krypton.Toolkit.KryptonRichTextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtFax = new Krypton.Toolkit.KryptonTextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtEmail = new Krypton.Toolkit.KryptonTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtName = new Krypton.Toolkit.KryptonTextBox();
-            this.txtPhone = new Krypton.Toolkit.KryptonTextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.chkDisable = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtPhone = new Krypton.Toolkit.KryptonTextBox();
+            this.txtName = new Krypton.Toolkit.KryptonTextBox();
+            this.txtEmail = new Krypton.Toolkit.KryptonTextBox();
+            this.txtFax = new Krypton.Toolkit.KryptonTextBox();
+            this.txtAddress = new Krypton.Toolkit.KryptonRichTextBox();
+            this.txtId = new Krypton.Toolkit.KryptonTextBox();
             this.kryptonToolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvList)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -217,6 +217,76 @@
             this.SupplierAddress.Name = "SupplierAddress";
             this.SupplierAddress.ReadOnly = true;
             // 
+            // chkDisable
+            // 
+            this.chkDisable.AutoSize = true;
+            this.chkDisable.Location = new System.Drawing.Point(301, 129);
+            this.chkDisable.Name = "chkDisable";
+            this.chkDisable.Size = new System.Drawing.Size(88, 24);
+            this.chkDisable.TabIndex = 35;
+            this.chkDisable.Text = "Disabled";
+            this.chkDisable.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(24, 96);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 25);
+            this.label7.TabIndex = 40;
+            this.label7.Text = "Phone";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(467, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 25);
+            this.label4.TabIndex = 41;
+            this.label4.Text = "Email";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(24, 56);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 25);
+            this.label5.TabIndex = 45;
+            this.label5.Text = "Name";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(467, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(39, 25);
+            this.label6.TabIndex = 47;
+            this.label6.Text = "Fax";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(467, 98);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(79, 25);
+            this.label8.TabIndex = 49;
+            this.label8.Text = "Address";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(24, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 25);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Id";
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtId);
@@ -234,31 +304,44 @@
             this.groupBox1.Controls.Add(this.chkDisable);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 304);
+            this.groupBox1.Location = new System.Drawing.Point(0, 303);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(948, 197);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
             // 
-            // txtId
+            // txtPhone
             // 
-            this.txtId.Location = new System.Drawing.Point(103, 21);
-            this.txtId.Name = "txtId";
-            this.txtId.ReadOnly = true;
-            this.txtId.Size = new System.Drawing.Size(286, 32);
-            this.txtId.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtId.TabIndex = 34;
+            this.txtPhone.Location = new System.Drawing.Point(103, 91);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(286, 32);
+            this.txtPhone.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhone.TabIndex = 43;
             // 
-            // label1
+            // txtName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 25);
-            this.label1.TabIndex = 33;
-            this.label1.Text = "Id";
+            this.txtName.Location = new System.Drawing.Point(103, 55);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(286, 32);
+            this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtName.TabIndex = 44;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(543, 28);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(286, 32);
+            this.txtEmail.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.TabIndex = 46;
+            // 
+            // txtFax
+            // 
+            this.txtFax.Location = new System.Drawing.Point(543, 63);
+            this.txtFax.Name = "txtFax";
+            this.txtFax.Size = new System.Drawing.Size(286, 32);
+            this.txtFax.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFax.TabIndex = 48;
             // 
             // txtAddress
             // 
@@ -269,97 +352,14 @@
             this.txtAddress.TabIndex = 50;
             this.txtAddress.Text = "";
             // 
-            // label8
+            // txtId
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(467, 98);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(79, 25);
-            this.label8.TabIndex = 49;
-            this.label8.Text = "Address";
-            // 
-            // txtFax
-            // 
-            this.txtFax.Location = new System.Drawing.Point(543, 63);
-            this.txtFax.Name = "txtFax";
-            this.txtFax.Size = new System.Drawing.Size(286, 32);
-            this.txtFax.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFax.TabIndex = 48;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(467, 63);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 25);
-            this.label6.TabIndex = 47;
-            this.label6.Text = "Fax";
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Location = new System.Drawing.Point(543, 28);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(286, 32);
-            this.txtEmail.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.TabIndex = 46;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(24, 56);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 25);
-            this.label5.TabIndex = 45;
-            this.label5.Text = "Name";
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(103, 55);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(286, 32);
-            this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.TabIndex = 44;
-            // 
-            // txtPhone
-            // 
-            this.txtPhone.Location = new System.Drawing.Point(103, 91);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(286, 32);
-            this.txtPhone.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhone.TabIndex = 43;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(467, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 25);
-            this.label4.TabIndex = 41;
-            this.label4.Text = "Email";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(24, 96);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(66, 25);
-            this.label7.TabIndex = 40;
-            this.label7.Text = "Phone";
-            // 
-            // chkDisable
-            // 
-            this.chkDisable.AutoSize = true;
-            this.chkDisable.Location = new System.Drawing.Point(301, 129);
-            this.chkDisable.Name = "chkDisable";
-            this.chkDisable.Size = new System.Drawing.Size(88, 24);
-            this.chkDisable.TabIndex = 35;
-            this.chkDisable.Text = "Disabled";
-            this.chkDisable.UseVisualStyleBackColor = true;
+            this.txtId.Location = new System.Drawing.Point(103, 21);
+            this.txtId.Name = "txtId";
+            this.txtId.ReadOnly = true;
+            this.txtId.Size = new System.Drawing.Size(286, 32);
+            this.txtId.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtId.TabIndex = 34;
             // 
             // SupplierControl
             // 
@@ -370,7 +370,7 @@
             this.Controls.Add(this.kryptonToolStrip1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SupplierControl";
-            this.Size = new System.Drawing.Size(948, 501);
+            this.Size = new System.Drawing.Size(948, 500);
             this.Load += new System.EventHandler(this.SupplierControl_Load);
             this.kryptonToolStrip1.ResumeLayout(false);
             this.kryptonToolStrip1.PerformLayout();
@@ -397,19 +397,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierFax;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierEmail;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierAddress;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private Krypton.Toolkit.KryptonRichTextBox txtAddress;
-        private System.Windows.Forms.Label label8;
-        private Krypton.Toolkit.KryptonTextBox txtFax;
-        private System.Windows.Forms.Label label6;
-        private Krypton.Toolkit.KryptonTextBox txtEmail;
+        private System.Windows.Forms.CheckBox chkDisable;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private Krypton.Toolkit.KryptonTextBox txtId;
+        private Krypton.Toolkit.KryptonRichTextBox txtAddress;
+        private Krypton.Toolkit.KryptonTextBox txtFax;
+        private Krypton.Toolkit.KryptonTextBox txtEmail;
         private Krypton.Toolkit.KryptonTextBox txtName;
         private Krypton.Toolkit.KryptonTextBox txtPhone;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox chkDisable;
-        private Krypton.Toolkit.KryptonTextBox txtId;
-        private System.Windows.Forms.Label label1;
     }
 }

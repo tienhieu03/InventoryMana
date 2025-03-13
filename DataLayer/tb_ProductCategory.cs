@@ -12,9 +12,15 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class tb_ProductType
+    public partial class tb_ProductCategory
     {
-        public int TypeID { get; set; }
-        public string TypeName { get; set; }
+        public int CategoryID { get; set; }
+        public string Category { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
+        public Nullable<int> DeletedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public Nullable<int> UpdatedBy { get; set; }
     }
 }

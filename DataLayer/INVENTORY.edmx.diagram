@@ -23,8 +23,8 @@
         <EntityTypeShape EntityType="InventoryManagerModel.V_USER_IN_GROUP" Width="1.5" PointX="12.625" PointY="3.25" />
         <EntityTypeShape EntityType="InventoryManagerModel.V_USER_NOTION_GROUP" Width="1.5" PointX="14.625" PointY="3.25" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Product" Width="1.5" PointX="6.75" PointY="3.25" />
-        <EntityTypeShape EntityType="InventoryManagerModel.tb_ProductType" Width="1.5" PointX="4.75" PointY="8.75" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Supplier" Width="1.5" PointX="8.75" PointY="0.5" />
+        <EntityTypeShape EntityType="InventoryManagerModel.tb_ProductCategory" Width="1.5" PointX="0.75" PointY="7.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

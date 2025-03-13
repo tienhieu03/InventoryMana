@@ -149,6 +149,18 @@ namespace STOCK.Forms
                         {
                             ShowUserControl(new SupplierControl());
                         }
+                        else if(_ch.FUNC_CODE == "ORIGIN")
+                        {
+                            ShowUserControl(new OriginControl());
+                        }
+                        else if(_ch.FUNC_CODE == "UNIT")
+                        {
+                            ShowUserControl(new UnitControl());
+                        }
+                        else if(_ch.FUNC_CODE == "CATEGORY")
+                        {
+                            ShowUserControl(new Product_CategoryControl());
+                        }
                         else
                         {
                             MessageBox.Show("Function not available yet!");

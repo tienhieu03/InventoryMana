@@ -225,7 +225,7 @@
             this.groupBox1.Controls.Add(this.chkDisable);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 304);
+            this.groupBox1.Location = new System.Drawing.Point(0, 303);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(948, 197);
             this.groupBox1.TabIndex = 5;
@@ -359,7 +359,7 @@
             this.Controls.Add(this.gvList);
             this.Controls.Add(this.kryptonToolStrip1);
             this.Name = "CompanyControl";
-            this.Size = new System.Drawing.Size(948, 501);
+            this.Size = new System.Drawing.Size(948, 500);
             this.Load += new System.EventHandler(this.CompanyControl_Load);
             this.kryptonToolStrip1.ResumeLayout(false);
             this.kryptonToolStrip1.PerformLayout();
