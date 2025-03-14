@@ -225,9 +225,9 @@
             this.groupBox1.Controls.Add(this.chkDisable);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 303);
+            this.groupBox1.Location = new System.Drawing.Point(0, 304);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(948, 197);
+            this.groupBox1.Size = new System.Drawing.Size(948, 196);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
@@ -337,9 +337,9 @@
             this.label9.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(24, 32);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(28, 25);
+            this.label9.Size = new System.Drawing.Size(30, 25);
             this.label9.TabIndex = 39;
-            this.label9.Text = "Id";
+            this.label9.Text = "ID";
             // 
             // chkDisable
             // 

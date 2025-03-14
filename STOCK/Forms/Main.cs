@@ -161,6 +161,10 @@ namespace STOCK.Forms
                         {
                             ShowUserControl(new Product_CategoryControl());
                         }
+                        else if(_ch.FUNC_CODE == "PRODUCT")
+                        {
+                            ShowUserControl(new ProductControl());
+                        }
                         else
                         {
                             MessageBox.Show("Function not available yet!");

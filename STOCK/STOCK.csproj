@@ -81,6 +81,12 @@
     <Compile Include="Controls\OriginControl.Designer.cs">
       <DependentUpon>OriginControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ProductControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ProductControl.Designer.cs">
+      <DependentUpon>ProductControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Product_CategoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OriginControl.resx">
       <DependentUpon>OriginControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProductControl.resx">
+      <DependentUpon>ProductControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Product_CategoryControl.resx">
       <DependentUpon>Product_CategoryControl.cs</DependentUpon>
