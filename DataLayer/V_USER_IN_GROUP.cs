@@ -14,7 +14,7 @@ namespace DataLayer
     
     public partial class V_USER_IN_GROUP
     {
-        public Nullable<int> UserID { get; set; }
+        public Nullable<int> IDUser { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }

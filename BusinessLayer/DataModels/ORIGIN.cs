@@ -51,17 +51,14 @@ namespace BusinessLayer
         public void delete(int originid)
         {
             tb_Origin cp = db.tb_Origin.FirstOrDefault(x => x.ID == originid);
-            if (cp != null)
+            cp.IsDisabled = true;
+            try
             {
-                db.tb_Origin.Remove(cp);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("An error occurred during data processing: " + ex.Message);
-                }
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred during data processing" + ex.Message);
             }
         }
 

@@ -51,17 +51,14 @@ namespace BusinessLayer.DataModels
         public void delete(int categoryid)
         {
             tb_ProductCategory cp = db.tb_ProductCategory.FirstOrDefault(x => x.CategoryID == categoryid);
-            if (cp != null)
+            cp.IsDisabled = true;
+            try
             {
-                db.tb_ProductCategory.Remove(cp);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("An error occurred during data processing: " + ex.Message);
-                }
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred during data processing" + ex.Message);
             }
         }
     }

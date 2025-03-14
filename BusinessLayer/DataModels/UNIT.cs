@@ -50,17 +50,14 @@ namespace BusinessLayer
         public void delete(int unitid)
         {
             tb_Unit cp = db.tb_Unit.FirstOrDefault(x => x.ID == unitid);
-            if (cp != null)
+            cp.IsDisabled = true;
+            try
             {
-                db.tb_Unit.Remove(cp);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("An error occurred during data processing: " + ex.Message);
-                }
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred during data processing" + ex.Message);
             }
         }
     }

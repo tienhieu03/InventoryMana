@@ -112,6 +112,7 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="RestoredDate" Type="datetime" />
+          <Property Name="IsDisabled" Type="bit" />
         </EntityType>
         <EntityType Name="tb_Product">
           <Key>
@@ -142,12 +143,15 @@
           </Key>
           <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="DeletedDate" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+          <Property Name="RestoredDate" Type="datetime" />
+          <Property Name="IsDisabled" Type="bit" />
         </EntityType>
         <EntityType Name="tb_Supplier">
           <Key>
@@ -252,6 +256,7 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="RestoredDate" Type="datetime" />
+          <Property Name="IsDisabled" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'InventoryManager.dbo.V_FUNC_SYS_RIGHT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -412,6 +417,9 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <EntitySet Name="tb_Invoice" EntityType="InventoryManagerModel.tb_Invoice" />
           <EntitySet Name="tb_InvoiceDetail" EntityType="InventoryManagerModel.tb_InvoiceDetail" />
           <EntitySet Name="tb_Origin" EntityType="InventoryManagerModel.tb_Origin" />
+          <EntitySet Name="tb_Product" EntityType="InventoryManagerModel.tb_Product" />
+          <EntitySet Name="tb_ProductCategory" EntityType="InventoryManagerModel.tb_ProductCategory" />
+          <EntitySet Name="tb_Supplier" EntityType="InventoryManagerModel.tb_Supplier" />
           <EntitySet Name="tb_SYS_FUNC" EntityType="InventoryManagerModel.tb_SYS_FUNC" />
           <EntitySet Name="tb_SYS_GROUP" EntityType="InventoryManagerModel.tb_SYS_GROUP" />
           <EntitySet Name="tb_SYS_REPORT" EntityType="InventoryManagerModel.tb_SYS_REPORT" />
@@ -423,9 +431,6 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <EntitySet Name="V_REP_SYS_RIGHT_REP" EntityType="InventoryManagerModel.V_REP_SYS_RIGHT_REP" />
           <EntitySet Name="V_USER_IN_GROUP" EntityType="InventoryManagerModel.V_USER_IN_GROUP" />
           <EntitySet Name="V_USER_NOTION_GROUP" EntityType="InventoryManagerModel.V_USER_NOTION_GROUP" />
-          <EntitySet Name="tb_Product" EntityType="InventoryManagerModel.tb_Product" />
-          <EntitySet Name="tb_Supplier" EntityType="InventoryManagerModel.tb_Supplier" />
-          <EntitySet Name="tb_ProductCategory" EntityType="InventoryManagerModel.tb_ProductCategory" />
         </EntityContainer>
         <EntityType Name="tb_Company">
           <Key>
@@ -534,6 +539,65 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="RestoredDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDisabled" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tb_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BARCODE" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="QRCODE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="Orgin" Type="Int32" />
+          <Property Name="TypeID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="RestoredDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDisable" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tb_ProductCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="RestoredDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDisabled" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tb_Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierFax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="RestoredDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDisabled" Type="Boolean" />
         </EntityType>
         <EntityType Name="tb_SYS_FUNC">
           <Key>
@@ -619,19 +683,20 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="RestoredDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDisabled" Type="Boolean" />
         </EntityType>
         <EntityType Name="V_FUNC_SYS_RIGHT">
           <Key>
             <PropertyRef Name="FUNC_CODE" />
             <PropertyRef Name="Sort" />
-            <PropertyRef Name="UserID" />
+            <PropertyRef Name="IDUser" />
           </Key>
           <Property Name="FUNC_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsGroup" Type="Boolean" />
           <Property Name="Parent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sort" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
           <Property Name="Access" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="V_REP_SYS_RIGHT_REP">
@@ -651,7 +716,7 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
             <PropertyRef Name="Groups" />
             <PropertyRef Name="Member" />
           </Key>
-          <Property Name="UserID" Type="Int32" />
+          <Property Name="IDUser" Type="Int32" />
           <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -669,9 +734,9 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
         </EntityType>
         <EntityType Name="V_USER_NOTION_GROUP">
           <Key>
-            <PropertyRef Name="UserID" />
+            <PropertyRef Name="IDUser" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -683,61 +748,6 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-        </EntityType>
-        <EntityType Name="tb_Product">
-          <Key>
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BARCODE" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="QRCODE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="SupplierID" Type="Int32" />
-          <Property Name="Orgin" Type="Int32" />
-          <Property Name="TypeID" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="RestoredDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDisable" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="tb_Supplier">
-          <Key>
-            <PropertyRef Name="SupplierID" />
-          </Key>
-          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SupplierEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SupplierFax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SupplierPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SupplierAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="RestoredDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDisabled" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="tb_ProductCategory">
-          <Key>
-            <PropertyRef Name="CategoryID" />
-          </Key>
-          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
         </EntityType>
         </Schema>
@@ -848,6 +858,7 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <EntitySetMapping Name="tb_Origin">
             <EntityTypeMapping TypeName="InventoryManagerModel.tb_Origin">
               <MappingFragment StoreEntitySet="tb_Origin">
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
                 <ScalarProperty Name="RestoredDate" ColumnName="RestoredDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
@@ -857,6 +868,67 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Product">
+            <EntityTypeMapping TypeName="InventoryManagerModel.tb_Product">
+              <MappingFragment StoreEntitySet="tb_Product">
+                <ScalarProperty Name="IsDisable" ColumnName="IsDisable" />
+                <ScalarProperty Name="RestoredDate" ColumnName="RestoredDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Orgin" ColumnName="Orgin" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="QRCODE" ColumnName="QRCODE" />
+                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ProductCategory">
+            <EntityTypeMapping TypeName="InventoryManagerModel.tb_ProductCategory">
+              <MappingFragment StoreEntitySet="tb_ProductCategory">
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+                <ScalarProperty Name="RestoredDate" ColumnName="RestoredDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Supplier">
+            <EntityTypeMapping TypeName="InventoryManagerModel.tb_Supplier">
+              <MappingFragment StoreEntitySet="tb_Supplier">
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+                <ScalarProperty Name="RestoredDate" ColumnName="RestoredDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+                <ScalarProperty Name="SupplierPhone" ColumnName="SupplierPhone" />
+                <ScalarProperty Name="SupplierFax" ColumnName="SupplierFax" />
+                <ScalarProperty Name="SupplierEmail" ColumnName="SupplierEmail" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -936,6 +1008,7 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
           <EntitySetMapping Name="tb_Unit">
             <EntityTypeMapping TypeName="InventoryManagerModel.tb_Unit">
               <MappingFragment StoreEntitySet="tb_Unit">
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
                 <ScalarProperty Name="RestoredDate" ColumnName="RestoredDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
@@ -952,7 +1025,7 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
             <EntityTypeMapping TypeName="InventoryManagerModel.V_FUNC_SYS_RIGHT">
               <MappingFragment StoreEntitySet="V_FUNC_SYS_RIGHT">
                 <ScalarProperty Name="Access" ColumnName="Access" />
-                <ScalarProperty Name="UserID" ColumnName="IDUser" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
                 <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="Parent" ColumnName="Parent" />
                 <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
@@ -990,7 +1063,7 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="UserID" ColumnName="IDUser" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1009,69 +1082,11 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTION_GROUP' does not
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="UserID" ColumnName="IDUser" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tb_Product">
-            <EntityTypeMapping TypeName="InventoryManagerModel.tb_Product">
-              <MappingFragment StoreEntitySet="tb_Product">
-                <ScalarProperty Name="IsDisable" ColumnName="IsDisable" />
-                <ScalarProperty Name="RestoredDate" ColumnName="RestoredDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="Orgin" ColumnName="Orgin" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="QRCODE" ColumnName="QRCODE" />
-                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_Supplier">
-            <EntityTypeMapping TypeName="InventoryManagerModel.tb_Supplier">
-              <MappingFragment StoreEntitySet="tb_Supplier">
-                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
-                <ScalarProperty Name="RestoredDate" ColumnName="RestoredDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
-                <ScalarProperty Name="SupplierPhone" ColumnName="SupplierPhone" />
-                <ScalarProperty Name="SupplierFax" ColumnName="SupplierFax" />
-                <ScalarProperty Name="SupplierEmail" ColumnName="SupplierEmail" />
-                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_ProductCategory">
-            <EntityTypeMapping TypeName="InventoryManagerModel.tb_ProductCategory">
-              <MappingFragment StoreEntitySet="tb_ProductCategory">
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

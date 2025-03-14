@@ -23,5 +23,6 @@ namespace DataLayer
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> RestoredDate { get; set; }
+        public Nullable<bool> IsDisabled { get; set; }
     }
 }

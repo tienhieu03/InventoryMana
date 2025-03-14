@@ -41,6 +41,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtName = new Krypton.Toolkit.KryptonTextBox();
+            this.chkDisable = new System.Windows.Forms.CheckBox();
+            this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OriginName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonToolStrip1.SuspendLayout();
@@ -120,6 +122,7 @@
             this.gvList.BackgroundColor = System.Drawing.Color.White;
             this.gvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IsDisabled,
             this.ID,
             this.OriginName});
             this.gvList.Dock = System.Windows.Forms.DockStyle.Top;
@@ -135,6 +138,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkDisable);
             this.groupBox1.Controls.Add(this.txtId);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label5);
@@ -184,6 +188,24 @@
             this.txtName.Size = new System.Drawing.Size(286, 32);
             this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.TabIndex = 44;
+            // 
+            // chkDisable
+            // 
+            this.chkDisable.AutoSize = true;
+            this.chkDisable.Location = new System.Drawing.Point(301, 59);
+            this.chkDisable.Name = "chkDisable";
+            this.chkDisable.Size = new System.Drawing.Size(88, 24);
+            this.chkDisable.TabIndex = 36;
+            this.chkDisable.Text = "Disabled";
+            this.chkDisable.UseVisualStyleBackColor = true;
+            // 
+            // IsDisabled
+            // 
+            this.IsDisabled.DataPropertyName = "IsDisabled";
+            this.IsDisabled.HeaderText = "DEL";
+            this.IsDisabled.Name = "IsDisabled";
+            this.IsDisabled.ReadOnly = true;
+            this.IsDisabled.Width = 50;
             // 
             // ID
             // 
@@ -236,6 +258,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private Krypton.Toolkit.KryptonTextBox txtName;
+        private System.Windows.Forms.CheckBox chkDisable;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsDisabled;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn OriginName;
     }

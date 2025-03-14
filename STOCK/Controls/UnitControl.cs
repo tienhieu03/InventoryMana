@@ -44,12 +44,14 @@ namespace STOCK.Controls
         private void _enable(bool t)
         {
             txtName.Enabled = t;
+            chkDisable.Enabled = t;
         }
 
         private void ResetFields()
         {
             txtId.Text = ""; // Xóa ID khi thêm mới
             txtName.Text = "";
+            chkDisable.Checked = false;
         }
 
         void loadData()
@@ -88,11 +90,11 @@ namespace STOCK.Controls
             {
                 DataGridViewRow row = gvList.SelectedRows[0];
 
-                int originID = (int)row.Cells["ID"].Value;
+                int unitID = (int)row.Cells["ID"].Value;
 
                 if (MessageBox.Show("Do you want to delete this record?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    _unit.delete(originID);
+                    _unit.delete(unitID);
                     loadData();
                 }
             }
@@ -109,16 +111,25 @@ namespace STOCK.Controls
                 tb_Unit ct = new tb_Unit()
                 {
                     Name = txtName.Text,
+                    IsDisabled = chkDisable.Checked,
                     CreatedDate = DateTime.Now,  // Gán ngày tạo mới
+                    DeletedDate = null,         // Mặc định NULL
                     UpdatedDate = null,
+                    RestoredDate = null
                 };
                 _unit.add(ct);
             }
             else
             {
                 tb_Unit ct = _unit.getItem(_id);
+                bool wasDisabled = ct.IsDisabled ?? false;
                 ct.Name = txtName.Text;
-
+                ct.IsDisabled = chkDisable.Checked;
+                ct.UpdatedDate = DateTime.Now;
+                if (wasDisabled && !chkDisable.Checked)
+                {
+                    ct.RestoredDate = DateTime.Now;
+                }
                 _unit.update(ct);
             }
             _add = false;
@@ -146,6 +157,7 @@ namespace STOCK.Controls
                 _id = (int)row.Cells["ID"].Value;
                 txtId.Text = _id.ToString();
                 txtName.Text = row.Cells["UnitName"].Value?.ToString() ?? "";
+                chkDisable.Checked = Convert.ToBoolean(row.Cells["IsDisabled"].Value);
             }
         }
     }

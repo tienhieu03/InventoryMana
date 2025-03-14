@@ -19,7 +19,7 @@ namespace DataLayer
         public Nullable<bool> IsGroup { get; set; }
         public string Parent { get; set; }
         public int Sort { get; set; }
-        public int UserID { get; set; }
+        public int IDUser { get; set; }
         public string Access { get; set; }
     }
 }

@@ -45,12 +45,16 @@ namespace STOCK.Controls
         private void _enable(bool t)
         {
             txtName.Enabled = t;
+            txtNote.Enabled = t;
+            chkDisable.Enabled = t;
         }
 
         private void ResetFields()
         {
             txtId.Text = ""; // Xóa ID khi thêm mới
             txtName.Text = "";
+            txtNote.Text = "";
+            chkDisable.Checked = false;
         }
 
         void loadData()
@@ -89,11 +93,11 @@ namespace STOCK.Controls
             {
                 DataGridViewRow row = gvList.SelectedRows[0];
 
-                int originID = (int)row.Cells["CategoryID"].Value;
+                int categoryID = (int)row.Cells["CategoryID"].Value;
 
                 if (MessageBox.Show("Do you want to delete this record?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    _category.delete(originID);
+                    _category.delete(categoryID);
                     loadData();
                 }
             }
@@ -110,16 +114,27 @@ namespace STOCK.Controls
                 tb_ProductCategory ct = new tb_ProductCategory()
                 {
                     Category = txtName.Text,
+                    Note = txtNote.Text,
+                    IsDisabled = chkDisable.Checked,
                     CreatedDate = DateTime.Now,  // Gán ngày tạo mới
+                    DeletedDate = null,         // Mặc định NULL
                     UpdatedDate = null,
+                    RestoredDate = null
                 };
                 _category.add(ct);
             }
             else
             {
                 tb_ProductCategory ct = _category.getItem(_id);
+                bool wasDisabled = ct.IsDisabled ?? false;
                 ct.Category = txtName.Text;
-
+                ct.Note = txtNote.Text;
+                ct.IsDisabled = chkDisable.Checked;
+                ct.UpdatedDate = DateTime.Now;
+                if (wasDisabled && !chkDisable.Checked)
+                {
+                    ct.RestoredDate = DateTime.Now;
+                }
                 _category.update(ct);
             }
             _add = false;
@@ -146,7 +161,9 @@ namespace STOCK.Controls
 
                 _id = (int)row.Cells["CategoryID"].Value;
                 txtId.Text = _id.ToString();
+                txtNote.Text = row.Cells["Description"].Value?.ToString() ?? "";
                 txtName.Text = row.Cells["Category"].Value?.ToString() ?? "";
+                chkDisable.Checked = Convert.ToBoolean(row.Cells["IsDisabled"].Value);
             }
         }
     }

@@ -41,8 +41,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtName = new Krypton.Toolkit.KryptonTextBox();
+            this.chkDisable = new System.Windows.Forms.CheckBox();
+            this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtNote = new Krypton.Toolkit.KryptonRichTextBox();
             this.kryptonToolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvList)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -120,8 +125,10 @@
             this.gvList.BackgroundColor = System.Drawing.Color.White;
             this.gvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IsDisabled,
             this.CategoryID,
-            this.Category});
+            this.Category,
+            this.Description});
             this.gvList.Dock = System.Windows.Forms.DockStyle.Top;
             this.gvList.Location = new System.Drawing.Point(0, 35);
             this.gvList.Name = "gvList";
@@ -135,6 +142,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtNote);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.chkDisable);
             this.groupBox1.Controls.Add(this.txtId);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label5);
@@ -185,6 +195,24 @@
             this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.TabIndex = 44;
             // 
+            // chkDisable
+            // 
+            this.chkDisable.AutoSize = true;
+            this.chkDisable.Location = new System.Drawing.Point(411, 116);
+            this.chkDisable.Name = "chkDisable";
+            this.chkDisable.Size = new System.Drawing.Size(88, 24);
+            this.chkDisable.TabIndex = 36;
+            this.chkDisable.Text = "Disabled";
+            this.chkDisable.UseVisualStyleBackColor = true;
+            // 
+            // IsDisabled
+            // 
+            this.IsDisabled.DataPropertyName = "IsDisabled";
+            this.IsDisabled.HeaderText = "DEL";
+            this.IsDisabled.Name = "IsDisabled";
+            this.IsDisabled.ReadOnly = true;
+            this.IsDisabled.Width = 50;
+            // 
             // CategoryID
             // 
             this.CategoryID.DataPropertyName = "CategoryID";
@@ -196,12 +224,39 @@
             // 
             // Category
             // 
-            this.Category.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Category.DataPropertyName = "Category";
             this.Category.HeaderText = "Category";
             this.Category.MinimumWidth = 6;
             this.Category.Name = "Category";
             this.Category.ReadOnly = true;
+            this.Category.Width = 200;
+            // 
+            // Description
+            // 
+            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Description.DataPropertyName = "Note";
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(251, 73);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(108, 25);
+            this.label2.TabIndex = 47;
+            this.label2.Text = "Description";
+            // 
+            // txtNote
+            // 
+            this.txtNote.Location = new System.Drawing.Point(365, 76);
+            this.txtNote.Name = "txtNote";
+            this.txtNote.Size = new System.Drawing.Size(286, 22);
+            this.txtNote.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNote.TabIndex = 48;
+            this.txtNote.Text = "";
             // 
             // Product_CategoryControl
             // 
@@ -236,7 +291,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private Krypton.Toolkit.KryptonTextBox txtName;
+        private System.Windows.Forms.CheckBox chkDisable;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsDisabled;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.Label label2;
+        private Krypton.Toolkit.KryptonRichTextBox txtNote;
     }
 }
