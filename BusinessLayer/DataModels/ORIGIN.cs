@@ -17,7 +17,7 @@ namespace BusinessLayer
 
         public tb_Origin getItem(int originid)
         {
-            return db.tb_Origin.FirstOrDefault(x => x.ID == originid);
+            return db.tb_Origin.FirstOrDefault(x => x.OriginID == originid);
         }
         public List<tb_Origin> getAll()
         {
@@ -37,8 +37,8 @@ namespace BusinessLayer
         }
         public void update(tb_Origin cp)
         {
-            tb_Origin _cp = db.tb_Origin.FirstOrDefault(x => x.ID == cp.ID);
-            _cp.Name = cp.Name;
+            tb_Origin _cp = db.tb_Origin.FirstOrDefault(x => x.OriginID == cp.OriginID);
+            _cp.OriginName = cp.OriginName;
             try
             {
                 db.SaveChanges();
@@ -50,8 +50,9 @@ namespace BusinessLayer
         }
         public void delete(int originid)
         {
-            tb_Origin cp = db.tb_Origin.FirstOrDefault(x => x.ID == originid);
+            tb_Origin cp = db.tb_Origin.FirstOrDefault(x => x.OriginID == originid);
             cp.IsDisabled = true;
+            cp.DeletedDate = DateTime.Now;
             try
             {
                 db.SaveChanges();

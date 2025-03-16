@@ -21,7 +21,7 @@ namespace BusinessLayer
             return db.tb_Supplier.FirstOrDefault(x => x.SupplierID == supplierid);
         }
 
-        public List<tb_Supplier> getAll()
+        public List<tb_Supplier> getList()
         {
             return db.tb_Supplier.ToList();
         }
@@ -59,6 +59,7 @@ namespace BusinessLayer
         {
             tb_Supplier cp = db.tb_Supplier.FirstOrDefault(x => x.SupplierID == supplierid);
             cp.IsDisabled = true;
+            cp.DeletedDate = DateTime.Now;
             try
             {
                 db.SaveChanges();

@@ -33,7 +33,7 @@ namespace STOCK.Controls
             LoadDpByCp();
         }
 
-        private void ShowHideControls(bool t)
+        void ShowHideControls(bool t)
         {
             btnAdd.Visible = t;
             btnEdit.Visible = t;
@@ -41,7 +41,7 @@ namespace STOCK.Controls
             btnSave.Visible = !t;
             btnCancel.Visible = !t;
         }
-        private void _enable(bool t)
+        void _enable(bool t)
         {
             txtName.Enabled = t;
             txtPhone.Enabled = t;
@@ -52,7 +52,7 @@ namespace STOCK.Controls
             chkWarehouse.Enabled = t;
             txtSymbol.Enabled = t;
         }
-        private void ResetFields()
+        void ResetFields()
         {
             txtId.Text = "";
             txtName.Text = "";
@@ -126,7 +126,7 @@ namespace STOCK.Controls
                 if (MessageBox.Show("Do you want to delete this record?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     _department.delete(departmentID);
-                    LoadDpByCp(); // Load lại danh sách sau khi xóa
+                    LoadDpByCp();
                 }
             }
             else

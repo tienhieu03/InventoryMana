@@ -63,6 +63,7 @@ namespace BusinessLayer
         {
             tb_Department _department = db.tb_Department.FirstOrDefault(x => x.DepartmentID == departmentid);
             _department.IsDisabled = true;
+            _department.DeletedDate = DateTime.Now;
             try
             {
                 db.SaveChanges();

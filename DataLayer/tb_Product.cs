@@ -22,7 +22,7 @@ namespace DataLayer
         public string Unit { get; set; }
         public Nullable<double> Price { get; set; }
         public Nullable<int> SupplierID { get; set; }
-        public Nullable<int> Orgin { get; set; }
+        public Nullable<int> OriginID { get; set; }
         public string Description { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

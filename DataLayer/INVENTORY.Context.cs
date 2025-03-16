@@ -38,12 +38,13 @@ namespace DataLayer
         public virtual DbSet<tb_SYS_REPORT> tb_SYS_REPORT { get; set; }
         public virtual DbSet<tb_SYS_RIGHT> tb_SYS_RIGHT { get; set; }
         public virtual DbSet<tb_SYS_RIGHT_REP> tb_SYS_RIGHT_REP { get; set; }
+        public virtual DbSet<tb_SYS_SEQ> tb_SYS_SEQ { get; set; }
         public virtual DbSet<tb_SYS_USER> tb_SYS_USER { get; set; }
-        public virtual DbSet<tb_Unit> tb_Unit { get; set; }
         public virtual DbSet<V_FUNC_SYS_RIGHT> V_FUNC_SYS_RIGHT { get; set; }
         public virtual DbSet<V_REP_SYS_RIGHT_REP> V_REP_SYS_RIGHT_REP { get; set; }
         public virtual DbSet<V_USER_IN_GROUP> V_USER_IN_GROUP { get; set; }
         public virtual DbSet<V_USER_NOTION_GROUP> V_USER_NOTION_GROUP { get; set; }
+        public virtual DbSet<tb_Unit> tb_Unit { get; set; }
         public virtual DbSet<tb_Product> tb_Product { get; set; }
     }
 }

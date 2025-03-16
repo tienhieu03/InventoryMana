@@ -44,13 +44,13 @@ namespace STOCK.Controls
             btnCancel.Visible = !t;
         }
 
-        private void _enable(bool t)
+        void _enable(bool t)
         {
             txtName.Enabled = t;
             chkDisable.Enabled = t;
         }
 
-        private void ResetFields()
+        void ResetFields()
         {
             txtId.Text = ""; // Xóa ID khi thêm mới
             txtName.Text = "";
@@ -113,7 +113,7 @@ namespace STOCK.Controls
             {
                 tb_Origin ct = new tb_Origin()
                 {
-                    Name = txtName.Text,
+                    OriginName = txtName.Text,
                     IsDisabled = chkDisable.Checked,
                     CreatedDate = DateTime.Now,  // Gán ngày tạo mới
                     DeletedDate = null,         // Mặc định NULL
@@ -126,7 +126,7 @@ namespace STOCK.Controls
             {
                 tb_Origin ct = _origin.getItem(_id);
                 bool wasDisabled = ct.IsDisabled ?? false;
-                ct.Name = txtName.Text;
+                ct.OriginName = txtName.Text;
                 ct.IsDisabled = chkDisable.Checked;
                 ct.UpdatedDate = DateTime.Now;
                 if (wasDisabled && !chkDisable.Checked)
@@ -157,7 +157,7 @@ namespace STOCK.Controls
             {
                 DataGridViewRow row = gvList.SelectedRows[0];
 
-                _id = (int)row.Cells["ID"].Value;
+                _id = (int)row.Cells["OriginID"].Value;
                 txtId.Text = _id.ToString();
                 txtName.Text = row.Cells["OriginName"].Value?.ToString() ?? "";
                 chkDisable.Checked = Convert.ToBoolean(row.Cells["IsDisabled"].Value);

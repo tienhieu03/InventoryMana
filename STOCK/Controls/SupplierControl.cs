@@ -43,7 +43,7 @@ namespace STOCK.Controls
             btnCancel.Visible = !t;
         }
 
-        private void _enable(bool t)
+        void _enable(bool t)
         {
             txtName.Enabled = t;
             txtPhone.Enabled = t;
@@ -53,7 +53,7 @@ namespace STOCK.Controls
             chkDisable.Enabled = t;
         }
 
-        private void ResetFields()
+        void ResetFields()
         {
             txtId.Text = ""; // Xóa ID khi thêm mới
             txtName.Text = "";
@@ -67,7 +67,7 @@ namespace STOCK.Controls
         void loadData()
         {
             gvList.AutoGenerateColumns = false;
-            gvList.DataSource = _supplier.getAll();
+            gvList.DataSource = _supplier.getList();
             gvList.ReadOnly = true;
             gvList.ClearSelection();
         }

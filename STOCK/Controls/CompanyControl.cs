@@ -92,14 +92,14 @@ namespace STOCK.Controls
 
                 if (string.IsNullOrEmpty(companyID))
                 {
-                    MessageBox.Show("Can not find Department ID!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can not find company!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (MessageBox.Show("Do you want to delete this record?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     _company.delete(companyID);
-                    loadData(); // Load lại danh sách sau khi xóa
+                    loadData();
                 }
             }
             else
@@ -120,8 +120,8 @@ namespace STOCK.Controls
                     CompanyFax = txtFax.Text,
                     CompanyAddress = txtAddress.Text,
                     IsDisabled = chkDisable.Checked,
-                    CreatedDate = DateTime.Now,  // Gán ngày tạo mới
-                    DeletedDate = null,         // Mặc định NULL
+                    CreatedDate = DateTime.Now,
+                    DeletedDate = null,
                     UpdatedDate = null,
                     RestoredDate = null
                 };

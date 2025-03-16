@@ -16,9 +16,9 @@ namespace BusinessLayer
         }
         public tb_Unit getItem(int unitid)
         {
-            return db.tb_Unit.FirstOrDefault(x => x.ID == unitid);
+            return db.tb_Unit.FirstOrDefault(x => x.UnitID == unitid);
         }
-        public List<tb_Unit> getAll()
+        public List<tb_Unit> getList()
         {
             return db.Set<tb_Unit>().ToList();
         }
@@ -36,8 +36,8 @@ namespace BusinessLayer
         }
         public void update(tb_Unit cp)
         {
-            tb_Unit _cp = db.tb_Unit.FirstOrDefault(x => x.ID == cp.ID);
-            _cp.Name = cp.Name;
+            tb_Unit _cp = db.tb_Unit.FirstOrDefault(x => x.UnitID == cp.UnitID);
+            _cp.UnitName = cp.UnitName;
             try
             {
                 db.SaveChanges();
@@ -49,8 +49,9 @@ namespace BusinessLayer
         }
         public void delete(int unitid)
         {
-            tb_Unit cp = db.tb_Unit.FirstOrDefault(x => x.ID == unitid);
+            tb_Unit cp = db.tb_Unit.FirstOrDefault(x => x.UnitID == unitid);
             cp.IsDisabled = true;
+            cp.DeletedDate = DateTime.Now;
             try
             {
                 db.SaveChanges();

@@ -36,14 +36,14 @@
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.btnCancel = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkDisable = new System.Windows.Forms.CheckBox();
             this.txtId = new Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtName = new Krypton.Toolkit.KryptonTextBox();
             this.gvList = new System.Windows.Forms.DataGridView();
-            this.chkDisable = new System.Windows.Forms.CheckBox();
             this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UnitName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonToolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -66,7 +66,7 @@
             this.kryptonToolStrip1.Location = new System.Drawing.Point(0, 0);
             this.kryptonToolStrip1.Name = "kryptonToolStrip1";
             this.kryptonToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.kryptonToolStrip1.Size = new System.Drawing.Size(948, 35);
+            this.kryptonToolStrip1.Size = new System.Drawing.Size(1264, 43);
             this.kryptonToolStrip1.TabIndex = 4;
             this.kryptonToolStrip1.Text = "kryptonToolStrip1";
             // 
@@ -75,7 +75,7 @@
             this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
             this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(53, 32);
+            this.btnAdd.Size = new System.Drawing.Size(61, 40);
             this.btnAdd.Text = "Add";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -84,7 +84,7 @@
             this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
             this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(51, 32);
+            this.btnEdit.Size = new System.Drawing.Size(59, 40);
             this.btnEdit.Text = "Edit";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
@@ -93,7 +93,7 @@
             this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
             this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(64, 32);
+            this.btnDelete.Size = new System.Drawing.Size(77, 40);
             this.btnDelete.Text = "Delete";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -102,7 +102,7 @@
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(55, 32);
+            this.btnSave.Size = new System.Drawing.Size(64, 40);
             this.btnSave.Text = "Save";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -111,7 +111,7 @@
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(67, 32);
+            this.btnCancel.Size = new System.Drawing.Size(77, 40);
             this.btnCancel.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -124,19 +124,33 @@
             this.groupBox1.Controls.Add(this.txtName);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 304);
+            this.groupBox1.Location = new System.Drawing.Point(0, 374);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(948, 196);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(1264, 241);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
             // 
+            // chkDisable
+            // 
+            this.chkDisable.AutoSize = true;
+            this.chkDisable.Location = new System.Drawing.Point(401, 73);
+            this.chkDisable.Margin = new System.Windows.Forms.Padding(4);
+            this.chkDisable.Name = "chkDisable";
+            this.chkDisable.Size = new System.Drawing.Size(110, 29);
+            this.chkDisable.TabIndex = 36;
+            this.chkDisable.Text = "Disabled";
+            this.chkDisable.UseVisualStyleBackColor = true;
+            // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(103, 21);
+            this.txtId.Location = new System.Drawing.Point(137, 26);
+            this.txtId.Margin = new System.Windows.Forms.Padding(4);
             this.txtId.Name = "txtId";
             this.txtId.ReadOnly = true;
-            this.txtId.Size = new System.Drawing.Size(286, 32);
+            this.txtId.Size = new System.Drawing.Size(381, 38);
             this.txtId.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtId.TabIndex = 34;
             // 
@@ -144,9 +158,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 23);
+            this.label1.Location = new System.Drawing.Point(32, 28);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 25);
+            this.label1.Size = new System.Drawing.Size(34, 32);
             this.label1.TabIndex = 33;
             this.label1.Text = "Id";
             // 
@@ -154,17 +169,19 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(463, 24);
+            this.label5.Location = new System.Drawing.Point(617, 30);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 25);
+            this.label5.Size = new System.Drawing.Size(78, 32);
             this.label5.TabIndex = 45;
             this.label5.Text = "Name";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(542, 23);
+            this.txtName.Location = new System.Drawing.Point(723, 28);
+            this.txtName.Margin = new System.Windows.Forms.Padding(4);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(286, 32);
+            this.txtName.Size = new System.Drawing.Size(381, 38);
             this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.TabIndex = 44;
             // 
@@ -176,52 +193,44 @@
             this.gvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IsDisabled,
-            this.ID,
+            this.UnitID,
             this.UnitName});
             this.gvList.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gvList.Location = new System.Drawing.Point(0, 35);
+            this.gvList.Location = new System.Drawing.Point(0, 43);
+            this.gvList.Margin = new System.Windows.Forms.Padding(4);
             this.gvList.Name = "gvList";
             this.gvList.ReadOnly = true;
             this.gvList.RowHeadersVisible = false;
             this.gvList.RowHeadersWidth = 51;
             this.gvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvList.Size = new System.Drawing.Size(948, 263);
+            this.gvList.Size = new System.Drawing.Size(1264, 324);
             this.gvList.TabIndex = 9;
             this.gvList.Click += new System.EventHandler(this.gvList_Click);
-            // 
-            // chkDisable
-            // 
-            this.chkDisable.AutoSize = true;
-            this.chkDisable.Location = new System.Drawing.Point(301, 59);
-            this.chkDisable.Name = "chkDisable";
-            this.chkDisable.Size = new System.Drawing.Size(88, 24);
-            this.chkDisable.TabIndex = 36;
-            this.chkDisable.Text = "Disabled";
-            this.chkDisable.UseVisualStyleBackColor = true;
             // 
             // IsDisabled
             // 
             this.IsDisabled.DataPropertyName = "IsDisabled";
             this.IsDisabled.HeaderText = "DEL";
+            this.IsDisabled.MinimumWidth = 6;
             this.IsDisabled.Name = "IsDisabled";
             this.IsDisabled.ReadOnly = true;
             this.IsDisabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.IsDisabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.IsDisabled.Width = 50;
             // 
-            // ID
+            // UnitID
             // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.MinimumWidth = 6;
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 110;
+            this.UnitID.DataPropertyName = "UnitID";
+            this.UnitID.HeaderText = "ID";
+            this.UnitID.MinimumWidth = 6;
+            this.UnitID.Name = "UnitID";
+            this.UnitID.ReadOnly = true;
+            this.UnitID.Width = 110;
             // 
             // UnitName
             // 
             this.UnitName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.UnitName.DataPropertyName = "Name";
+            this.UnitName.DataPropertyName = "UnitName";
             this.UnitName.HeaderText = "Unit";
             this.UnitName.MinimumWidth = 6;
             this.UnitName.Name = "UnitName";
@@ -229,13 +238,14 @@
             // 
             // UnitControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gvList);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.kryptonToolStrip1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UnitControl";
-            this.Size = new System.Drawing.Size(948, 500);
+            this.Size = new System.Drawing.Size(1264, 615);
             this.Load += new System.EventHandler(this.UnitControl_Load);
             this.kryptonToolStrip1.ResumeLayout(false);
             this.kryptonToolStrip1.PerformLayout();
@@ -262,7 +272,7 @@
         private System.Windows.Forms.DataGridView gvList;
         private System.Windows.Forms.CheckBox chkDisable;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsDisabled;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UnitID;
         private System.Windows.Forms.DataGridViewTextBoxColumn UnitName;
     }
 }

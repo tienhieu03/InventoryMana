@@ -15,16 +15,19 @@ namespace BusinessLayer.DataModels
             db = Entities.CreateEntities();
         }
 
-        public tb_Product getItem(int productid)
+        // Lấy sản phẩm theo ProductID
+        public tb_Product getItem(int productID)
         {
-            return db.tb_Product.FirstOrDefault(x => x.ProductID == productid);
+            return db.tb_Product.FirstOrDefault(x => x.ProductID == productID);
         }
 
+        // Lấy danh sách sản phẩm theo Category
         public List<tb_Product> getListByCategory(int categoryid)
         {
             return db.tb_Product.Where(x => x.CategoryID == categoryid).OrderBy(o => o.CreatedDate).ToList();
         }
 
+        // Thêm sản phẩm mới
         public void add(tb_Product pd)
         {
             try
@@ -34,42 +37,63 @@ namespace BusinessLayer.DataModels
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred during data processing" + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    throw new Exception("An error occurred: " + ex.InnerException.Message);
+                }
+                else
+                {
+                    throw new Exception("An error occurred: " + ex.Message);
+                }
             }
+
         }
+
+        // Cập nhật sản phẩm dựa trên ProductID
         public void update(tb_Product pd)
         {
             tb_Product _pd = db.tb_Product.FirstOrDefault(x => x.ProductID == pd.ProductID);
-            _pd.BARCODE = pd.BARCODE;
-            _pd.QRCODE = pd.QRCODE;
-            _pd.ProductName = pd.ProductName;
-            _pd.ShortName = pd.ShortName;
-            _pd.Unit = pd.Unit;
-            _pd.Price = pd.Price;
-            _pd.SupplierID = pd.SupplierID;
-            _pd.Orgin = pd.Orgin;
-            _pd.Description = pd.Description;
-            _pd.IsDisabled = pd.IsDisabled;
-            try
+            if (_pd != null)
             {
-                db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred during data processing" + ex.Message);
+                _pd.BARCODE = pd.BARCODE;
+                //_pd.QRCODE = pd.QRCODE;
+                _pd.ProductName = pd.ProductName;
+                _pd.ShortName = pd.ShortName;
+                _pd.Unit = pd.Unit;
+                _pd.Price = pd.Price;
+                _pd.SupplierID = pd.SupplierID;
+                _pd.OriginID = pd.OriginID;
+                _pd.Description = pd.Description;
+                _pd.IsDisabled = pd.IsDisabled;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("An error occurred during data processing: " + ex.Message);
+                }
             }
         }
-        public void delete(int productid)
+
+        // Xóa sản phẩm bằng cách disable (không xóa vật lý)
+        public void delete(int productID)
         {
-            tb_Product pd = db.tb_Product.FirstOrDefault(x => x.ProductID == productid);
-            pd.IsDisabled = true;
-            try
+            tb_Product pd = db.tb_Product.FirstOrDefault(x => x.ProductID == productID);
+            if (pd != null)
             {
-                db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred during data processing" + ex.Message);
+                pd.IsDisabled = true;
+                pd.DeletedDate = DateTime.Now;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("An error occurred during data processing: " + ex.Message);
+                }
             }
         }
     }

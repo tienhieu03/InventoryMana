@@ -41,13 +41,13 @@ namespace STOCK.Controls
             btnCancel.Visible = !t;
         }
 
-        private void _enable(bool t)
+        void _enable(bool t)
         {
             txtName.Enabled = t;
             chkDisable.Enabled = t;
         }
 
-        private void ResetFields()
+        void ResetFields()
         {
             txtId.Text = ""; // Xóa ID khi thêm mới
             txtName.Text = "";
@@ -57,7 +57,7 @@ namespace STOCK.Controls
         void loadData()
         {
             gvList.AutoGenerateColumns = false;
-            gvList.DataSource = _unit.getAll();
+            gvList.DataSource = _unit.getList();
             gvList.ReadOnly = true;
             gvList.ClearSelection();
         }
@@ -110,7 +110,7 @@ namespace STOCK.Controls
             {
                 tb_Unit ct = new tb_Unit()
                 {
-                    Name = txtName.Text,
+                    UnitName = txtName.Text,
                     IsDisabled = chkDisable.Checked,
                     CreatedDate = DateTime.Now,  // Gán ngày tạo mới
                     DeletedDate = null,         // Mặc định NULL
@@ -123,7 +123,7 @@ namespace STOCK.Controls
             {
                 tb_Unit ct = _unit.getItem(_id);
                 bool wasDisabled = ct.IsDisabled ?? false;
-                ct.Name = txtName.Text;
+                ct.UnitName = txtName.Text;
                 ct.IsDisabled = chkDisable.Checked;
                 ct.UpdatedDate = DateTime.Now;
                 if (wasDisabled && !chkDisable.Checked)
@@ -154,7 +154,7 @@ namespace STOCK.Controls
             {
                 DataGridViewRow row = gvList.SelectedRows[0];
 
-                _id = (int)row.Cells["ID"].Value;
+                _id = (int)row.Cells["UnitID"].Value;
                 txtId.Text = _id.ToString();
                 txtName.Text = row.Cells["UnitName"].Value?.ToString() ?? "";
                 chkDisable.Checked = Convert.ToBoolean(row.Cells["IsDisabled"].Value);

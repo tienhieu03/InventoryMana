@@ -60,6 +60,7 @@ namespace BusinessLayer
         {
             tb_Company cp = db.tb_Company.FirstOrDefault(x => x.CompanyID == companyid);
             cp.IsDisabled = true;
+            cp.DeletedDate = DateTime.Now;
             try
             {
                 db.SaveChanges();

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModels\BarcodeEAN13.cs" />
     <Compile Include="DataModels\COMPANY.cs" />
     <Compile Include="DataModels\DEPARTMENT.cs" />
     <Compile Include="DataModels\ORIGIN.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="DataModels\SUPPLIER.cs" />
     <Compile Include="Utils\SYS_FUNC.cs" />
     <Compile Include="DataModels\UNIT.cs" />
+    <Compile Include="Utils\SYS_SEQ.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">

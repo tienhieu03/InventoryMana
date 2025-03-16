@@ -52,6 +52,7 @@ namespace BusinessLayer.DataModels
         {
             tb_ProductCategory cp = db.tb_ProductCategory.FirstOrDefault(x => x.CategoryID == categoryid);
             cp.IsDisabled = true;
+            cp.DeletedDate = DateTime.Now;
             try
             {
                 db.SaveChanges();

@@ -11,10 +11,12 @@ using DataLayer;
 using BusinessLayer;
 using BusinessLayer.DataModels;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using BusinessLayer.Utils;
 
 namespace STOCK.Controls
 {
-    public partial class ProductControl: UserControl
+    public partial class ProductControl : UserControl
     {
         public ProductControl()
         {
@@ -24,25 +26,44 @@ namespace STOCK.Controls
         tb_SYS_USER _user;
         int _right;
         bool _add;
-        int _id;
-        string _barcode;
+        int _productID;
         SUPPLIER _supplier;
         UNIT _unit;
         PRODUCT_CATEGORY _category;
         ORIGIN _origin;
+        SYS_SEQ _sysSeq;
+        tb_SYS_SEQ _seq;
         PRODUCT _product;
 
-        private void CompanyControl_Load(object sender, EventArgs e)
+        void loadCategory()
         {
-            _supplier = new SUPPLIER();
-            _unit = new UNIT();
-            _category = new PRODUCT_CATEGORY();
-            _origin = new ORIGIN();
-            _enable(false);
-            ShowHideControls(true);
-            loadData();
-            gvList.ClearSelection();
+            cboCategory.ComboBox.DataSource = _category.getAll();
+            cboCategory.ComboBox.DisplayMember = "Category";
+            cboCategory.ComboBox.ValueMember = "CategoryID";
         }
+
+        void loadSupplier()
+        {
+            cboSupplier.DataSource = _supplier.getList();
+            cboSupplier.DisplayMember = "SupplierName";
+            cboSupplier.ValueMember = "SupplierID";
+        }
+
+        void loadUnit()
+        {
+            cboUnit.DataSource = _unit.getList();
+            cboUnit.DisplayMember = "UnitName";
+            cboUnit.ValueMember = "UnitID";
+        }
+
+        void loadOrigin()
+        {
+            cboOrigin.DataSource = _origin.getAll();
+            cboOrigin.DisplayMember = "OriginName";
+            cboOrigin.ValueMember = "OriginID";
+        }
+
+
         void ShowHideControls(bool t)
         {
             btnAdd.Visible = t;
@@ -52,53 +73,74 @@ namespace STOCK.Controls
             btnCancel.Visible = !t;
         }
 
-        private void _enable(bool t)
+        void _enable(bool t)
         {
-            txtId.Enabled = t;
             txtName.Enabled = t;
-            txtPhone.Enabled = t;
-            txtFax.Enabled = t;
-            txtEmail.Enabled = t;
-            txtAddress.Enabled = t;
+            txtShortName.Enabled = t;
+            rtxtDetail.Enabled = t;
+            nudPrice.Enabled = t;
+            cboSupplier.Enabled = t;
+            cboUnit.Enabled = t;
+            cboOrigin.Enabled = t;
             chkDisable.Enabled = t;
         }
-        private void ResetFields()
+
+        void ResetFields()
         {
-            txtId.Text = "";
+            txtBarcode.Text = "";
+            txtQrCode.Text = "";
             txtName.Text = "";
-            txtPhone.Text = "";
-            txtFax.Text = "";
-            txtEmail.Text = "";
-            txtAddress.Text = "";
+            txtShortName.Text = "";
+            rtxtDetail.Text = "";
+            nudPrice.Value = 0;
             chkDisable.Checked = false;
         }
-        void loadData()
+
+        private void loadData()
         {
             gvList.AutoGenerateColumns = false;
-            gvList.DataSource = _company.getAll();
+            if (cboCategory.ComboBox.SelectedValue != null)
+            {
+                int categoryId;
+                if (int.TryParse(cboCategory.ComboBox.SelectedValue.ToString(), out categoryId))
+                {
+                    gvList.DataSource = _product.getListByCategory(categoryId);
+                }
+            }
             gvList.ReadOnly = true;
             gvList.ClearSelection();
         }
 
+
         private void ProductControl_Load(object sender, EventArgs e)
         {
-            loadData();
-            ShowHideControls(true);
+            _supplier = new SUPPLIER();
+            _unit = new UNIT();
+            _category = new PRODUCT_CATEGORY();
+            _origin = new ORIGIN();
+            _product = new PRODUCT();
+            _sysSeq = new SYS_SEQ();
             _enable(false);
-        }
+            txtBarcode.Enabled = false;
+            txtQrCode.Enabled = false;
+            ShowHideControls(true);
+            loadCategory();
+            loadData();
 
+            loadSupplier();
+            loadUnit();
+            loadOrigin();
+
+            cboCategory.SelectedIndexChanged += cboCategory_SelectedIndexChanged;
+            gvList.ClearSelection();
+        }
         private void btnAdd_Click(object sender, EventArgs e)
         {
             _add = true;
             _enable(true);
+            txtBarcode.Enabled = false;
+            txtQrCode.Enabled = false;
             ResetFields();
-            ShowHideControls(false);
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            _add = false;
-            _enable(true);
             ShowHideControls(false);
         }
 
@@ -106,18 +148,12 @@ namespace STOCK.Controls
         {
             if (gvList.SelectedRows.Count > 0)
             {
-                string companyID = gvList.SelectedRows[0].Cells["CompanyID"].Value?.ToString();
-
-                if (string.IsNullOrEmpty(companyID))
-                {
-                    MessageBox.Show("Can not find Department ID!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                int productID = Convert.ToInt32(gvList.SelectedRows[0].Cells["ProductID"].Value);
 
                 if (MessageBox.Show("Do you want to delete this record?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    _company.delete(companyID);
-                    loadData(); // Load lại danh sách sau khi xóa
+                    _product.delete(productID);
+                    loadData();
                 }
             }
             else
@@ -126,47 +162,53 @@ namespace STOCK.Controls
             }
         }
 
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            _add = false;
+            _enable(true);
+            txtBarcode.Enabled = false;
+            txtQrCode.Enabled = false;
+            ShowHideControls(false);
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (_add)
             {
-                tb_Company ct = new tb_Company()
+                tb_Product pd = new tb_Product();
+                _seq = _sysSeq.getItem("PD@" + DateTime.Now.Year.ToString() + "@" + cboCategory.ComboBox.SelectedValue.ToString());
+                if (_seq == null)
                 {
-                    CompanyID = txtId.Text,
-                    CompanyName = txtName.Text,
-                    CompanyEmail = txtEmail.Text,
-                    CompanyPhone = txtPhone.Text,
-                    CompanyFax = txtFax.Text,
-                    CompanyAddress = txtAddress.Text,
-                    IsDisabled = chkDisable.Checked,
-                    CreatedDate = DateTime.Now,  // Gán ngày tạo mới
-                    DeletedDate = null,         // Mặc định NULL
-                    UpdatedDate = null,
-                    RestoredDate = null
-                };
-                _company.add(ct);
+                    _seq = new tb_SYS_SEQ();
+                    _seq.SEQNAME = "PD@" + DateTime.Now.Year.ToString() + "@" + cboCategory.ComboBox.SelectedValue.ToString();
+                    _seq.SEQVALUE = 1;
+                    _sysSeq.add(_seq);
+                }
+                pd.BARCODE = BarcodeEAN13.BuildEan13(DateTime.Now.Year.ToString() + cboCategory.ComboBox.SelectedValue.ToString() + _seq.SEQVALUE.Value.ToString("0000000"));
+                pd.ProductName = txtName.Text;
+                pd.ShortName = txtShortName.Text;
+                pd.CategoryID = int.Parse(cboCategory.ComboBox.SelectedValue.ToString());
+                pd.Description = rtxtDetail.Text;
+                pd.SupplierID = int.Parse(cboSupplier.SelectedValue.ToString());
+                pd.OriginID = int.Parse(cboOrigin.SelectedValue.ToString());
+                pd.Unit = cboUnit.Text;
+                pd.IsDisabled = chkDisable.Checked;
+                pd.CreatedDate = DateTime.Now;
+                pd.Price = float.Parse(nudPrice.Value.ToString());
+                _product.add(pd);
+                txtBarcode.Text = pd.BARCODE;
+                _sysSeq.udpate(_seq);
+                MessageBox.Show(pd.BARCODE);
+
             }
             else
             {
-                tb_Company ct = _company.getItem(_id);
-                bool wasDisabled = ct.IsDisabled ?? false;
-                ct.CompanyID = txtId.Text;
-                ct.CompanyName = txtName.Text;
-                ct.CompanyPhone = txtPhone.Text;
-                ct.CompanyAddress = txtAddress.Text;
-                ct.CompanyFax = txtFax.Text;
-                ct.CompanyEmail = txtEmail.Text;
-                ct.IsDisabled = chkDisable.Checked;
-                ct.UpdatedDate = DateTime.Now;
-                if (wasDisabled && !chkDisable.Checked)
-                {
-                    ct.RestoredDate = DateTime.Now;
-                }
-                _company.update(ct);
+                tb_Product product = _product.getItem(_productID);
             }
             _add = false;
             _enable(false);
             loadData();
+            ResetFields();
             ShowHideControls(true);
         }
 
@@ -175,7 +217,9 @@ namespace STOCK.Controls
             _add = false;
             _enable(false);
             ShowHideControls(true);
-            txtId.Enabled = false;
+            ResetFields();
+            txtBarcode.Enabled = false;
+            txtQrCode.Enabled = false;
         }
 
         private void gvList_Click(object sender, EventArgs e)
@@ -184,19 +228,31 @@ namespace STOCK.Controls
             {
                 DataGridViewRow row = gvList.SelectedRows[0];
 
-                _id = row.Cells["CompanyID"].Value?.ToString();
+                _productID = (int)row.Cells["ProductID"].Value;
+                cboCategory.ComboBox.SelectedValue = row.Cells["CategoryID"].Value;
+                txtBarcode.Text = row.Cells["BARCODE"].Value.ToString();
+                txtQrCode.Text = row.Cells["QRCODE"].Value.ToString();
+                txtName.Text = row.Cells["ProductName"].Value.ToString();
+                txtShortName.Text = row.Cells["ShortName"].Value.ToString();
+                rtxtDetail.Text = row.Cells["Description"].Value.ToString();
+                cboSupplier.SelectedValue = row.Cells["SupplierID"].Value;
+                cboUnit.SelectedValue = row.Cells["Unit"].Value;
+                cboOrigin.SelectedValue = row.Cells["OriginID"].Value;
+                nudPrice.Value = Convert.ToDecimal(row.Cells["Price"].Value);
 
-                txtId.Text = row.Cells["CompanyID"].Value?.ToString() ?? "";
-                txtName.Text = row.Cells["CompanyName"].Value?.ToString() ?? "";
-                txtPhone.Text = row.Cells["CompanyPhone"].Value?.ToString() ?? "";
-                txtFax.Text = row.Cells["CompanyFax"].Value?.ToString() ?? "";
-                txtEmail.Text = row.Cells["CompanyEmail"].Value?.ToString() ?? "";
-                txtAddress.Text = row.Cells["CompanyAddress"].Value?.ToString() ?? "";
-
-                // Kiểm tra null trước khi chuyển đổi sang boolean
                 object isDisabledValue = row.Cells["IsDisabled"].Value;
                 chkDisable.Checked = (isDisabledValue != null) && Convert.ToBoolean(isDisabledValue);
             }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadData();
         }
     }
 }

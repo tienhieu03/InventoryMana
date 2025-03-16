@@ -14,8 +14,8 @@ namespace DataLayer
     
     public partial class tb_Origin
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int OriginID { get; set; }
+        public string OriginName { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
