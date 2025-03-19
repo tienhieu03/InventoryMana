@@ -26,6 +26,35 @@ namespace BusinessLayer.DataModels
         {
             return db.tb_Product.Where(x => x.CategoryID == categoryid).OrderBy(o => o.CreatedDate).ToList();
         }
+        public List<obj_PRODUCT> getListByCategoryFull(int categoryid)
+        {
+            var lst = db.tb_Product.Where(x => x.CategoryID == categoryid).OrderBy(o => o.CreatedDate).ToList();
+            List<obj_PRODUCT> lstObj = new List<obj_PRODUCT>();
+            obj_PRODUCT pd;
+            foreach (var item in lst)
+            {
+                pd = new obj_PRODUCT();
+                pd.BARCODE = item.BARCODE;
+                pd.QRCODE = item.QRCODE;
+                pd.ProductID = item.ProductID;
+                pd.ProductName = item.ProductName;
+                pd.ShortName = item.ShortName;
+                pd.CategoryID = item.CategoryID;
+                var c = db.tb_ProductCategory.FirstOrDefault(x=>x.CategoryID==item.CategoryID);
+                pd.Category = c.Category;
+                pd.SupplierID = item.SupplierID;
+                var s = db.tb_Supplier.FirstOrDefault(x => x.SupplierID == item.SupplierID);
+                pd.SupplierName = s.SupplierName;
+                pd.OriginID = item.OriginID;
+                var o = db.tb_Origin.FirstOrDefault(x => x.OriginID == item.OriginID);
+                pd.OriginName = o.OriginName;
+                pd.Unit = item.Unit;
+                pd.Price = item.Price;
+                pd.Description = item.Description;
+                lstObj.Add(pd);
+            }
+            return lstObj;
+        }
 
         // Thêm sản phẩm mới
         public void add(tb_Product pd)
@@ -34,6 +63,17 @@ namespace BusinessLayer.DataModels
             {
                 db.tb_Product.Add(pd);
                 db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                    }
+                }
+                throw new Exception("Entity validation error occurred. Check console output for details.");
             }
             catch (Exception ex)
             {
@@ -46,8 +86,8 @@ namespace BusinessLayer.DataModels
                     throw new Exception("An error occurred: " + ex.Message);
                 }
             }
-
         }
+
 
         // Cập nhật sản phẩm dựa trên ProductID
         public void update(tb_Product pd)

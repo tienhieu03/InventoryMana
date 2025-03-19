@@ -131,7 +131,7 @@
             this.Description});
             this.gvList.Dock = System.Windows.Forms.DockStyle.Top;
             this.gvList.Location = new System.Drawing.Point(0, 43);
-            this.gvList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gvList.Margin = new System.Windows.Forms.Padding(4);
             this.gvList.Name = "gvList";
             this.gvList.ReadOnly = true;
             this.gvList.RowHeadersVisible = false;
@@ -189,9 +189,9 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(0, 374);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(1264, 241);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
@@ -200,9 +200,9 @@
             // txtNote
             // 
             this.txtNote.Location = new System.Drawing.Point(487, 94);
-            this.txtNote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNote.Margin = new System.Windows.Forms.Padding(4);
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(381, 27);
+            this.txtNote.Size = new System.Drawing.Size(381, 77);
             this.txtNote.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNote.TabIndex = 48;
             this.txtNote.Text = "";
@@ -221,8 +221,8 @@
             // chkDisable
             // 
             this.chkDisable.AutoSize = true;
-            this.chkDisable.Location = new System.Drawing.Point(548, 143);
-            this.chkDisable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkDisable.Location = new System.Drawing.Point(548, 179);
+            this.chkDisable.Margin = new System.Windows.Forms.Padding(4);
             this.chkDisable.Name = "chkDisable";
             this.chkDisable.Size = new System.Drawing.Size(110, 29);
             this.chkDisable.TabIndex = 36;
@@ -232,7 +232,7 @@
             // txtId
             // 
             this.txtId.Location = new System.Drawing.Point(137, 26);
-            this.txtId.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtId.Margin = new System.Windows.Forms.Padding(4);
             this.txtId.Name = "txtId";
             this.txtId.ReadOnly = true;
             this.txtId.Size = new System.Drawing.Size(381, 38);
@@ -264,7 +264,7 @@
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(723, 28);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtName.Margin = new System.Windows.Forms.Padding(4);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(381, 38);
             this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -277,7 +277,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gvList);
             this.Controls.Add(this.kryptonToolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Product_CategoryControl";
             this.Size = new System.Drawing.Size(1264, 615);
             this.Load += new System.EventHandler(this.Product_CategoryControl_Load);

@@ -36,13 +36,6 @@
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.btnCancel = new System.Windows.Forms.ToolStripButton();
             this.gvList = new System.Windows.Forms.DataGridView();
-            this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.SupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierFax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkDisable = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,12 +44,19 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtPhone = new Krypton.Toolkit.KryptonTextBox();
-            this.txtName = new Krypton.Toolkit.KryptonTextBox();
-            this.txtEmail = new Krypton.Toolkit.KryptonTextBox();
-            this.txtFax = new Krypton.Toolkit.KryptonTextBox();
-            this.txtAddress = new Krypton.Toolkit.KryptonRichTextBox();
             this.txtId = new Krypton.Toolkit.KryptonTextBox();
+            this.txtAddress = new Krypton.Toolkit.KryptonRichTextBox();
+            this.txtFax = new Krypton.Toolkit.KryptonTextBox();
+            this.txtEmail = new Krypton.Toolkit.KryptonTextBox();
+            this.txtName = new Krypton.Toolkit.KryptonTextBox();
+            this.txtPhone = new Krypton.Toolkit.KryptonTextBox();
+            this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.SupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierFax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonToolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvList)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -141,81 +141,16 @@
             this.SupplierFax,
             this.SupplierEmail,
             this.SupplierAddress});
-            this.gvList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gvList.Location = new System.Drawing.Point(0, 35);
             this.gvList.Name = "gvList";
             this.gvList.ReadOnly = true;
             this.gvList.RowHeadersVisible = false;
             this.gvList.RowHeadersWidth = 51;
             this.gvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvList.Size = new System.Drawing.Size(948, 263);
+            this.gvList.Size = new System.Drawing.Size(948, 465);
             this.gvList.TabIndex = 5;
             this.gvList.Click += new System.EventHandler(this.gvList_Click);
-            // 
-            // IsDisabled
-            // 
-            this.IsDisabled.DataPropertyName = "IsDisabled";
-            this.IsDisabled.HeaderText = "DEL";
-            this.IsDisabled.MinimumWidth = 6;
-            this.IsDisabled.Name = "IsDisabled";
-            this.IsDisabled.ReadOnly = true;
-            this.IsDisabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.IsDisabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.IsDisabled.Width = 50;
-            // 
-            // SupplierID
-            // 
-            this.SupplierID.DataPropertyName = "SupplierID";
-            this.SupplierID.HeaderText = "Supplier ID";
-            this.SupplierID.MinimumWidth = 6;
-            this.SupplierID.Name = "SupplierID";
-            this.SupplierID.ReadOnly = true;
-            this.SupplierID.Width = 110;
-            // 
-            // SupplierName
-            // 
-            this.SupplierName.DataPropertyName = "SupplierName";
-            this.SupplierName.HeaderText = "Supplier Name";
-            this.SupplierName.MinimumWidth = 6;
-            this.SupplierName.Name = "SupplierName";
-            this.SupplierName.ReadOnly = true;
-            this.SupplierName.Width = 150;
-            // 
-            // SupplierPhone
-            // 
-            this.SupplierPhone.DataPropertyName = "SupplierPhone";
-            this.SupplierPhone.HeaderText = "Supplier Phone";
-            this.SupplierPhone.MinimumWidth = 6;
-            this.SupplierPhone.Name = "SupplierPhone";
-            this.SupplierPhone.ReadOnly = true;
-            this.SupplierPhone.Width = 150;
-            // 
-            // SupplierFax
-            // 
-            this.SupplierFax.DataPropertyName = "SupplierFax";
-            this.SupplierFax.HeaderText = "Supplier Fax";
-            this.SupplierFax.MinimumWidth = 6;
-            this.SupplierFax.Name = "SupplierFax";
-            this.SupplierFax.ReadOnly = true;
-            this.SupplierFax.Width = 150;
-            // 
-            // SupplierEmail
-            // 
-            this.SupplierEmail.DataPropertyName = "SupplierEmail";
-            this.SupplierEmail.HeaderText = "Supplier Email";
-            this.SupplierEmail.MinimumWidth = 6;
-            this.SupplierEmail.Name = "SupplierEmail";
-            this.SupplierEmail.ReadOnly = true;
-            this.SupplierEmail.Width = 200;
-            // 
-            // SupplierAddress
-            // 
-            this.SupplierAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.SupplierAddress.DataPropertyName = "SupplierAddress";
-            this.SupplierAddress.HeaderText = "Supplier Address";
-            this.SupplierAddress.MinimumWidth = 6;
-            this.SupplierAddress.Name = "SupplierAddress";
-            this.SupplierAddress.ReadOnly = true;
             // 
             // chkDisable
             // 
@@ -283,9 +218,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(24, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 25);
+            this.label1.Size = new System.Drawing.Size(30, 25);
             this.label1.TabIndex = 33;
-            this.label1.Text = "Id";
+            this.label1.Text = "ID";
             // 
             // groupBox1
             // 
@@ -311,37 +246,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
             // 
-            // txtPhone
+            // txtId
             // 
-            this.txtPhone.Location = new System.Drawing.Point(103, 91);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(286, 32);
-            this.txtPhone.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhone.TabIndex = 43;
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(103, 55);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(286, 32);
-            this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.TabIndex = 44;
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Location = new System.Drawing.Point(543, 28);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(286, 32);
-            this.txtEmail.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.TabIndex = 46;
-            // 
-            // txtFax
-            // 
-            this.txtFax.Location = new System.Drawing.Point(543, 63);
-            this.txtFax.Name = "txtFax";
-            this.txtFax.Size = new System.Drawing.Size(286, 32);
-            this.txtFax.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFax.TabIndex = 48;
+            this.txtId.Location = new System.Drawing.Point(103, 21);
+            this.txtId.Name = "txtId";
+            this.txtId.ReadOnly = true;
+            this.txtId.Size = new System.Drawing.Size(286, 32);
+            this.txtId.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtId.TabIndex = 34;
             // 
             // txtAddress
             // 
@@ -352,14 +264,102 @@
             this.txtAddress.TabIndex = 50;
             this.txtAddress.Text = "";
             // 
-            // txtId
+            // txtFax
             // 
-            this.txtId.Location = new System.Drawing.Point(103, 21);
-            this.txtId.Name = "txtId";
-            this.txtId.ReadOnly = true;
-            this.txtId.Size = new System.Drawing.Size(286, 32);
-            this.txtId.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtId.TabIndex = 34;
+            this.txtFax.Location = new System.Drawing.Point(543, 63);
+            this.txtFax.Name = "txtFax";
+            this.txtFax.Size = new System.Drawing.Size(286, 32);
+            this.txtFax.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFax.TabIndex = 48;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(543, 28);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(286, 32);
+            this.txtEmail.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.TabIndex = 46;
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(103, 55);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(286, 32);
+            this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtName.TabIndex = 44;
+            // 
+            // txtPhone
+            // 
+            this.txtPhone.Location = new System.Drawing.Point(103, 91);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(286, 32);
+            this.txtPhone.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhone.TabIndex = 43;
+            // 
+            // IsDisabled
+            // 
+            this.IsDisabled.DataPropertyName = "IsDisabled";
+            this.IsDisabled.HeaderText = "DEL";
+            this.IsDisabled.MinimumWidth = 6;
+            this.IsDisabled.Name = "IsDisabled";
+            this.IsDisabled.ReadOnly = true;
+            this.IsDisabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.IsDisabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IsDisabled.Width = 50;
+            // 
+            // SupplierID
+            // 
+            this.SupplierID.DataPropertyName = "SupplierID";
+            this.SupplierID.HeaderText = "ID";
+            this.SupplierID.MinimumWidth = 6;
+            this.SupplierID.Name = "SupplierID";
+            this.SupplierID.ReadOnly = true;
+            this.SupplierID.Width = 110;
+            // 
+            // SupplierName
+            // 
+            this.SupplierName.DataPropertyName = "SupplierName";
+            this.SupplierName.HeaderText = "Supplier Name";
+            this.SupplierName.MinimumWidth = 6;
+            this.SupplierName.Name = "SupplierName";
+            this.SupplierName.ReadOnly = true;
+            this.SupplierName.Width = 150;
+            // 
+            // SupplierPhone
+            // 
+            this.SupplierPhone.DataPropertyName = "SupplierPhone";
+            this.SupplierPhone.HeaderText = "Supplier Phone";
+            this.SupplierPhone.MinimumWidth = 6;
+            this.SupplierPhone.Name = "SupplierPhone";
+            this.SupplierPhone.ReadOnly = true;
+            this.SupplierPhone.Width = 150;
+            // 
+            // SupplierFax
+            // 
+            this.SupplierFax.DataPropertyName = "SupplierFax";
+            this.SupplierFax.HeaderText = "Supplier Fax";
+            this.SupplierFax.MinimumWidth = 6;
+            this.SupplierFax.Name = "SupplierFax";
+            this.SupplierFax.ReadOnly = true;
+            this.SupplierFax.Width = 150;
+            // 
+            // SupplierEmail
+            // 
+            this.SupplierEmail.DataPropertyName = "SupplierEmail";
+            this.SupplierEmail.HeaderText = "Email";
+            this.SupplierEmail.MinimumWidth = 6;
+            this.SupplierEmail.Name = "SupplierEmail";
+            this.SupplierEmail.ReadOnly = true;
+            this.SupplierEmail.Width = 200;
+            // 
+            // SupplierAddress
+            // 
+            this.SupplierAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.SupplierAddress.DataPropertyName = "SupplierAddress";
+            this.SupplierAddress.HeaderText = "Address";
+            this.SupplierAddress.MinimumWidth = 6;
+            this.SupplierAddress.Name = "SupplierAddress";
+            this.SupplierAddress.ReadOnly = true;
             // 
             // SupplierControl
             // 
@@ -390,13 +390,6 @@
         private System.Windows.Forms.ToolStripButton btnSave;
         private System.Windows.Forms.ToolStripButton btnCancel;
         private System.Windows.Forms.DataGridView gvList;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsDisabled;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierPhone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierFax;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierAddress;
         private System.Windows.Forms.CheckBox chkDisable;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
@@ -411,5 +404,12 @@
         private Krypton.Toolkit.KryptonTextBox txtEmail;
         private Krypton.Toolkit.KryptonTextBox txtName;
         private Krypton.Toolkit.KryptonTextBox txtPhone;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsDisabled;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierPhone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierFax;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierAddress;
     }
 }

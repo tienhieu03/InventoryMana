@@ -54,6 +54,7 @@
     <Compile Include="DataModels\BarcodeEAN13.cs" />
     <Compile Include="DataModels\COMPANY.cs" />
     <Compile Include="DataModels\DEPARTMENT.cs" />
+    <Compile Include="DataModels\obj_PRODUCT.cs" />
     <Compile Include="DataModels\ORIGIN.cs" />
     <Compile Include="DataModels\PRODUCT.cs" />
     <Compile Include="DataModels\PRODUCT_CATEGORY.cs" />
