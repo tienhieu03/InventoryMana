@@ -561,9 +561,9 @@
             // 
             // progressBarExport
             // 
-            this.progressBarExport.Location = new System.Drawing.Point(361, 201);
+            this.progressBarExport.Location = new System.Drawing.Point(451, 220);
             this.progressBarExport.Name = "progressBarExport";
-            this.progressBarExport.Size = new System.Drawing.Size(200, 32);
+            this.progressBarExport.Size = new System.Drawing.Size(100, 23);
             this.progressBarExport.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBarExport.TabIndex = 51;
             this.progressBarExport.Visible = false;

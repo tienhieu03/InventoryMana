@@ -97,6 +97,12 @@
     <Compile Include="Controls\Product_CategoryControl.Designer.cs">
       <DependentUpon>Product_CategoryControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PurchaseInvoiceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PurchaseInvoiceControl.Designer.cs">
+      <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SupplierControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Product_CategoryControl.resx">
       <DependentUpon>Product_CategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PurchaseInvoiceControl.resx">
+      <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SupplierControl.resx">
       <DependentUpon>SupplierControl.cs</DependentUpon>

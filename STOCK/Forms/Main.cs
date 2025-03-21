@@ -165,6 +165,10 @@ namespace STOCK.Forms
                         {
                             ShowUserControl(new ProductControl());
                         }
+                        else if (_ch.FUNC_CODE == "PURCHASE INVOICE")
+                        {
+                            ShowUserControl(new PurchaseInvoiceControl());
+                        }
                         else
                         {
                             MessageBox.Show("Function not available yet!");

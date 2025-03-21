@@ -15,6 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using BusinessLayer.Utils;
 using Excel = Microsoft.Office.Interop.Excel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MaterialSkin.Controls;
 
 namespace STOCK.Controls
 {
@@ -275,6 +276,16 @@ namespace STOCK.Controls
             _export();
         }
 
+        private void ToggleButtons(bool isEnabled)
+        {
+            btnAdd.Enabled = isEnabled;
+            btnEdit.Enabled = isEnabled;
+            btnDelete.Enabled = isEnabled;
+            btnSave.Enabled = isEnabled;
+            btnCancel.Enabled = isEnabled;
+            btnExport.Enabled = isEnabled;
+        }
+
         void _export()
         {
             string nameFile = "";
@@ -291,6 +302,8 @@ namespace STOCK.Controls
             this.Invoke((MethodInvoker)delegate
             {
                 progressBarExport.Visible = true;
+                ToggleButtons(false);
+
             });
 
             Task.Run(() =>
@@ -379,7 +392,10 @@ namespace STOCK.Controls
                     // Ẩn ProgressBar sau khi hoàn tất
                     this.Invoke((MethodInvoker)delegate
                     {
+
                         progressBarExport.Visible = false;
+
+                        ToggleButtons(true);
                         MessageBox.Show("Exported successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     });
                 }
@@ -415,7 +431,7 @@ namespace STOCK.Controls
             {
                 if (decimal.TryParse(e.Value.ToString(), out decimal price))
                 {
-                    e.Value = price.ToString("N0"); // 100.000.000
+                    e.Value = price.ToString("N0");
                     e.FormattingApplied = true;
                 }
             }
