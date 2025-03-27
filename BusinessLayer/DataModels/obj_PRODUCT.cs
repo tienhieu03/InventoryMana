@@ -22,5 +22,6 @@ namespace BusinessLayer.DataModels
         public string Description { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public string Category { get; set; }
+        public Nullable<bool> IsDisabled { get; set; }
     }
 }

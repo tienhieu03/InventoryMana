@@ -14,13 +14,17 @@ namespace DataLayer
     
     public partial class tb_InvoiceDetail
     {
-        public System.Guid InvoiceDetai_ID { get; set; }
+        public System.Guid InvoiceDetail_ID { get; set; }
         public Nullable<System.Guid> InvoiceID { get; set; }
         public string BARCODE { get; set; }
         public string QRCODE { get; set; }
         public Nullable<int> Quantity { get; set; }
+        public Nullable<int> InvoiceQuantity { get; set; }
+        public Nullable<int> DiscountAmount { get; set; }
         public Nullable<double> Price { get; set; }
-        public Nullable<double> SubtotalAmount { get; set; }
+        public Nullable<double> TotalPrice { get; set; }
         public Nullable<System.DateTime> Day { get; set; }
+        public Nullable<int> STT { get; set; }
+        public Nullable<int> ProductID { get; set; }
     }
 }

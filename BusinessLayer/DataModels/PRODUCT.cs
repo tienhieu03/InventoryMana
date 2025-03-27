@@ -19,6 +19,25 @@ namespace BusinessLayer.DataModels
         public tb_Product getItem(int productID)
         {
             return db.tb_Product.FirstOrDefault(x => x.ProductID == productID);
+
+        }
+        public tb_Product getItemBarcode(string barcode)
+        {
+            return db.tb_Product.FirstOrDefault(x => x.BARCODE == barcode);
+        }
+
+        public bool checkExist(string barcode)
+        {
+            var h = db.tb_Product.FirstOrDefault(x => x.BARCODE == barcode);
+            if (h == null)
+                return true;
+            else
+                return false;
+        }
+
+        public List<tb_Product> getListByKeyword(string keyword)
+        {
+            return db.tb_Product.Where(ts => ts.ProductName.Contains(keyword)).ToList();
         }
 
         // Lấy danh sách sản phẩm theo Category
@@ -54,6 +73,59 @@ namespace BusinessLayer.DataModels
                 lstObj.Add(pd);
             }
             return lstObj;
+        }
+
+        public obj_PRODUCT getItemFull(string barcode)
+        {
+            var _h = db.tb_Product.FirstOrDefault(x => x.BARCODE == barcode);
+            obj_PRODUCT hh = new obj_PRODUCT();
+            hh.BARCODE = _h.BARCODE;
+            hh.QRCODE = _h.QRCODE;
+            hh.ProductID = _h.ProductID;
+            hh.ProductName = _h.ProductName;
+            hh.ShortName = _h.ShortName;
+            hh.CategoryID = _h.CategoryID;
+            hh.OriginID = _h.OriginID;
+            hh.Price = _h.Price;
+            hh.Description = _h.Description;
+            hh.Unit = _h.Unit;
+            hh.IsDisabled = _h.IsDisabled;
+            hh.SupplierID = _h.SupplierID;
+            var cc = db.tb_Supplier.FirstOrDefault(x => x.SupplierID == _h.SupplierID);
+            hh.SupplierName = cc.SupplierName;
+
+            return hh;
+        }
+
+        public List<obj_PRODUCT> getList()
+        {
+            List<obj_PRODUCT> _lstHH = new List<obj_PRODUCT>();
+            var lstHH = db.tb_Product.ToList();
+            obj_PRODUCT hh;
+            foreach (var item in lstHH)
+            {
+                hh = new obj_PRODUCT();
+                hh.ProductID = item.ProductID;
+                hh.QRCODE = item.QRCODE;
+                hh.BARCODE = item.BARCODE;
+                hh.ProductName = item.ProductName;
+                hh.ShortName = item.ShortName;
+                hh.CategoryID = item.CategoryID;
+                hh.Price = item.Price;
+                var n = db.tb_ProductCategory.FirstOrDefault(x => x.CategoryID == item.CategoryID);
+                hh.Category = n.Category;
+                hh.OriginID = item.OriginID;
+                var xx = db.tb_Origin.FirstOrDefault(x => x.OriginID == item.OriginID);
+                hh.OriginName = xx.OriginName;
+                hh.Description = item.Description;
+                hh.Unit = item.Unit;
+                hh.IsDisabled = item.IsDisabled;
+                hh.SupplierID = item.SupplierID;
+                var cc = db.tb_Supplier.FirstOrDefault(x => x.SupplierID == item.SupplierID);
+                hh.SupplierName = cc.SupplierName;
+                _lstHH.Add(hh);
+            }
+            return _lstHH;
         }
 
         // Thêm sản phẩm mới

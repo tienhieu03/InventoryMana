@@ -59,9 +59,11 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("JetBrains Mono", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(3, 24);
+            this.groupBox1.Location = new System.Drawing.Point(2, 18);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(599, 322);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(470, 295);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connect Database";
@@ -70,9 +72,10 @@
             // 
             this.cboDatabase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDatabase.DropDownWidth = 317;
-            this.cboDatabase.Location = new System.Drawing.Point(178, 158);
+            this.cboDatabase.Location = new System.Drawing.Point(134, 121);
+            this.cboDatabase.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cboDatabase.Name = "cboDatabase";
-            this.cboDatabase.Size = new System.Drawing.Size(317, 26);
+            this.cboDatabase.Size = new System.Drawing.Size(238, 22);
             this.cboDatabase.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cboDatabase.TabIndex = 13;
             this.cboDatabase.DropDown += new System.EventHandler(this.cboDatabase_DropDown);
@@ -82,9 +85,10 @@
             this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
             this.btnExit.Font = new System.Drawing.Font("JetBrains Mono", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnExit.Location = new System.Drawing.Point(377, 200);
+            this.btnExit.Location = new System.Drawing.Point(283, 153);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(93, 41);
+            this.btnExit.Size = new System.Drawing.Size(70, 31);
             this.btnExit.TabIndex = 11;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = false;
@@ -95,9 +99,10 @@
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
             this.btnSave.Font = new System.Drawing.Font("JetBrains Mono", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSave.Location = new System.Drawing.Point(228, 200);
+            this.btnSave.Location = new System.Drawing.Point(171, 153);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(93, 41);
+            this.btnSave.Size = new System.Drawing.Size(70, 31);
             this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
@@ -108,9 +113,10 @@
             this.btnCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
             this.btnCheck.Font = new System.Drawing.Font("JetBrains Mono", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCheck.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnCheck.Location = new System.Drawing.Point(79, 200);
+            this.btnCheck.Location = new System.Drawing.Point(59, 153);
+            this.btnCheck.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCheck.Name = "btnCheck";
-            this.btnCheck.Size = new System.Drawing.Size(93, 41);
+            this.btnCheck.Size = new System.Drawing.Size(70, 31);
             this.btnCheck.TabIndex = 9;
             this.btnCheck.Text = "Check";
             this.btnCheck.UseVisualStyleBackColor = false;
@@ -118,72 +124,80 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(178, 121);
+            this.txtPassword.Location = new System.Drawing.Point(134, 93);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(317, 27);
+            this.txtPassword.Size = new System.Drawing.Size(238, 23);
             this.txtPassword.TabIndex = 6;
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(178, 84);
+            this.txtUsername.Location = new System.Drawing.Point(134, 64);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(317, 27);
+            this.txtUsername.Size = new System.Drawing.Size(238, 23);
             this.txtUsername.TabIndex = 5;
             // 
             // txtServer
             // 
-            this.txtServer.Location = new System.Drawing.Point(178, 47);
+            this.txtServer.Location = new System.Drawing.Point(134, 36);
+            this.txtServer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(317, 27);
+            this.txtServer.Size = new System.Drawing.Size(238, 23);
             this.txtServer.TabIndex = 4;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(62, 158);
+            this.label4.Location = new System.Drawing.Point(46, 121);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 26);
+            this.label4.Size = new System.Drawing.Size(90, 21);
             this.label4.TabIndex = 3;
             this.label4.Text = "Database";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(62, 121);
+            this.label3.Location = new System.Drawing.Point(46, 93);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(108, 26);
+            this.label3.Size = new System.Drawing.Size(90, 21);
             this.label3.TabIndex = 2;
             this.label3.Text = "Password";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(62, 84);
+            this.label2.Location = new System.Drawing.Point(46, 64);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 26);
+            this.label2.Size = new System.Drawing.Size(90, 21);
             this.label2.TabIndex = 1;
             this.label2.Text = "Username";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(62, 47);
+            this.label1.Location = new System.Drawing.Point(46, 36);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 26);
+            this.label1.Size = new System.Drawing.Size(70, 21);
             this.label1.TabIndex = 0;
             this.label1.Text = "Server";
             // 
             // formConnect
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 349);
+            this.ClientSize = new System.Drawing.Size(474, 315);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "formConnect";
-            this.Padding = new System.Windows.Forms.Padding(3, 24, 3, 3);
+            this.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Connect Database";
             this.groupBox1.ResumeLayout(false);

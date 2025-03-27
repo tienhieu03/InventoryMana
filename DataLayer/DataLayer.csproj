@@ -75,6 +75,9 @@
     <Compile Include="tb_Company.cs">
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>
+    <Compile Include="tb_Customer.cs">
+      <DependentUpon>INVENTORY.tt</DependentUpon>
+    </Compile>
     <Compile Include="tb_Department.cs">
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>
@@ -124,6 +127,9 @@
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>
     <Compile Include="V_FUNC_SYS_RIGHT.cs">
+      <DependentUpon>INVENTORY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_INVOICE_DETAIL.cs">
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>
     <Compile Include="V_REP_SYS_RIGHT_REP.cs">

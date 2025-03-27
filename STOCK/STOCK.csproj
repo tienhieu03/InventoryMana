@@ -127,8 +127,24 @@
     <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Func\myFunctions.cs" />
+    <Compile Include="PopUpForm\formList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUpForm\formList.Designer.cs">
+      <DependentUpon>formList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PopUpForm\popErrImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUpForm\popErrImport.Designer.cs">
+      <DependentUpon>popErrImport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockHelpers\DataGridViewHelper.cs" />
+    <Compile Include="StockHelpers\ExcelHelper.cs" />
+    <Compile Include="StockHelpers\FormValidationHelper.cs" />
     <EmbeddedResource Include="Controls\CompanyControl.resx">
       <DependentUpon>CompanyControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,6 +174,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUpForm\formList.resx">
+      <DependentUpon>formList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUpForm\popErrImport.resx">
+      <DependentUpon>popErrImport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

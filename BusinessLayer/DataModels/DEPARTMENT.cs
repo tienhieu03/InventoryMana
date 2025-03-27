@@ -26,6 +26,10 @@ namespace BusinessLayer
         {
             return db.tb_Department.Where(x => x.CompanyID == companyid).ToList();
         }
+        public List<tb_Department> getWarehoseByCp(string companyid)
+        {
+            return db.tb_Department.Where(x => x.CompanyID == companyid && x.Warehouse == true).ToList();
+        }
         public void add(tb_Department department)
         {
             try
