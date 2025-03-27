@@ -21,11 +21,15 @@ namespace DataLayer
         public string DepartmentEmail { get; set; }
         public string DepartmentAddress { get; set; }
         public string CompanyID { get; set; }
+        public Nullable<bool> Warehouse { get; set; }
+        public string Symbol { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public Nullable<int> DeletedBy { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<System.DateTime> RestoredDate { get; set; }
+        public Nullable<bool> IsDisabled { get; set; }
     }
 }

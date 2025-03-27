@@ -1,4 +1,4 @@
-﻿namespace STOCK
+﻿namespace STOCK.Forms
 {
     partial class formConnect
     {
@@ -61,7 +61,7 @@
             this.groupBox1.Font = new System.Drawing.Font("JetBrains Mono", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(3, 24);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(567, 302);
+            this.groupBox1.Size = new System.Drawing.Size(599, 322);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connect Database";
@@ -72,7 +72,7 @@
             this.cboDatabase.DropDownWidth = 317;
             this.cboDatabase.Location = new System.Drawing.Point(178, 158);
             this.cboDatabase.Name = "cboDatabase";
-            this.cboDatabase.Size = new System.Drawing.Size(317, 22);
+            this.cboDatabase.Size = new System.Drawing.Size(317, 26);
             this.cboDatabase.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cboDatabase.TabIndex = 13;
             this.cboDatabase.DropDown += new System.EventHandler(this.cboDatabase_DropDown);
@@ -120,21 +120,21 @@
             // 
             this.txtPassword.Location = new System.Drawing.Point(178, 121);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(317, 23);
+            this.txtPassword.Size = new System.Drawing.Size(317, 27);
             this.txtPassword.TabIndex = 6;
             // 
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(178, 84);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(317, 23);
+            this.txtUsername.Size = new System.Drawing.Size(317, 27);
             this.txtUsername.TabIndex = 5;
             // 
             // txtServer
             // 
             this.txtServer.Location = new System.Drawing.Point(178, 47);
             this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(317, 23);
+            this.txtServer.Size = new System.Drawing.Size(317, 27);
             this.txtServer.TabIndex = 4;
             // 
             // label4
@@ -142,7 +142,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(62, 158);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 21);
+            this.label4.Size = new System.Drawing.Size(108, 26);
             this.label4.TabIndex = 3;
             this.label4.Text = "Database";
             // 
@@ -151,7 +151,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(62, 121);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 21);
+            this.label3.Size = new System.Drawing.Size(108, 26);
             this.label3.TabIndex = 2;
             this.label3.Text = "Password";
             // 
@@ -160,7 +160,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(62, 84);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 21);
+            this.label2.Size = new System.Drawing.Size(108, 26);
             this.label2.TabIndex = 1;
             this.label2.Text = "Username";
             // 
@@ -169,15 +169,15 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(62, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 21);
+            this.label1.Size = new System.Drawing.Size(84, 26);
             this.label1.TabIndex = 0;
             this.label1.Text = "Server";
             // 
             // formConnect
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(573, 329);
+            this.ClientSize = new System.Drawing.Size(605, 349);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

@@ -22,13 +22,16 @@ namespace DataLayer
         public string Unit { get; set; }
         public Nullable<double> Price { get; set; }
         public Nullable<int> SupplierID { get; set; }
-        public Nullable<int> Orgin { get; set; }
+        public Nullable<int> OriginID { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> CategoryID { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public Nullable<int> DeletedBy { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
-        public Nullable<bool> IsDisable { get; set; }
+        public Nullable<System.DateTime> RestoredDate { get; set; }
+        public Nullable<bool> IsDisabled { get; set; }
     }
 }

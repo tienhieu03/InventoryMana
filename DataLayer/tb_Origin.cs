@@ -14,13 +14,15 @@ namespace DataLayer
     
     public partial class tb_Origin
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int OriginID { get; set; }
+        public string OriginName { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public Nullable<int> DeletedBy { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<System.DateTime> RestoredDate { get; set; }
+        public Nullable<bool> IsDisabled { get; set; }
     }
 }

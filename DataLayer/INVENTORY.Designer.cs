@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\OneDrive - MSFT\Documents\5Lecture\4thYear\DATN\Project-InventoryMana\DataLayer\INVENTORY.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\OneDrive - MSFT\Documents\5Lecture\4thYear\DATN\InventoryMana\DataLayer\INVENTORY.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
