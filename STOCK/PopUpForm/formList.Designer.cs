@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gvListProduct = new System.Windows.Forms.DataGridView();
+            this.gvList = new System.Windows.Forms.DataGridView();
             this.BARCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,29 +36,31 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.materialButton2 = new MaterialSkin.Controls.MaterialButton();
             this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
-            ((System.ComponentModel.ISupportInitialize)(this.gvListProduct)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // gvListProduct
+            // gvList
             // 
-            this.gvListProduct.AllowUserToAddRows = false;
-            this.gvListProduct.AllowUserToDeleteRows = false;
-            this.gvListProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvListProduct.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.gvList.AllowUserToAddRows = false;
+            this.gvList.AllowUserToDeleteRows = false;
+            this.gvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.BARCODE,
             this.ProductName,
             this.Unit,
             this.Price});
-            this.gvListProduct.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gvListProduct.Location = new System.Drawing.Point(0, 0);
-            this.gvListProduct.Name = "gvListProduct";
-            this.gvListProduct.ReadOnly = true;
-            this.gvListProduct.Size = new System.Drawing.Size(794, 304);
-            this.gvListProduct.TabIndex = 0;
+            this.gvList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gvList.Location = new System.Drawing.Point(0, 0);
+            this.gvList.Name = "gvList";
+            this.gvList.ReadOnly = true;
+            this.gvList.RowHeadersVisible = false;
+            this.gvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gvList.Size = new System.Drawing.Size(794, 304);
+            this.gvList.TabIndex = 0;
             // 
             // BARCODE
             // 
@@ -97,7 +99,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.gvListProduct);
+            this.splitContainer1.Panel1.Controls.Add(this.gvList);
             // 
             // splitContainer1.Panel2
             // 
@@ -158,7 +160,7 @@
             this.Padding = new System.Windows.Forms.Padding(3, 24, 3, 3);
             this.Text = "formList";
             this.Load += new System.EventHandler(this.formList_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.gvListProduct)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvList)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -170,7 +172,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView gvListProduct;
+        private System.Windows.Forms.DataGridView gvList;
         private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;

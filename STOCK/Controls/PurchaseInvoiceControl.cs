@@ -431,7 +431,7 @@ namespace STOCK.Controls
             
             // List of columns we need to find (case-insensitive)
             string[] requiredColumns = new string[] { 
-                "BARCODE", "ProductID", "ProductName", "Quantity", "Price", "TotalPrice", "Unit" 
+                "BARCODE", "ProductID", "ProductName", "QuantityDetail", "Price", "SubTotal", "Unit" 
             };
 
             // Find all column indices first (case-insensitive)
@@ -464,27 +464,32 @@ namespace STOCK.Controls
                 // Skip new/empty rows
                 if (row.IsNewRow) continue;
 
-                // Skip rows that are intentionally left blank (last row)
-                if (i == gvDetail.Rows.Count - 1 && 
-                    (columnIndices.TryGetValue("BARCODE", out int barcodeColIdx) && 
-                     (row.Cells[barcodeColIdx].Value == null || 
-                      string.IsNullOrWhiteSpace(row.Cells[barcodeColIdx].Value.ToString()))))
+                // Skip empty rows
+                if (columnIndices.TryGetValue("BARCODE", out int barcodeColIdx) && 
+                    (row.Cells[barcodeColIdx].Value == null || 
+                     string.IsNullOrWhiteSpace(row.Cells[barcodeColIdx].Value.ToString())))
+                {
+                    Console.WriteLine($"Skipping row {i} - Empty BARCODE");
                     continue;
+                }
 
                 // Skip rows that just have a "." in the BARCODE field
                 if (columnIndices.TryGetValue("BARCODE", out int barcodeIdx) && 
                     row.Cells[barcodeIdx].Value?.ToString() == ".")
+                {
+                    Console.WriteLine($"Skipping row {i} - BARCODE contains only '.'");
                     continue;
+                }
                     
-                // Skip rows without product name or barcode
-                if ((!columnIndices.ContainsKey("ProductName") || row.Cells[columnIndices["ProductName"]].Value == null) &&
-                    (!columnIndices.ContainsKey("BARCODE") || 
-                     row.Cells[columnIndices["BARCODE"]].Value == null || 
-                     string.IsNullOrWhiteSpace(row.Cells[columnIndices["BARCODE"]].Value.ToString()) ||
-                     row.Cells[columnIndices["BARCODE"]].Value.ToString() == "."))
+                // Skip rows without product name
+                if (columnIndices.TryGetValue("ProductName", out int productNameIdx) &&
+                    (row.Cells[productNameIdx].Value == null ||
+                     string.IsNullOrWhiteSpace(row.Cells[productNameIdx].Value.ToString())))
+                {
+                    Console.WriteLine($"Skipping row {i} - Empty ProductName");
                     continue;
+                }
 
-                // Rest of the method remains the same...
                 try
                 {
                     tb_InvoiceDetail detail = new tb_InvoiceDetail
@@ -495,20 +500,21 @@ namespace STOCK.Controls
                         Day = dtDate.Value
                     };
 
-                    // Get values using the column indices we found
+                    // Get BARCODE
                     if (columnIndices.TryGetValue("BARCODE", out int barIdx) && 
-                        row.Cells[barIdx].Value != null &&
-                        row.Cells[barIdx].Value.ToString() != ".")
+                        row.Cells[barIdx].Value != null)
                     {
                         detail.BARCODE = row.Cells[barIdx].Value.ToString();
+                        Console.WriteLine($"Row {i} has BARCODE: {detail.BARCODE}");
                     }
                     else 
                     {
+                        Console.WriteLine($"Row {i} skipped - invalid BARCODE");
                         continue; // Skip rows without valid barcode
                     }
 
-                    // Default quantity to 1 if not provided
-                    if (columnIndices.TryGetValue("Quantity", out int qtyIdx) && row.Cells[qtyIdx].Value != null)
+                    // Get Quantity
+                    if (columnIndices.TryGetValue("QuantityDetail", out int qtyIdx) && row.Cells[qtyIdx].Value != null)
                     {
                         if (int.TryParse(row.Cells[qtyIdx].Value.ToString(), out int qty))
                             detail.Quantity = qty;
@@ -518,7 +524,7 @@ namespace STOCK.Controls
                     else
                         detail.Quantity = 1;
 
-                    // Set price from grid or get from product if missing
+                    // Get Price
                     if (columnIndices.TryGetValue("Price", out int priceIdx) && row.Cells[priceIdx].Value != null)
                     {
                         if (double.TryParse(row.Cells[priceIdx].Value.ToString(), out double price))
@@ -547,18 +553,18 @@ namespace STOCK.Controls
                             detail.Price = 0;
                     }
 
-                    // Calculate or get total price
-                    if (columnIndices.TryGetValue("TotalPrice", out int totalPriceIdx) && row.Cells[totalPriceIdx].Value != null)
+                    // Get SubTotal
+                    if (columnIndices.TryGetValue("SubTotal", out int totalPriceIdx) && row.Cells[totalPriceIdx].Value != null)
                     {
                         if (double.TryParse(row.Cells[totalPriceIdx].Value.ToString(), out double totalPrice))
-                            detail.TotalPrice = totalPrice;
+                            detail.SubTotal = totalPrice;
                         else
-                            detail.TotalPrice = detail.Price * detail.Quantity; // Calculate if parsing fails
+                            detail.SubTotal = detail.Price * detail.Quantity; // Calculate if parsing fails
                     }
                     else
-                        detail.TotalPrice = detail.Price * detail.Quantity; // Calculate if column doesn't exist
+                        detail.SubTotal = detail.Price * detail.Quantity; // Calculate if column doesn't exist
 
-                    // Set ProductID
+                    // Get ProductID
                     if (columnIndices.TryGetValue("ProductID", out int productIdIdx) && row.Cells[productIdIdx].Value != null)
                     {
                         if (int.TryParse(row.Cells[productIdIdx].Value.ToString(), out int productId))
@@ -581,7 +587,7 @@ namespace STOCK.Controls
 
                     // Debug the values being saved
                     Console.WriteLine($"Row {i} detail: BARCODE={detail.BARCODE}, Qty={detail.Quantity}, " + 
-                                     $"Price={detail.Price}, TotalPrice={detail.TotalPrice}, ProductID={detail.ProductID}");
+                                      $"Price={detail.Price}, TotalPrice={detail.SubTotal}, ProductID={detail.ProductID}");
 
                     detailsToAdd.Add(detail);
                 }
@@ -601,6 +607,78 @@ namespace STOCK.Controls
             else
             {
                 Console.WriteLine("No invoice details to add to database");
+            }
+            
+            // Hàm kiểm tra và debug số lượng sản phẩm trong gvDetail
+            DebugDetailRows();
+        }
+
+        // Hàm kiểm tra và debug số lượng sản phẩm trong gvDetail
+        private void DebugDetailRows()
+        {
+            try
+            {
+                // Đếm số hàng có dữ liệu thực sự
+                int validRows = 0;
+                List<string> productBarcodes = new List<string>();
+                
+                Console.WriteLine("\n==== DEBUG DETAIL ROWS ====");
+                
+                // Tìm các cột cần thiết
+                int barcodeColIndex = -1, productNameColIndex = -1, quantityColIndex = -1;
+                
+                for (int i = 0; i < gvDetail.Columns.Count; i++)
+                {
+                    if (gvDetail.Columns[i].Name.Equals("BARCODE", StringComparison.OrdinalIgnoreCase))
+                        barcodeColIndex = i;
+                    else if (gvDetail.Columns[i].Name.Equals("ProductName", StringComparison.OrdinalIgnoreCase))
+                        productNameColIndex = i;
+                    else if (gvDetail.Columns[i].Name.Equals("QuantityDetail", StringComparison.OrdinalIgnoreCase))
+                        quantityColIndex = i;
+                }
+                
+                if (barcodeColIndex < 0 || productNameColIndex < 0)
+                {
+                    Console.WriteLine("Cannot find required columns for debugging.");
+                    return;
+                }
+                
+                // Kiểm tra từng dòng
+                for (int i = 0; i < gvDetail.Rows.Count; i++)
+                {
+                    if (gvDetail.Rows[i].IsNewRow) continue;
+                    
+                    string barcode = gvDetail.Rows[i].Cells[barcodeColIndex].Value?.ToString();
+                    string productName = gvDetail.Rows[i].Cells[productNameColIndex].Value?.ToString();
+                    
+                    if (!string.IsNullOrEmpty(barcode) && !string.IsNullOrEmpty(productName))
+                    {
+                        validRows++;
+                        productBarcodes.Add(barcode);
+                        
+                        // In thông tin chi tiết của dòng hợp lệ
+                        string rowInfo = $"Row {i} - BARCODE: {barcode}, Product: {productName}";
+                        if (quantityColIndex >= 0)
+                        {
+                            var qty = gvDetail.Rows[i].Cells[quantityColIndex].Value;
+                            rowInfo += $", Quantity: {qty}";
+                        }
+                        Console.WriteLine(rowInfo);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Row {i} - INVALID/EMPTY: Barcode={barcode}, ProductName={productName}");
+                    }
+                }
+                
+                Console.WriteLine($"Total rows in grid: {gvDetail.Rows.Count}");
+                Console.WriteLine($"Valid product rows: {validRows}");
+                Console.WriteLine($"Products to be saved: {string.Join(", ", productBarcodes)}");
+                Console.WriteLine("==== END DEBUG ====\n");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in DebugDetailRows: {ex.Message}");
             }
         }
 
@@ -640,7 +718,7 @@ namespace STOCK.Controls
             int quantityColIndex = -1;
             for (int i = 0; i < gvDetail.Columns.Count; i++)
             {
-                if (gvDetail.Columns[i].Name.Equals("Quantity", StringComparison.OrdinalIgnoreCase))
+                if (gvDetail.Columns[i].Name.Equals("QuantityDetail", StringComparison.OrdinalIgnoreCase))
                 {
                     quantityColIndex = i;
                     break;
@@ -676,7 +754,12 @@ namespace STOCK.Controls
             int totalPriceColIndex = -1;
             for (int i = 0; i < gvDetail.Columns.Count; i++)
             {
-                if (gvDetail.Columns[i].Name.Equals("TotalPrice", StringComparison.OrdinalIgnoreCase))
+                if (gvDetail.Columns[i].Name.Equals("SubTotal", StringComparison.OrdinalIgnoreCase))
+                {
+                    totalPriceColIndex = i;
+                    break;
+                }
+                else if (gvDetail.Columns[i].Name.Equals("TotalPrice", StringComparison.OrdinalIgnoreCase))
                 {
                     totalPriceColIndex = i;
                     break;
@@ -954,6 +1037,9 @@ namespace STOCK.Controls
                             formList _popList = new formList(gvDetail, barcode, e.RowIndex);
                             _popList.ShowDialog();
                             
+                            // Debug gridview để xem các sản phẩm đã được thêm vào
+                            DebugDetailRows();
+                            
                             // Clear the "." if it's still there after closing the form
                             if (e.RowIndex < gvDetail.Rows.Count && !gvDetail.Rows[e.RowIndex].IsNewRow)
                             {
@@ -971,11 +1057,11 @@ namespace STOCK.Controls
                                 
                                 for (int i = 0; i < gvDetail.Columns.Count; i++)
                                 {
-                                    if (gvDetail.Columns[i].Name.Equals("Quantity", StringComparison.OrdinalIgnoreCase))
+                                    if (gvDetail.Columns[i].Name.Equals("QuantityDetail", StringComparison.OrdinalIgnoreCase))
                                         quantityColIndex = i;
                                     else if (gvDetail.Columns[i].Name.Equals("Price", StringComparison.OrdinalIgnoreCase))
                                         priceColIndex = i;
-                                    else if (gvDetail.Columns[i].Name.Equals("TotalPrice", StringComparison.OrdinalIgnoreCase))
+                                    else if (gvDetail.Columns[i].Name.Equals("SubTotal", StringComparison.OrdinalIgnoreCase))
                                         totalPriceColIndex = i;
                                 }
                                 
@@ -995,7 +1081,7 @@ namespace STOCK.Controls
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"Error updating TotalPrice after form close: {ex.Message}");
+                                Console.WriteLine($"Error updating SubTotal after form close: {ex.Message}");
                                 // Don't show error to user, just log it
                             }
                         }
@@ -1033,9 +1119,9 @@ namespace STOCK.Controls
                                 DataGridViewRow row = gvDetail.Rows[e.RowIndex];
                                 row.Cells["ProductName"].Value = pd.ProductName;
                                 row.Cells["Unit"].Value = pd.Unit;
-                                row.Cells["Quantity"].Value = 1;
+                                row.Cells["QuantityDetail"].Value = 1;
                                 row.Cells["Price"].Value = pd.Price;
-                                row.Cells["TotalPrice"].Value = pd.Price;
+                                row.Cells["SubTotal"].Value = pd.Price;
                                 
                                 // If this is the last row, add a new row for convenience
                                 if (e.RowIndex == gvDetail.Rows.Count - 1 && !gvDetail.Rows[e.RowIndex].IsNewRow)
@@ -1055,10 +1141,10 @@ namespace STOCK.Controls
                 }
 
                 // Kiểm tra nếu thay đổi cột "Quantity" hoặc "Price"
-                if (columnName == "Quantity" || columnName == "Price")
+                if (columnName == "QuantityDetail" || columnName == "Price")
                 {
                     object barcodeValue = gvDetail.Rows[e.RowIndex].Cells["BARCODE"]?.Value;
-                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["Quantity"]?.Value;
+                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["QuantityDetail"]?.Value;
                     object priceValue = gvDetail.Rows[e.RowIndex].Cells["Price"]?.Value;
 
                     if (barcodeValue != null && quantityValue != null && priceValue != null)
@@ -1066,18 +1152,18 @@ namespace STOCK.Controls
                         if (double.TryParse(quantityValue.ToString(), out double quantity) && 
                             double.TryParse(priceValue.ToString(), out double price))
                         {
-                            if (quantity == 0 && columnName == "Quantity")
+                            if (quantity == 0 && columnName == "QuantityDetail")
                             {
                                 MessageBox.Show("Số lượng sản phẩm không thể bằng 0", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                gvDetail.Rows[e.RowIndex].Cells["Quantity"].Value = 1;
+                                gvDetail.Rows[e.RowIndex].Cells["QuantityDetail"].Value = 1;
                                 quantity = 1;
                             }
                             
                             // Calculate and update total price
                             double totalPrice = price * quantity;
-                            gvDetail.Rows[e.RowIndex].Cells["TotalPrice"].Value = totalPrice;
+                            gvDetail.Rows[e.RowIndex].Cells["SubTotal"].Value = totalPrice;
                             
-                            Console.WriteLine($"Updated TotalPrice for row {e.RowIndex}: {totalPrice} = {price} * {quantity}");
+                            Console.WriteLine($"Updated SubTotal for row {e.RowIndex}: {totalPrice} = {price} * {quantity}");
                         }
                         else
                         {
@@ -1267,9 +1353,9 @@ namespace STOCK.Controls
                         row.Cells[gvDetail.Columns["BARCODE"].Index].Value = _h.BARCODE;
                         row.Cells[gvDetail.Columns["Unit"].Index].Value = _h.Unit;
                         row.Cells[gvDetail.Columns["ProductName"].Index].Value = _h.ProductName;
-                        row.Cells[gvDetail.Columns["Quantity"].Index].Value = _quantity;
+                        row.Cells[gvDetail.Columns["QuantityDetail"].Index].Value = _quantity;
                         row.Cells[gvDetail.Columns["Price"].Index].Value = _h.Price;
-                        row.Cells[gvDetail.Columns["TotalPrice"].Index].Value = _h.Price * _quantity;
+                        row.Cells[gvDetail.Columns["SubTotal"].Index].Value = _h.Price * _quantity;
 
                         gvDetail.Rows.Add(row);
                     }
@@ -1437,7 +1523,7 @@ namespace STOCK.Controls
                             // Update total price if we have quantity and price
                             if (item.Quantity.HasValue && item.Price.HasValue)
                             {
-                                item.TotalPrice = item.Quantity.Value * item.Price.Value;
+                                item.SubTotal = item.Quantity.Value * item.Price.Value;
                             }
                         }
                         bs.ResetBindings(false);
@@ -1459,11 +1545,11 @@ namespace STOCK.Controls
 
                 string columnName = gvDetail.Columns[e.ColumnIndex].Name;
                 
-                // When Price or Quantity is edited, recalculate TotalPrice
-                if (columnName.Equals("Quantity", StringComparison.OrdinalIgnoreCase) || 
+                // When Price or Quantity is edited, recalculate SubTotal
+                if (columnName.Equals("QuantityDetail", StringComparison.OrdinalIgnoreCase) || 
                     columnName.Equals("Price", StringComparison.OrdinalIgnoreCase))
                 {
-                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["Quantity"]?.Value;
+                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["QuantityDetail"]?.Value;
                     object priceValue = gvDetail.Rows[e.RowIndex].Cells["Price"]?.Value;
                     
                     if (quantityValue != null && priceValue != null &&
@@ -1471,15 +1557,15 @@ namespace STOCK.Controls
                         double.TryParse(priceValue.ToString(), out double price))
                     {
                         double totalPrice = quantity * price;
-                        gvDetail.Rows[e.RowIndex].Cells["TotalPrice"].Value = totalPrice;
-                        Console.WriteLine($"Updated TotalPrice in cell edit: {totalPrice} = {quantity} * {price}");
+                        gvDetail.Rows[e.RowIndex].Cells["SubTotal"].Value = totalPrice;
+                        Console.WriteLine($"Updated SubTotal in cell edit: {totalPrice} = {quantity} * {price}");
                     }
                 }
-                // When TotalPrice is edited directly, update Price (assuming Quantity stays the same)
-                else if (columnName.Equals("TotalPrice", StringComparison.OrdinalIgnoreCase))
+                // When SubTotal is edited directly, update Price (assuming Quantity stays the same)
+                else if (columnName.Equals("SubTotal", StringComparison.OrdinalIgnoreCase))
                 {
-                    object totalPriceValue = gvDetail.Rows[e.RowIndex].Cells["TotalPrice"]?.Value;
-                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["Quantity"]?.Value;
+                    object totalPriceValue = gvDetail.Rows[e.RowIndex].Cells["SubTotal"]?.Value;
+                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["QuantityDetail"]?.Value;
                     
                     if (totalPriceValue != null && quantityValue != null &&
                         double.TryParse(totalPriceValue.ToString(), out double totalPrice) &&
@@ -1488,7 +1574,7 @@ namespace STOCK.Controls
                     {
                         double price = totalPrice / quantity;
                         gvDetail.Rows[e.RowIndex].Cells["Price"].Value = price;
-                        Console.WriteLine($"Updated Price based on TotalPrice: {price} = {totalPrice} / {quantity}");
+                        Console.WriteLine($"Updated Price based on SubTotal: {price} = {totalPrice} / {quantity}");
                     }
                 }
             }

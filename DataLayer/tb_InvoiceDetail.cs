@@ -22,7 +22,7 @@ namespace DataLayer
         public Nullable<int> InvoiceQuantity { get; set; }
         public Nullable<int> DiscountAmount { get; set; }
         public Nullable<double> Price { get; set; }
-        public Nullable<double> TotalPrice { get; set; }
+        public Nullable<double> SubTotal { get; set; }
         public Nullable<System.DateTime> Day { get; set; }
         public Nullable<int> STT { get; set; }
         public Nullable<int> ProductID { get; set; }

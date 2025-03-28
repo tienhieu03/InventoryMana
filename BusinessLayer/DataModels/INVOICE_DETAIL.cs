@@ -55,7 +55,7 @@ namespace BusinessLayer.DataModels
                 obj.QRCODE = item.QRCODE;
                 obj.Quantity = item.Quantity;
                 obj.Price = item.Price;
-                obj.TotalPrice = item.TotalPrice;
+                obj.SubTotal = item.SubTotal;
                 obj.Day = item.Day;
                 obj.STT = item.STT;
                 lstInvoice.Add(obj);
@@ -68,7 +68,7 @@ namespace BusinessLayer.DataModels
             var details = db.tb_InvoiceDetail.Where(x => x.InvoiceID == invoiceId);
             if (details != null && details.Any())
             {
-                return details.Sum(x => x.TotalPrice ?? 0);
+                return details.Sum(x => x.SubTotal ?? 0);
             }
             return 0;
         }
@@ -121,7 +121,7 @@ namespace BusinessLayer.DataModels
                 _detail.QRCODE = invoicedetail.QRCODE;
                 _detail.Quantity = invoicedetail.Quantity;
                 _detail.Price = invoicedetail.Price;
-                _detail.TotalPrice = invoicedetail.TotalPrice;
+                _detail.SubTotal = invoicedetail.SubTotal;
                 _detail.Day = invoicedetail.Day;
                 _detail.STT = invoicedetail.STT;
                 _detail.ProductID = invoicedetail.ProductID;

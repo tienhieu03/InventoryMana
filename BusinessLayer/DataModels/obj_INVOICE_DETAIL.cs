@@ -162,7 +162,7 @@ namespace BusinessLayer.DataModels
         }
 
         private Nullable<double> _totalPrice;
-        public Nullable<double> TotalPrice 
+        public Nullable<double> SubTotal 
         { 
             get { return _totalPrice; }
             set 
@@ -208,7 +208,7 @@ namespace BusinessLayer.DataModels
         {
             if (Quantity.HasValue && Price.HasValue)
             {
-                TotalPrice = Quantity.Value * Price.Value;
+                SubTotal = Quantity.Value * Price.Value;
             }
         }
     }
