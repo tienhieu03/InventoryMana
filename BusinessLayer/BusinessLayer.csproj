@@ -59,6 +59,7 @@
     <Compile Include="DataModels\COMPANY.cs" />
     <Compile Include="DataModels\CUSTOMER.cs" />
     <Compile Include="DataModels\DEPARTMENT.cs" />
+    <Compile Include="DataModels\FUNC.cs" />
     <Compile Include="DataModels\INVOICE.cs" />
     <Compile Include="DataModels\INVOICE_DETAIL.cs" />
     <Compile Include="DataModels\obj_INVOICE_DETAIL.cs" />
@@ -72,7 +73,13 @@
     <Compile Include="Utils\errExport.cs" />
     <Compile Include="Utils\SYS_FUNC.cs" />
     <Compile Include="DataModels\UNIT.cs" />
+    <Compile Include="Utils\SYS_GROUP.cs" />
+    <Compile Include="Utils\SYS_PARAM.cs" />
+    <Compile Include="Utils\SYS_RIGHT.cs" />
     <Compile Include="Utils\SYS_SEQ.cs" />
+    <Compile Include="Utils\SYS_USER.cs" />
+    <Compile Include="Utils\VIEW_USER_IN_GROUPS.cs" />
+    <Compile Include="Utils\VIEW_USER_NOTIN_GROUP.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">

@@ -110,13 +110,16 @@ namespace STOCK.Controls
             cboWarehouse.SelectedIndexChanged += cboWarehouse_SelectedIndexChanged;
             gvDetail.CellMouseDown += gvDetail_CellMouseDown;
             gvDetail.CellValueChanged += gvDetail_CellValueChanged;
-            gvDetail.CellEndEdit += gvDetail_CellEndEdit;  // Add this line
+            gvDetail.CellEndEdit += gvDetail_CellEndEdit;
             cmdDeleteRow.Click += cmdDeleteRow_Click;
             cmdDeleteDetail.Click += cmdDeleteDetail_Click;
 
             // Set fixed row header width (optional)
             gvList.RowHeadersWidth = 25;
             gvDetail.RowHeadersWidth = 25;
+
+            // Format price columns with thousand separators
+            DataGridViewHelper.FormatPriceColumns(gvDetail);
 
             _enable(false);
             ShowHideControls(true);
@@ -126,43 +129,496 @@ namespace STOCK.Controls
 
         private void cboPurchaseUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Nếu đang thêm mới hoặc chỉnh sửa, không làm gì
+                if (_add || _edit)
+                    return;
+                
+                // Lưu lại giá trị đã chọn của combobox
+                object currentPurchaseUnit = cboPurchaseUnit.SelectedValue;
+                object currentSupplier = cboSupplier.SelectedValue;
+                
+                // Lưu vị trí hiện tại và hóa đơn đang chọn
+                int currentPosition = _bsInvoice.Position;
+                tb_Invoice currentInvoice = _bsInvoice.Current as tb_Invoice;
+                
+                // Lưu danh sách hiện tại
+                List<tb_Invoice> currentList = null;
+                if (_bsInvoice != null && _bsInvoice.DataSource is List<tb_Invoice>)
+                {
+                    currentList = new List<tb_Invoice>(_bsInvoice.DataSource as List<tb_Invoice>);
+                }
+                
+                // Tạm thời ngắt kết nối sự kiện
+                cboPurchaseUnit.SelectedIndexChanged -= cboPurchaseUnit_SelectedIndexChanged;
+                
+                // Tải lại dữ liệu
+                load_gridData();
+                
+                // Khôi phục lại giá trị đã chọn cho combobox nếu cần
+                if (currentPurchaseUnit != null)
+                {
+                    try
+                    {
+                        cboPurchaseUnit.SelectedValue = currentPurchaseUnit;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error restoring purchase unit value: {ex.Message}");
+                    }
+                }
+                
+                // Kết nối lại sự kiện
+                cboPurchaseUnit.SelectedIndexChanged += cboPurchaseUnit_SelectedIndexChanged;
+                
+                // Nếu danh sách mới trống và có danh sách cũ, khôi phục lại
+                if ((_lstInvoice == null || _lstInvoice.Count == 0) && currentList != null && currentList.Count > 0)
+                {
+                    _lstInvoice = currentList;
+                    _bsInvoice.DataSource = _lstInvoice;
+                    
+                    // Cố gắng khôi phục vị trí
+                    if (currentPosition >= 0 && currentPosition < currentList.Count)
+                    {
+                        _bsInvoice.Position = currentPosition;
+                    }
+                    else if (currentInvoice != null)
+                    {
+                        // Tìm invoice trong danh sách
+                        for (int i = 0; i < currentList.Count; i++)
+                        {
+                            if (currentList[i].InvoiceID == currentInvoice.InvoiceID)
+                            {
+                                _bsInvoice.Position = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in cboPurchaseUnit_SelectedIndexChanged: {ex.Message}");
+            }
         }
 
         private void cboWarehouse_SelectedIndexChanged(object sender, EventArgs e)
         {
-            load_gridData();
+            try
+            {
+                // Nếu đang thêm mới hoặc chỉnh sửa, không làm gì
+                if (_add || _edit)
+                    return;
+                
+                // Lưu lại giá trị đã chọn của combobox
+                object currentWarehouse = cboWarehouse.SelectedValue;
+                
+                // Lưu vị trí hiện tại và hóa đơn đang chọn
+                int currentPosition = _bsInvoice.Position;
+                tb_Invoice currentInvoice = _bsInvoice.Current as tb_Invoice;
+                
+                // Lưu danh sách hiện tại
+                List<tb_Invoice> currentList = null;
+                if (_bsInvoice != null && _bsInvoice.DataSource is List<tb_Invoice>)
+                {
+                    currentList = new List<tb_Invoice>(_bsInvoice.DataSource as List<tb_Invoice>);
+                }
+                
+                // Tạm thời ngắt kết nối sự kiện
+                cboWarehouse.SelectedIndexChanged -= cboWarehouse_SelectedIndexChanged;
+                
+                // Tải lại dữ liệu
+                load_gridData();
+                
+                // Khôi phục lại giá trị đã chọn cho combobox nếu cần
+                if (currentWarehouse != null)
+                {
+                    try
+                    {
+                        cboWarehouse.SelectedValue = currentWarehouse;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error restoring warehouse value: {ex.Message}");
+                    }
+                }
+                
+                // Kết nối lại sự kiện
+                cboWarehouse.SelectedIndexChanged += cboWarehouse_SelectedIndexChanged;
+                
+                // Nếu danh sách mới trống và có danh sách cũ, khôi phục lại
+                if ((_lstInvoice == null || _lstInvoice.Count == 0) && currentList != null && currentList.Count > 0)
+                {
+                    _lstInvoice = currentList;
+                    _bsInvoice.DataSource = _lstInvoice;
+                    
+                    // Cố gắng khôi phục vị trí
+                    if (currentPosition >= 0 && currentPosition < currentList.Count)
+                    {
+                        _bsInvoice.Position = currentPosition;
+                    }
+                    else if (currentInvoice != null)
+                    {
+                        // Tìm invoice trong danh sách
+                        for (int i = 0; i < currentList.Count; i++)
+                        {
+                            if (currentList[i].InvoiceID == currentInvoice.InvoiceID)
+                            {
+                                _bsInvoice.Position = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in cboWarehouse_SelectedIndexChanged: {ex.Message}");
+            }
         }
 
         void load_gridData()
         {
-            string madvi;
-            if (cboWarehouse.SelectedValue != null)
+            try
             {
-                madvi = cboWarehouse.SelectedValue.ToString();
-                _enable(true);
+                // Lưu trữ dữ liệu hiện tại và vị trí
+                int currentPosition = _bsInvoice.Position;
+                tb_Invoice currentInvoice = _bsInvoice.Current as tb_Invoice;
+                
+                // Lưu trạng thái enable của các control
+                bool noteEnabled = txtNote.Enabled;
+                bool purchaseUnitEnabled = cboPurchaseUnit.Enabled;
+                bool statusEnabled = cboStatus.Enabled;
+                bool supplierEnabled = cboSupplier.Enabled;
+                bool dateEnabled = dtDate.Enabled;
+                
+                // Lưu danh sách hiện tại 
+                List<tb_Invoice> currentList = null;
+                if (_bsInvoice != null && _bsInvoice.DataSource is List<tb_Invoice>)
+                {
+                    currentList = new List<tb_Invoice>(_bsInvoice.DataSource as List<tb_Invoice>);
+                }
+                
+                string madvi;
+                if (cboWarehouse.SelectedValue != null)
+                {
+                    madvi = cboWarehouse.SelectedValue.ToString();
+                    _enable(true);
+                }
+                else
+                {
+                    madvi = "";
+                    _enable(false);
+                }
+                
+                // Lấy danh sách invoice mới theo warehouse đã chọn
+                List<tb_Invoice> newInvoiceList = _invoice.getList(1, dtFrom.Value, dtTill.Value.AddDays(1), madvi);
+                
+                // Kiểm tra kết quả tải
+                if (newInvoiceList == null || newInvoiceList.Count == 0)
+                {
+                    // Nếu không có kết quả mới và có danh sách cũ, giữ lại danh sách cũ
+                    if (currentList != null && currentList.Count > 0)
+                    {
+                        _lstInvoice = currentList;
+                    }
+                    else
+                    {
+                        // Nếu không có dữ liệu cũ và mới, tạo danh sách trống
+                        _lstInvoice = new List<tb_Invoice>();
+                    }
+                }
+                else
+                {
+                    // Có dữ liệu mới, lưu vào danh sách
+                    _lstInvoice = newInvoiceList;
+                }
+                
+                // Cập nhật binding source
+                _bsInvoice.DataSource = _lstInvoice;
+                gvList.DataSource = _bsInvoice;
+                
+                // Cố gắng khôi phục vị trí
+                bool positionRestored = false;
+                
+                if (currentInvoice != null)
+                {
+                    // Tìm kiếm invoice trong danh sách mới theo ID
+                    for (int i = 0; i < _lstInvoice.Count; i++)
+                    {
+                        if (_lstInvoice[i].InvoiceID == currentInvoice.InvoiceID)
+                        {
+                            _bsInvoice.Position = i;
+                            positionRestored = true;
+                            break;
+                        }
+                    }
+                }
+                
+                // Nếu không tìm thấy theo ID, thử khôi phục theo vị trí
+                if (!positionRestored && currentPosition >= 0 && currentPosition < _lstInvoice.Count)
+                {
+                    _bsInvoice.Position = currentPosition;
+                }
+                
+                // Nếu có invoice và không đang trong chế độ thêm mới, xuất thông tin
+                if (_lstInvoice.Count > 0 && !_add && _bsInvoice.Current != null)
+                {
+                    exportInfor();
+                }
+                
+                // Khôi phục lại trạng thái của các control
+                txtNote.Enabled = noteEnabled;
+                cboPurchaseUnit.Enabled = purchaseUnitEnabled;
+                cboStatus.Enabled = statusEnabled;
+                cboSupplier.Enabled = supplierEnabled;
+                dtDate.Enabled = dateEnabled;
             }
-            else
+            catch (Exception ex)
             {
-                madvi = "";
-                _enable(false);
+                Console.WriteLine($"Error in load_gridData: {ex.Message}");
             }
-            _lstInvoice = _invoice.getList(1, dtFrom.Value, dtTill.Value.AddDays(1), madvi);
-            _bsInvoice.DataSource = _lstInvoice;
-            gvList.DataSource = _bsInvoice;
         }
 
         private void _bsInvoice_PositionChanged(object sender, EventArgs e)
         {
-            if (!_add)
+            try
             {
-                exportInfor();
+                if (_add || _edit)
+                    return;
+                    
+                // Lưu lại giá trị đang chọn của các combobox
+                object currentPurchaseUnit = cboPurchaseUnit.SelectedValue;
+                object currentSupplier = cboSupplier.SelectedValue;
+                
+                // Lưu lại danh sách invoice và vị trí hiện tại
+                List<tb_Invoice> currentInvoiceList = _lstInvoice;
+                int currentPosition = _bsInvoice.Position;
+                object currentDataSource = _bsInvoice.DataSource;
+                
+                // Đảm bảo danh sách không bị mất khi vị trí thay đổi
+                if (_bsInvoice.DataSource == null && _lstInvoice != null && _lstInvoice.Count > 0)
+                {
+                    _bsInvoice.DataSource = _lstInvoice;
+                    gvList.DataSource = _bsInvoice;
+                    
+                    // Cố gắng khôi phục vị trí nếu có thể
+                    if (currentPosition >= 0 && currentPosition < _lstInvoice.Count)
+                    {
+                        _bsInvoice.Position = currentPosition;
+                    }
+                }
+                
+                // Nếu không có current, dừng lại
+                if (_bsInvoice.Current == null)
+                    return;
+                
+                // Lấy invoice hiện tại
+                tb_Invoice currentInvoice = _bsInvoice.Current as tb_Invoice;
+                if (currentInvoice != null)
+                {
+                    // Xuất thông tin chi tiết của invoice được chọn
+                    exportInfor();
+                    
+                    // Kiểm tra và khôi phục DataSource nếu bị thay đổi hoặc mất
+                    if (_bsInvoice.DataSource == null || !ReferenceEquals(_bsInvoice.DataSource, currentDataSource))
+                    {
+                        _bsInvoice.DataSource = currentDataSource;
+                        gvList.DataSource = _bsInvoice;
+                        
+                        // Tìm lại vị trí của invoice hiện tại
+                        for (int i = 0; i < ((IList<tb_Invoice>)currentDataSource).Count; i++)
+                        {
+                            if (((IList<tb_Invoice>)currentDataSource)[i] is tb_Invoice inv && inv.InvoiceID == currentInvoice.InvoiceID)
+                            {
+                                _bsInvoice.Position = i;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // Khôi phục lại giá trị của cboPurchaseUnit
+                    if (currentPurchaseUnit != null && cboPurchaseUnit.Items.Count > 0)
+                    {
+                        try
+                        {
+                            bool found = false;
+                            // Kiểm tra xem giá trị có trong danh sách không
+                            foreach (var item in (List<tb_Department>)cboPurchaseUnit.DataSource)
+                            {
+                                if (item.DepartmentID.Equals(currentPurchaseUnit))
+                                {
+                                    cboPurchaseUnit.SelectedIndexChanged -= cboPurchaseUnit_SelectedIndexChanged;
+                                    cboPurchaseUnit.SelectedValue = currentPurchaseUnit;
+                                    cboPurchaseUnit.SelectedIndexChanged += cboPurchaseUnit_SelectedIndexChanged;
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            
+                            // Nếu không tìm thấy giá trị trong danh sách, khôi phục giá trị từ invoice
+                            if (!found && currentInvoice.DepartmentID != null)
+                            {
+                                foreach (var item in (List<tb_Department>)cboPurchaseUnit.DataSource)
+                                {
+                                    if (item.DepartmentID.Equals(currentInvoice.DepartmentID))
+                                    {
+                                        cboPurchaseUnit.SelectedIndexChanged -= cboPurchaseUnit_SelectedIndexChanged;
+                                        cboPurchaseUnit.SelectedValue = currentInvoice.DepartmentID;
+                                        cboPurchaseUnit.SelectedIndexChanged += cboPurchaseUnit_SelectedIndexChanged;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error restoring purchase unit selection: {ex.Message}");
+                        }
+                    }
+
+                    // Khôi phục lại giá trị của cboSupplier
+                    if (currentSupplier != null && cboSupplier.Items.Count > 0)
+                    {
+                        try
+                        {
+                            bool found = false;
+                            // Kiểm tra xem giá trị có trong danh sách không và là số nguyên
+                            int supplierIdInt;
+                            if (int.TryParse(currentSupplier.ToString(), out supplierIdInt))
+                            {
+                                foreach (var item in (List<tb_Supplier>)cboSupplier.DataSource)
+                                {
+                                    if (item.SupplierID == supplierIdInt)
+                                    {
+                                        cboSupplier.SelectedValue = supplierIdInt;
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            // Nếu không tìm thấy giá trị trong danh sách, khôi phục giá trị từ invoice
+                            if (!found && currentInvoice.ReceivingDepartmentID != null)
+                            {
+                                int invSupplierId;
+                                if (int.TryParse(currentInvoice.ReceivingDepartmentID, out invSupplierId))
+                                {
+                                    foreach (var item in (List<tb_Supplier>)cboSupplier.DataSource)
+                                    {
+                                        if (item.SupplierID == invSupplierId)
+                                        {
+                                            cboSupplier.SelectedValue = invSupplierId;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error restoring supplier selection: {ex.Message}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in _bsInvoice_PositionChanged: {ex.Message}");
             }
         }
 
         private void cboCompany_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadWareHouse();
+            try
+            {
+                // Nếu đang thêm mới hoặc chỉnh sửa, không làm gì
+                if (_add || _edit)
+                    return;
+                
+                // Lưu trạng thái enable của các control
+                bool noteEnabled = txtNote.Enabled;
+                bool purchaseUnitEnabled = cboPurchaseUnit.Enabled;
+                bool statusEnabled = cboStatus.Enabled;
+                bool supplierEnabled = cboSupplier.Enabled;
+                bool dateEnabled = dtDate.Enabled;
+                
+                // Lưu lại giá trị đã chọn
+                object currentPurchaseUnit = cboPurchaseUnit.SelectedValue;
+                object currentSupplier = cboSupplier.SelectedValue;
+                
+                // Lưu vị trí hiện tại và invoice
+                int currentPosition = _bsInvoice.Position;
+                tb_Invoice currentInvoice = _bsInvoice.Current as tb_Invoice;
+                
+                // Tải lại dữ liệu
+                LoadWareHouse();
+                LoadSupplier();
+                
+                // Chỉ tải lại danh sách hóa đơn nếu có kho được chọn
+                if (cboWarehouse.SelectedValue != null)
+                {
+                    _lstInvoice = _invoice.getList(1, dtFrom.Value, dtTill.Value.AddDays(1), cboWarehouse.SelectedValue.ToString());
+                    
+                    // Cập nhật binding source
+                    if (_lstInvoice != null && _lstInvoice.Count > 0)
+                    {
+                        _bsInvoice.DataSource = _lstInvoice;
+                        
+                        // Cố gắng khôi phục vị trí
+                        if (currentPosition >= 0 && currentPosition < _lstInvoice.Count)
+                        {
+                            _bsInvoice.Position = currentPosition;
+                        }
+                        else if (currentInvoice != null)
+                        {
+                            // Tìm invoice trong danh sách mới
+                            for (int i = 0; i < _lstInvoice.Count; i++)
+                            {
+                                if (_lstInvoice[i].InvoiceID == currentInvoice.InvoiceID)
+                                {
+                                    _bsInvoice.Position = i;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Cố gắng khôi phục lại giá trị của các combobox
+                    if (currentPurchaseUnit != null)
+                    {
+                        try
+                        {
+                            cboPurchaseUnit.SelectedValue = currentPurchaseUnit;
+                        }
+                        catch {}
+                    }
+                    
+                    if (currentSupplier != null)
+                    {
+                        try
+                        {
+                            cboSupplier.SelectedValue = currentSupplier;
+                        }
+                        catch {}
+                    }
+                    
+                    // Xuất thông tin chi tiết của invoice hiện tại
+                    exportInfor();
+                }
+                
+                // Khôi phục lại trạng thái enable của các control
+                txtNote.Enabled = noteEnabled;
+                cboPurchaseUnit.Enabled = purchaseUnitEnabled;
+                cboStatus.Enabled = statusEnabled;
+                cboSupplier.Enabled = supplierEnabled;
+                dtDate.Enabled = dateEnabled;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in cboCompany_SelectedIndexChanged: {ex.Message}");
+            }
         }
 
         void LoadCompany()
@@ -174,9 +630,34 @@ namespace STOCK.Controls
 
         void LoadDepartment()
         {
+            // Lưu lại giá trị đang chọn trước khi tải lại dữ liệu
+            object currentSelectedValue = cboPurchaseUnit.SelectedValue;
+            
+            // Tải lại danh sách đơn vị
             cboPurchaseUnit.DataSource = _department.getWarehoseByCp(cboCompany.SelectedValue.ToString());
             cboPurchaseUnit.DisplayMember = "DepartmentName";
             cboPurchaseUnit.ValueMember = "DepartmentID";
+            
+            // Khôi phục lại giá trị đã chọn trước đó nếu có thể
+            if (currentSelectedValue != null)
+            {
+                try
+                {
+                    // Kiểm tra xem giá trị có tồn tại trong danh sách mới không
+                    foreach (var item in (List<tb_Department>)cboPurchaseUnit.DataSource)
+                    {
+                        if (item.DepartmentID.Equals(currentSelectedValue))
+                        {
+                            cboPurchaseUnit.SelectedValue = currentSelectedValue;
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error restoring purchase unit selection: {ex.Message}");
+                }
+            }
         }
 
         void LoadWareHouse()
@@ -187,7 +668,6 @@ namespace STOCK.Controls
             cboWarehouse.DisplayMember = "DepartmentName";
             cboWarehouse.ValueMember = "DepartmentID";
             
-            // Check if the list has any items before trying to set selected indices
             if(_lstStock != null && _lstStock.Count > 0)
             {
                 LoadDepartment();
@@ -196,17 +676,40 @@ namespace STOCK.Controls
             }
             else
             {
-                // Handle the empty list case - perhaps clear other dependent controls
                 LoadDepartment();
-                // Don't try to set selected indices for empty lists
             }
         }
 
         void LoadSupplier()
         {
+            // Lưu lại giá trị đang chọn trước khi tải lại dữ liệu
+            object currentSelectedValue = cboSupplier.SelectedValue;
+            
+            // Tải lại danh sách nhà cung cấp
             cboSupplier.DataSource = _supplier.getList();
             cboSupplier.DisplayMember = "SupplierName";
             cboSupplier.ValueMember = "SupplierID";
+            
+            // Khôi phục lại giá trị đã chọn trước đó nếu có thể
+            if (currentSelectedValue != null)
+            {
+                try
+                {
+                    // Kiểm tra xem giá trị có tồn tại trong danh sách mới không
+                    foreach (var item in (List<tb_Supplier>)cboSupplier.DataSource)
+                    {
+                        if (item.SupplierID.Equals(currentSelectedValue))
+                        {
+                            cboSupplier.SelectedValue = currentSelectedValue;
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error restoring supplier selection: {ex.Message}");
+                }
+            }
         }
 
         void ShowHideControls(bool t)
@@ -284,7 +787,8 @@ namespace STOCK.Controls
             _enable(true);
             ResetFields();
 
-            // Always ensure there's at least one empty row at the bottom
+            cboStatus.SelectedIndex = 0;
+
             EnsureEmptyRowAtBottom();
         }
 
@@ -308,6 +812,28 @@ namespace STOCK.Controls
                     gvDetail.ReadOnly = false; // Enable editing in the DataGridView
                     contextMenuDetail.Enabled = true;
                     cboPurchaseUnit.Enabled = false;
+
+                    // Thêm một dòng trống mới để người dùng có thể thêm sản phẩm
+                    if (gvDetail.DataSource is BindingSource bs)
+                    {
+                        // Nếu DataGridView được liên kết với BindingSource
+                        if (bs.DataSource is List<obj_INVOICE_DETAIL> detailList)
+                        {
+                            // Tạo một đối tượng detail mới và thêm vào danh sách
+                            obj_INVOICE_DETAIL newDetail = new obj_INVOICE_DETAIL();
+                            newDetail.STT = detailList.Count + 1;
+                            newDetail.InvoiceID = current.InvoiceID;
+                            detailList.Add(newDetail);
+                            
+                            // Cập nhật lại binding
+                            bs.ResetBindings(false);
+                        }
+                    }
+                    else
+                    {
+                        // Nếu DataGridView không liên kết với BindingSource, thêm một dòng trực tiếp
+                        gvDetail.Rows.Add();
+                    }
 
                     // Always ensure there's at least one empty row at the bottom
                     EnsureEmptyRowAtBottom();
@@ -342,9 +868,13 @@ namespace STOCK.Controls
 
                     if (MessageBox.Show("Do you want to delete this record?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        _invoice.delete(invoiceID, _user.UserID); // Pass the user ID to the delete method
-                        row.Cells["DeletedBy"].Value = _user.UserID; // Update the DeletedBy cell in the DataGridView
+                        // Gọi phương thức delete trong INVOICE với UserID = 1
+                        _invoice.delete(invoiceID, 1);
+                        
+                        // Cập nhật UI để hiển thị trạng thái đã xóa
+                        row.Cells["DeletedBy"].Value = 1;
                         lblDelete.Visible = true;
+                        btnDelete.Enabled = false;
                     }
                 }
                 else
@@ -700,7 +1230,7 @@ namespace STOCK.Controls
                 invoice.InvoiceID = Guid.NewGuid();
                 invoice.Day = dtDate.Value;
                 invoice.Invoice = _seq.SEQVALUE.Value.ToString("000000") + "/" + DateTime.Today.Year.ToString().Substring(2, 2) + "/NHM/" + dp.Symbol;
-                invoice.CreatedBy = 1;
+                invoice.CreatedBy = 1 ;//_user.UserID
                 invoice.CreatedDate = DateTime.Now;
             }
 
@@ -794,109 +1324,174 @@ namespace STOCK.Controls
             }
             
             invoice.TotalPrice = _total;
-            invoice.UpdatedBy = 1; //_user.UserID;
+            invoice.UpdatedBy = 1 ;//_user.UserID;
             invoice.UpdatedDate = DateTime.Now;
         }
 
         void exportInfor()
         {
-            tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
-            if (current != null)
+            try
             {
-                tb_Department dp = _department.getItem(current.DepartmentID);
-                dtDate.Value = current.Day.Value;
-                txtInvoiceNo.Text = current.Invoice;
-                txtNote.Text = current.Description;
-                cboPurchaseUnit.SelectedValue = current.DepartmentID;
-                cboSupplier.SelectedValue = int.Parse(current.ReceivingDepartmentID);
-                cboStatus.SelectedValue = current.Status;
-
-                if (current.DeletedBy != null)
+                // Đảm bảo _bsInvoice và Current không null
+                if (_bsInvoice == null || _bsInvoice.Current == null)
+                    return;
+                    
+                // Lưu trạng thái enable của các control
+                bool noteEnabled = txtNote.Enabled;
+                bool purchaseUnitEnabled = cboPurchaseUnit.Enabled;
+                bool statusEnabled = cboStatus.Enabled;
+                bool supplierEnabled = cboSupplier.Enabled;
+                bool dateEnabled = dtDate.Enabled;
+                
+                // Lưu giá trị hiện tại
+                object currentPurchaseUnit = cboPurchaseUnit.SelectedValue;
+                object currentSupplier = cboSupplier.SelectedValue;
+            
+                tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
+                if (current != null)
                 {
-                    lblDelete.Visible = true;
-                    btnDelete.Enabled = false;
-                }
-                else
-                {
-                    lblDelete.Visible = false;
-                    btnDelete.Enabled = true;
-                }
-
-                // Get the invoice details with product information included
-                var detailsWithProductInfo = _invoiceDetail.getListbyIDFull(current.InvoiceID);
-                _bsInvoiceDT.DataSource = detailsWithProductInfo;
-                gvDetail.DataSource = _bsInvoiceDT;
-
-                // Ensure all rows have complete data by looking up missing product information
-                for (int i = 0; i < gvDetail.Rows.Count; i++)
-                {
-                    if (gvDetail.Rows[i].IsNewRow) continue;
+                    tb_Department dp = _department.getItem(current.DepartmentID);
+                    dtDate.Value = current.Day.Value;
+                    txtInvoiceNo.Text = current.Invoice;
+                    txtNote.Text = current.Description;
                     
                     try
                     {
-                        string barcode = null;
-                        int? productId = null;
-                        
-                        // Try to get either the barcode or product ID
-                        if (gvDetail.Columns.Contains("BARCODE") && gvDetail.Rows[i].Cells["BARCODE"].Value != null)
+                        cboPurchaseUnit.SelectedValue = current.DepartmentID;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error setting cboPurchaseUnit.SelectedValue: {ex.Message}");
+                        // Khôi phục lại giá trị cũ nếu có lỗi
+                        try { cboPurchaseUnit.SelectedValue = currentPurchaseUnit; } catch { }
+                    }
+                    
+                    try
+                    {
+                        // Chuyển đổi ReceivingDepartmentID thành int cho cboSupplier
+                        if (current.ReceivingDepartmentID != null)
                         {
-                            barcode = gvDetail.Rows[i].Cells["BARCODE"].Value.ToString();
-                        }
-                        else if (gvDetail.Columns.Contains("ProductID") && gvDetail.Rows[i].Cells["ProductID"].Value != null)
-                        {
-                            int.TryParse(gvDetail.Rows[i].Cells["ProductID"].Value.ToString(), out int pid);
-                            productId = pid;
-                        }
-                        
-                        if (!string.IsNullOrEmpty(barcode) || productId.HasValue)
-                        {
-                            // Get full product details
-                            tb_Product product = null;
-                            if (!string.IsNullOrEmpty(barcode))
+                            int supplierId;
+                            if (int.TryParse(current.ReceivingDepartmentID, out supplierId))
                             {
-                                product = _product.getItemBarcode(barcode);
-                            }
-                            else if (productId.HasValue)
-                            {
-                                product = _product.getItem(productId.Value);
-                            }
-                            
-                            if (product != null)
-                            {
-                                // Fill in missing data
-                                if (gvDetail.Columns.Contains("ProductName") && 
-                                    (gvDetail.Rows[i].Cells["ProductName"].Value == null || 
-                                     string.IsNullOrEmpty(gvDetail.Rows[i].Cells["ProductName"].Value.ToString())))
-                                {
-                                    gvDetail.Rows[i].Cells["ProductName"].Value = product.ProductName;
-                                }
-                                
-                                if (gvDetail.Columns.Contains("Unit") && 
-                                    (gvDetail.Rows[i].Cells["Unit"].Value == null || 
-                                     string.IsNullOrEmpty(gvDetail.Rows[i].Cells["Unit"].Value.ToString())))
-                                {
-                                    gvDetail.Rows[i].Cells["Unit"].Value = product.Unit;
-                                }
-                                
-                                if (gvDetail.Columns.Contains("Price") && 
-                                    (gvDetail.Rows[i].Cells["Price"].Value == null))
-                                {
-                                    gvDetail.Rows[i].Cells["Price"].Value = product.Price;
-                                }
-                                
-                                // Set STT value
-                                gvDetail.Rows[i].Cells["STT"].Value = i + 1;
+                                cboSupplier.SelectedValue = supplierId;
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error loading row {i} info: {ex.Message}");
+                        Console.WriteLine($"Error setting cboSupplier.SelectedValue: {ex.Message}");
+                        // Khôi phục lại giá trị cũ nếu có lỗi
+                        try { cboSupplier.SelectedValue = currentSupplier; } catch { }
                     }
+                    
+                    try
+                    {
+                        cboStatus.SelectedValue = current.Status;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error setting cboStatus.SelectedValue: {ex.Message}");
+                    }
+
+                    if (current.DeletedBy != null)
+                    {
+                        lblDelete.Visible = true;
+                        btnDelete.Enabled = false;
+                    }
+                    else
+                    {
+                        lblDelete.Visible = false;
+                        btnDelete.Enabled = true;
+                    }
+
+                    // Get the invoice details with product information included
+                    var detailsWithProductInfo = _invoiceDetail.getListbyIDFull(current.InvoiceID);
+                    _bsInvoiceDT.DataSource = detailsWithProductInfo;
+                    gvDetail.DataSource = _bsInvoiceDT;
+
+                    // Ensure all rows have complete data by looking up missing product information
+                    for (int i = 0; i < gvDetail.Rows.Count; i++)
+                    {
+                        if (gvDetail.Rows[i].IsNewRow) continue;
+                        
+                        try
+                        {
+                            string barcode = null;
+                            int? productId = null;
+                            
+                            // Try to get either the barcode or product ID
+                            if (gvDetail.Columns.Contains("BARCODE") && gvDetail.Rows[i].Cells["BARCODE"].Value != null)
+                            {
+                                barcode = gvDetail.Rows[i].Cells["BARCODE"].Value.ToString();
+                            }
+                            else if (gvDetail.Columns.Contains("ProductID") && gvDetail.Rows[i].Cells["ProductID"].Value != null)
+                            {
+                                int.TryParse(gvDetail.Rows[i].Cells["ProductID"].Value.ToString(), out int pid);
+                                productId = pid;
+                            }
+                            
+                            if (!string.IsNullOrEmpty(barcode) || productId.HasValue)
+                            {
+                                // Get full product details
+                                tb_Product product = null;
+                                if (!string.IsNullOrEmpty(barcode))
+                                {
+                                    product = _product.getItemBarcode(barcode);
+                                }
+                                else if (productId.HasValue)
+                                {
+                                    product = _product.getItem(productId.Value);
+                                }
+                                
+                                if (product != null)
+                                {
+                                    // Fill in missing data
+                                    if (gvDetail.Columns.Contains("ProductName") && 
+                                        (gvDetail.Rows[i].Cells["ProductName"].Value == null || 
+                                         string.IsNullOrEmpty(gvDetail.Rows[i].Cells["ProductName"].Value.ToString())))
+                                    {
+                                        gvDetail.Rows[i].Cells["ProductName"].Value = product.ProductName;
+                                    }
+                                    
+                                    if (gvDetail.Columns.Contains("Unit") && 
+                                        (gvDetail.Rows[i].Cells["Unit"].Value == null || 
+                                         string.IsNullOrEmpty(gvDetail.Rows[i].Cells["Unit"].Value.ToString())))
+                                    {
+                                        gvDetail.Rows[i].Cells["Unit"].Value = product.Unit;
+                                    }
+                                    
+                                    if (gvDetail.Columns.Contains("Price") && 
+                                        (gvDetail.Rows[i].Cells["Price"].Value == null))
+                                    {
+                                        gvDetail.Rows[i].Cells["Price"].Value = product.Price;
+                                    }
+                                    
+                                    // Set STT value
+                                    gvDetail.Rows[i].Cells["STT"].Value = i + 1;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error loading row {i} info: {ex.Message}");
+                        }
+                    }
+                    
+                    // Refresh display
+                    gvDetail.Refresh();
+                    
+                    // Khôi phục lại trạng thái enable của các control
+                    txtNote.Enabled = noteEnabled;
+                    cboPurchaseUnit.Enabled = purchaseUnitEnabled;
+                    cboStatus.Enabled = statusEnabled;
+                    cboSupplier.Enabled = supplierEnabled;
+                    dtDate.Enabled = dateEnabled;
                 }
-                
-                // Refresh display
-                gvDetail.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in exportInfor: {ex.Message}");
             }
         }
 
@@ -975,14 +1570,26 @@ namespace STOCK.Controls
 
         private void gvList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (gvList.Columns[e.ColumnIndex].Name == "STATUS")
+            if (gvList.Columns[e.ColumnIndex].Name == "Status")
             {
-                if (e.Value != null && e.Value.ToString() == "1")
-                    e.Value = "Chưa hoàn tất";
-                else
-                    e.Value = "Đã hoàn tất";
-
-                e.FormattingApplied = true; // Xác nhận đã xử lý format
+                if (e.Value != null)
+                {
+                    // Kiểm tra trên chuỗi hoặc trên số
+                    if (e.Value.ToString() == "1")
+                    {
+                        e.Value = "Not Complete";
+                    }
+                    else if (e.Value.ToString() == "2")
+                    {
+                        e.Value = "Confirm";
+                    }
+                    
+                    // Đánh dấu rằng đã xử lý việc định dạng
+                    e.FormattingApplied = true;
+                    
+                    // Log để kiểm tra
+                    Console.WriteLine($"Status value: {e.Value} (original: {gvList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value})");
+                }
             }
         }
 
@@ -992,7 +1599,7 @@ namespace STOCK.Controls
             //{
             //    e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.ContentForeground);
 
-            //    Image img = Properties.Resources.del_Icon_x16; // Ảnh xóa
+            //    Image img = Properties.Resources.trash.png; // Ảnh xóa
             //    int imgX = e.CellBounds.X + (e.CellBounds.Width - img.Width) / 2;
             //    int imgY = e.CellBounds.Y + (e.CellBounds.Height - img.Height) / 2;
 
@@ -1039,6 +1646,9 @@ namespace STOCK.Controls
                             
                             // Debug gridview để xem các sản phẩm đã được thêm vào
                             DebugDetailRows();
+                            
+                            // Đảm bảo SubTotal được tính đúng sau khi thêm sản phẩm
+                            AutoUpdateTotalPriceForBoundGrid();
                             
                             // Clear the "." if it's still there after closing the form
                             if (e.RowIndex < gvDetail.Rows.Count && !gvDetail.Rows[e.RowIndex].IsNewRow)
@@ -1402,6 +2012,19 @@ namespace STOCK.Controls
             if (_edit == false && tabInvoice.SelectedTab == pageDetail)
             {
                 gvDetail.ReadOnly = true; // Nếu gvDetail là DataGridView
+                
+                // Kiểm tra nếu hóa đơn hiện tại đã bị xóa thì hiển thị label Delete
+                tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
+                if (current != null && current.DeletedBy != null)
+                {
+                    lblDelete.Visible = true;
+                    btnDelete.Enabled = false;
+                }
+                else
+                {
+                    lblDelete.Visible = false;
+                    btnDelete.Enabled = true;
+                }
             }
         }
 

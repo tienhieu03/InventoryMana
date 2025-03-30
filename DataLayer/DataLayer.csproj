@@ -138,7 +138,7 @@
     <Compile Include="V_USER_IN_GROUP.cs">
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>
-    <Compile Include="V_USER_NOTION_GROUP.cs">
+    <Compile Include="V_USER_NOTIN_GROUP.cs">
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>
   </ItemGroup>

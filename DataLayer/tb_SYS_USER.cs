@@ -20,7 +20,7 @@ namespace DataLayer
         public string Password { get; set; }
         public string CompanyID { get; set; }
         public string DepartmentID { get; set; }
-        public string LastPasswordChange { get; set; }
+        public Nullable<System.DateTime> LastPasswordChange { get; set; }
         public Nullable<bool> IsGroup { get; set; }
         public Nullable<bool> IsDisable { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

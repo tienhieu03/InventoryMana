@@ -8,4 +8,3 @@ alwaysApply: true
 
 - keep source code files under 250 lines.
 - if the generated file is too big, generate small pieces then use a command to concat them.
-- [PurchaseInvoiceControl.cs](mdc:STOCK/Controls/PurchaseInvoiceControl.cs) [INVOICE.cs](mdc:BusinessLayer/DataModels/INVOICE.cs) [INVOICE_DETAIL.cs](mdc:BusinessLayer/DataModels/INVOICE_DETAIL.cs) [obj_INVOICE_DETAIL.cs](mdc:BusinessLayer/DataModels/obj_INVOICE_DETAIL.cs) [formList.cs](mdc:STOCK/PopUpForm/formList.cs) [DataGridViewHelper.cs](mdc:STOCK/StockHelpers/DataGridViewHelper.cs) [ExcelHelper.cs](mdc:STOCK/StockHelpers/ExcelHelper.cs) [FormValidationHelper.cs](mdc:STOCK/StockHelpers/FormValidationHelper.cs).

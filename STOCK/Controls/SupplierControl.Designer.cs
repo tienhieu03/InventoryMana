@@ -36,6 +36,13 @@
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.btnCancel = new System.Windows.Forms.ToolStripButton();
             this.gvList = new System.Windows.Forms.DataGridView();
+            this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.SupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierFax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkDisable = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -50,16 +57,14 @@
             this.txtEmail = new Krypton.Toolkit.KryptonTextBox();
             this.txtName = new Krypton.Toolkit.KryptonTextBox();
             this.txtPhone = new Krypton.Toolkit.KryptonTextBox();
-            this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.SupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierFax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.kryptonToolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvList)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // kryptonToolStrip1
@@ -142,15 +147,80 @@
             this.SupplierEmail,
             this.SupplierAddress});
             this.gvList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gvList.Location = new System.Drawing.Point(0, 35);
+            this.gvList.Location = new System.Drawing.Point(0, 0);
             this.gvList.Name = "gvList";
             this.gvList.ReadOnly = true;
             this.gvList.RowHeadersVisible = false;
             this.gvList.RowHeadersWidth = 51;
             this.gvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvList.Size = new System.Drawing.Size(948, 465);
+            this.gvList.Size = new System.Drawing.Size(948, 267);
             this.gvList.TabIndex = 5;
             this.gvList.Click += new System.EventHandler(this.gvList_Click);
+            // 
+            // IsDisabled
+            // 
+            this.IsDisabled.DataPropertyName = "IsDisabled";
+            this.IsDisabled.HeaderText = "DEL";
+            this.IsDisabled.MinimumWidth = 6;
+            this.IsDisabled.Name = "IsDisabled";
+            this.IsDisabled.ReadOnly = true;
+            this.IsDisabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.IsDisabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IsDisabled.Width = 50;
+            // 
+            // SupplierID
+            // 
+            this.SupplierID.DataPropertyName = "SupplierID";
+            this.SupplierID.HeaderText = "ID";
+            this.SupplierID.MinimumWidth = 6;
+            this.SupplierID.Name = "SupplierID";
+            this.SupplierID.ReadOnly = true;
+            this.SupplierID.Width = 110;
+            // 
+            // SupplierName
+            // 
+            this.SupplierName.DataPropertyName = "SupplierName";
+            this.SupplierName.HeaderText = "Supplier Name";
+            this.SupplierName.MinimumWidth = 6;
+            this.SupplierName.Name = "SupplierName";
+            this.SupplierName.ReadOnly = true;
+            this.SupplierName.Width = 150;
+            // 
+            // SupplierPhone
+            // 
+            this.SupplierPhone.DataPropertyName = "SupplierPhone";
+            this.SupplierPhone.HeaderText = "Supplier Phone";
+            this.SupplierPhone.MinimumWidth = 6;
+            this.SupplierPhone.Name = "SupplierPhone";
+            this.SupplierPhone.ReadOnly = true;
+            this.SupplierPhone.Width = 150;
+            // 
+            // SupplierFax
+            // 
+            this.SupplierFax.DataPropertyName = "SupplierFax";
+            this.SupplierFax.HeaderText = "Supplier Fax";
+            this.SupplierFax.MinimumWidth = 6;
+            this.SupplierFax.Name = "SupplierFax";
+            this.SupplierFax.ReadOnly = true;
+            this.SupplierFax.Width = 150;
+            // 
+            // SupplierEmail
+            // 
+            this.SupplierEmail.DataPropertyName = "SupplierEmail";
+            this.SupplierEmail.HeaderText = "Email";
+            this.SupplierEmail.MinimumWidth = 6;
+            this.SupplierEmail.Name = "SupplierEmail";
+            this.SupplierEmail.ReadOnly = true;
+            this.SupplierEmail.Width = 200;
+            // 
+            // SupplierAddress
+            // 
+            this.SupplierAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.SupplierAddress.DataPropertyName = "SupplierAddress";
+            this.SupplierAddress.HeaderText = "Address";
+            this.SupplierAddress.MinimumWidth = 6;
+            this.SupplierAddress.Name = "SupplierAddress";
+            this.SupplierAddress.ReadOnly = true;
             // 
             // chkDisable
             // 
@@ -237,11 +307,11 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.chkDisable);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 303);
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(948, 197);
+            this.groupBox1.Size = new System.Drawing.Size(948, 194);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
@@ -296,77 +366,29 @@
             this.txtPhone.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPhone.TabIndex = 43;
             // 
-            // IsDisabled
+            // splitContainer1
             // 
-            this.IsDisabled.DataPropertyName = "IsDisabled";
-            this.IsDisabled.HeaderText = "DEL";
-            this.IsDisabled.MinimumWidth = 6;
-            this.IsDisabled.Name = "IsDisabled";
-            this.IsDisabled.ReadOnly = true;
-            this.IsDisabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.IsDisabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.IsDisabled.Width = 50;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 35);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // SupplierID
+            // splitContainer1.Panel1
             // 
-            this.SupplierID.DataPropertyName = "SupplierID";
-            this.SupplierID.HeaderText = "ID";
-            this.SupplierID.MinimumWidth = 6;
-            this.SupplierID.Name = "SupplierID";
-            this.SupplierID.ReadOnly = true;
-            this.SupplierID.Width = 110;
+            this.splitContainer1.Panel1.Controls.Add(this.gvList);
             // 
-            // SupplierName
+            // splitContainer1.Panel2
             // 
-            this.SupplierName.DataPropertyName = "SupplierName";
-            this.SupplierName.HeaderText = "Supplier Name";
-            this.SupplierName.MinimumWidth = 6;
-            this.SupplierName.Name = "SupplierName";
-            this.SupplierName.ReadOnly = true;
-            this.SupplierName.Width = 150;
-            // 
-            // SupplierPhone
-            // 
-            this.SupplierPhone.DataPropertyName = "SupplierPhone";
-            this.SupplierPhone.HeaderText = "Supplier Phone";
-            this.SupplierPhone.MinimumWidth = 6;
-            this.SupplierPhone.Name = "SupplierPhone";
-            this.SupplierPhone.ReadOnly = true;
-            this.SupplierPhone.Width = 150;
-            // 
-            // SupplierFax
-            // 
-            this.SupplierFax.DataPropertyName = "SupplierFax";
-            this.SupplierFax.HeaderText = "Supplier Fax";
-            this.SupplierFax.MinimumWidth = 6;
-            this.SupplierFax.Name = "SupplierFax";
-            this.SupplierFax.ReadOnly = true;
-            this.SupplierFax.Width = 150;
-            // 
-            // SupplierEmail
-            // 
-            this.SupplierEmail.DataPropertyName = "SupplierEmail";
-            this.SupplierEmail.HeaderText = "Email";
-            this.SupplierEmail.MinimumWidth = 6;
-            this.SupplierEmail.Name = "SupplierEmail";
-            this.SupplierEmail.ReadOnly = true;
-            this.SupplierEmail.Width = 200;
-            // 
-            // SupplierAddress
-            // 
-            this.SupplierAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.SupplierAddress.DataPropertyName = "SupplierAddress";
-            this.SupplierAddress.HeaderText = "Address";
-            this.SupplierAddress.MinimumWidth = 6;
-            this.SupplierAddress.Name = "SupplierAddress";
-            this.SupplierAddress.ReadOnly = true;
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Size = new System.Drawing.Size(948, 465);
+            this.splitContainer1.SplitterDistance = 267;
+            this.splitContainer1.TabIndex = 7;
             // 
             // SupplierControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.gvList);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.kryptonToolStrip1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SupplierControl";
@@ -377,6 +399,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvList)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -411,5 +437,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierFax;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierEmail;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierAddress;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

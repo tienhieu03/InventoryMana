@@ -71,16 +71,9 @@ namespace STOCK.PopUpForm
             }
             else if (barcode == ".")
             {
-                // Hiển thị tất cả sản phẩm để lựa chọn
                 List<tb_Product> allProducts = _product.getList().Select(p => _product.getItemBarcode(p.BARCODE)).Where(p => p != null).ToList();
                 gvList.DataSource = allProducts;
-                
-                // Thêm thông báo hướng dẫn người dùng
-                MessageBox.Show("Chọn các sản phẩm bằng cách giữ Ctrl và click vào từng dòng, hoặc giữ Shift để chọn một dải sản phẩm.", 
-                                "Hướng dẫn", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            
-            // Debug information - log the available columns in the target grid
             Console.WriteLine("Columns in gvDetail:");
             foreach (DataGridViewColumn col in _gvDetail.Columns)
             {
@@ -102,7 +95,7 @@ namespace STOCK.PopUpForm
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             // Get selected rows using standard DataGridView
             List<DataGridViewRow> _selectRow = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in gvList.SelectedRows)
@@ -134,8 +127,8 @@ namespace STOCK.PopUpForm
             
             // Kiểm tra các mã đã tồn tại
             if (_gvDetail.RowCount > 0)
-            {
-                for (int i = 0; i < _gvDetail.RowCount; i++)
+                {
+                    for (int i = 0; i < _gvDetail.RowCount; i++)
                 {
                     var barcodeCell = _gvDetail.Rows[i].Cells["BARCODE"].Value;
                     if (barcodeCell != null && !string.IsNullOrEmpty(barcodeCell.ToString()))
@@ -183,7 +176,7 @@ namespace STOCK.PopUpForm
                         // Kiểm tra loại nguồn dữ liệu
                         if (bsSource.DataSource is List<obj_INVOICE_DETAIL> detailList)
                         {
-                            // Tìm STT lớn nhất
+                            // Tìm STT lớn nhất để sử dụng cho dòng mới
                             int maxSTT = 0;
                             foreach (var item in detailList)
                             {
@@ -191,7 +184,10 @@ namespace STOCK.PopUpForm
                                     maxSTT = item.STT.Value;
                             }
                             
-                            // Thêm các sản phẩm hợp lệ vào danh sách
+                            // Tạo danh sách sản phẩm mới để thêm
+                            List<obj_INVOICE_DETAIL> newDetails = new List<obj_INVOICE_DETAIL>();
+                            
+                            // Thêm các sản phẩm hợp lệ vào danh sách mới
                             foreach (string barcode in _valid)
                             {
                                 tb_Product product = _product.getItemBarcode(barcode);
@@ -199,25 +195,51 @@ namespace STOCK.PopUpForm
                                 {
                                     obj_INVOICE_DETAIL newDetail = new obj_INVOICE_DETAIL
                                     {
-                                        STT = maxSTT + 1,
+                                        STT = ++maxSTT,
                                         BARCODE = product.BARCODE,
                                         ProductName = product.ProductName,
                                         Unit = product.Unit,
                                         Quantity = 1,
                                         Price = product.Price,
-                                        SubTotal = product.Price,
                                         ProductID = product.ProductID
                                     };
                                     
-                                    // Tăng maxSTT cho item tiếp theo
-                                    maxSTT++;
-                                    
-                                    // Thêm vào danh sách
-                                    detailList.Add(newDetail);
-                                    
                                     // Debug thông tin
-                                    Console.WriteLine($"Added data-bound product: {product.BARCODE}, STT: {maxSTT}");
+                                    Console.WriteLine($"Added data-bound product: {product.BARCODE}, STT: {maxSTT}, Price: {product.Price}, SubTotal: {newDetail.SubTotal}");
+                                    
+                                    // Thêm vào danh sách mới
+                                    newDetails.Add(newDetail);
                                 }
+                            }
+                            
+                            // Thêm ở đầu danh sách
+                            newDetails.Reverse(); // Đảo ngược thứ tự để khi thêm vào đầu thì sản phẩm đầu tiên sẽ ở trên cùng
+                            foreach (var newDetail in newDetails)
+                            {
+                                detailList.Insert(0, newDetail);
+                            }
+                            
+                            // Cập nhật lại STT để đảm bảo thứ tự liên tục
+                            for (int i = 0; i < detailList.Count; i++)
+                            {
+                                detailList[i].STT = i + 1;
+                            }
+                            
+                            // Đảm bảo có một dòng trống ở cuối
+                            bool hasEmptyLastRow = false;
+                            if (detailList.Count > 0)
+                            {
+                                var lastItem = detailList[detailList.Count - 1];
+                                hasEmptyLastRow = string.IsNullOrEmpty(lastItem.BARCODE);
+                            }
+                            
+                            if (!hasEmptyLastRow)
+                            {
+                                obj_INVOICE_DETAIL emptyRow = new obj_INVOICE_DETAIL
+                                {
+                                    STT = detailList.Count + 1
+                                };
+                                detailList.Add(emptyRow);
                             }
                             
                             // Cập nhật BindingSource
@@ -226,6 +248,9 @@ namespace STOCK.PopUpForm
                         else if (bsSource.DataSource is DataTable dt)
                         {
                             // Xử lý khi nguồn dữ liệu là DataTable
+                            List<DataRow> newRows = new List<DataRow>();
+                            
+                            // Tạo các dòng mới
                             foreach (string barcode in _valid)
                             {
                                 tb_Product product = _product.getItemBarcode(barcode);
@@ -234,24 +259,55 @@ namespace STOCK.PopUpForm
                                     DataRow newRow = dt.NewRow();
                                     
                                     // Thiết lập các giá trị cho dòng mới
-                                    newRow["STT"] = dt.Rows.Count + 1;
                                     newRow["BARCODE"] = product.BARCODE;
                                     newRow["ProductName"] = product.ProductName;
                                     newRow["Unit"] = product.Unit;
                                     newRow["QuantityDetail"] = 1;
                                     newRow["Price"] = product.Price;
-                                    newRow["SubTotal"] = product.Price;
+                                    
+                                    // Tính SubTotal = Price * QuantityDetail
+                                    double price = Convert.ToDouble(product.Price);
+                                    double quantity = 1; // Đã gán QuantityDetail là 1
+                                    newRow["SubTotal"] = price * quantity;
                                     
                                     // Thêm thông tin ProductID
                                     if (dt.Columns.Contains("ProductID"))
                                         newRow["ProductID"] = product.ProductID;
                                     
-                                    // Thêm dòng vào DataTable
-                                    dt.Rows.Add(newRow);
+                                    // Thêm vào danh sách dòng mới
+                                    newRows.Add(newRow);
                                     
                                     // Debug thông tin
-                                    Console.WriteLine($"Added DataTable product: {product.BARCODE}");
+                                    Console.WriteLine($"Added DataTable product: {product.BARCODE}, Price: {price}, SubTotal: {price * quantity}");
                                 }
+                            }
+                            
+                            // Thêm các dòng mới vào đầu DataTable
+                            newRows.Reverse();
+                            foreach (DataRow newRow in newRows)
+                            {
+                                dt.Rows.InsertAt(newRow, 0);
+                            }
+                            
+                            // Cập nhật lại STT
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                dt.Rows[i]["STT"] = i + 1;
+                            }
+                            
+                            // Đảm bảo có một dòng trống ở cuối
+                            bool hasEmptyLastRow = false;
+                            if (dt.Rows.Count > 0)
+                            {
+                                var lastRow = dt.Rows[dt.Rows.Count - 1];
+                                hasEmptyLastRow = string.IsNullOrEmpty(lastRow["BARCODE"]?.ToString());
+                            }
+                            
+                            if (!hasEmptyLastRow)
+                            {
+                                DataRow emptyRow = dt.NewRow();
+                                emptyRow["STT"] = dt.Rows.Count + 1;
+                                dt.Rows.Add(emptyRow);
                             }
                             
                             // Cập nhật BindingSource
@@ -273,91 +329,87 @@ namespace STOCK.PopUpForm
                 {
                     Console.WriteLine($"Error handling data-bound grid: {ex.Message}");
                     MessageBox.Show($"Lỗi khi thêm dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-            }
-            else
-            {
+                else
+                {
                 // Thêm dữ liệu trực tiếp vào DataGridView khi không có nguồn dữ liệu
                 if (_valid.Count > 0)
                 {
                     int startingRowCount = _gvDetail.RowCount;
                     Console.WriteLine($"Starting row count: {startingRowCount}");
                     
-                    // Tìm dòng cuối để bắt đầu thêm dữ liệu
-                    int lastRowIndex = _gvDetail.RowCount - 1;
-                    bool useExistingLastRow = lastRowIndex >= 0 && 
-                                              (_gvDetail.Rows[lastRowIndex].Cells["ProductName"].Value == null || 
-                                               string.IsNullOrEmpty(_gvDetail.Rows[lastRowIndex].Cells["ProductName"].Value?.ToString()));
-                    
-                    // Thêm tất cả các sản phẩm hợp lệ vào grid
-                    int currentSTT = 1;
-                    
-                    // Tính STT hiện tại
-                    if (_gvDetail.RowCount > 0)
-                    {
-                        for (int i = 0; i < _gvDetail.RowCount; i++)
-                        {
-                            if (_gvDetail.Rows[i].Cells["STT"].Value != null &&
-                                int.TryParse(_gvDetail.Rows[i].Cells["STT"].Value.ToString(), out int stt))
-                            {
-                                if (stt > currentSTT)
-                                    currentSTT = stt;
-                            }
-                        }
-                        
-                        // Nếu dòng cuối chưa có dữ liệu, dùng STT hiện tại
-                        // Nếu không, tăng STT lên 1 cho dòng mới
-                        if (!useExistingLastRow)
-                            currentSTT++;
-                    }
-                    
                     // Lưu lại số lượng sản phẩm hợp lệ để debug
                     int validProductsCount = _valid.Count;
                     Console.WriteLine($"Valid products to add: {validProductsCount}");
                     
+                    // Tạo danh sách các sản phẩm sẽ thêm
+                    List<DataGridViewRow> rowsToAdd = new List<DataGridViewRow>();
+                    
+                    // Tạo các dòng mới
                     for (int i = 0; i < _valid.Count; i++)
                     {
                         string barcode = _valid[i];
                         tb_Product product = _product.getItemBarcode(barcode);
                         
-                        // Xác định dòng để thêm dữ liệu
-                        int rowIndex;
-                        if (i == 0 && useExistingLastRow)
-                        {
-                            // Sử dụng dòng cuối cùng nếu nó trống và đây là sản phẩm đầu tiên
-                            rowIndex = lastRowIndex;
-                        }
-                        else
-                        {
-                            // Thêm dòng mới
-                            rowIndex = _gvDetail.Rows.Add();
-                        }
+                        // Tạo dòng mới cho DataGridView
+                        DataGridViewRow newRow = new DataGridViewRow();
+                        newRow.CreateCells(_gvDetail);
                         
                         // Điền thông tin sản phẩm
-                        _gvDetail.Rows[rowIndex].Cells["STT"].Value = currentSTT++;
-                        _gvDetail.Rows[rowIndex].Cells["BARCODE"].Value = product.BARCODE;
-                        _gvDetail.Rows[rowIndex].Cells["Unit"].Value = product.Unit;
-                        _gvDetail.Rows[rowIndex].Cells["ProductName"].Value = product.ProductName;
-                        _gvDetail.Rows[rowIndex].Cells["QuantityDetail"].Value = 1;
-                        _gvDetail.Rows[rowIndex].Cells["Price"].Value = product.Price;
-                        _gvDetail.Rows[rowIndex].Cells["SubTotal"].Value = product.Price;
+                        newRow.Cells["BARCODE"].Value = product.BARCODE;
+                        newRow.Cells["Unit"].Value = product.Unit;
+                        newRow.Cells["ProductName"].Value = product.ProductName;
+                        newRow.Cells["QuantityDetail"].Value = 1; // Đảm bảo QuantityDetail là 1
+                        newRow.Cells["Price"].Value = product.Price;
                         
-                        // Debug thông tin chi tiết của dòng đã thêm
-                        Console.WriteLine($"Added product {i+1}/{validProductsCount}: {product.BARCODE} at row {rowIndex}");
-                        string rowDetail = "Row " + rowIndex + " detail: ";
-                        foreach (DataGridViewCell cell in _gvDetail.Rows[rowIndex].Cells)
-                        {
-                            if (cell.Value != null)
-                                rowDetail += $"{_gvDetail.Columns[cell.ColumnIndex].Name}={cell.Value}, ";
-                        }
-                        Console.WriteLine(rowDetail);
+                        // Tính SubTotal = Price * QuantityDetail
+                        double price = Convert.ToDouble(product.Price);
+                        double quantity = 1; // Đã gán QuantityDetail là 1
+                        newRow.Cells["SubTotal"].Value = price * quantity;
+                        
+                        // Thêm vào danh sách dòng mới
+                        rowsToAdd.Add(newRow);
+                        
+                        // Debug thông tin
+                        Console.WriteLine($"Created row for product {i+1}/{validProductsCount}: {product.BARCODE}, Price: {price}, SubTotal: {price * quantity}");
+                    }
+                    
+                    // Thêm dòng vào đầu DataGridView
+                    for (int i = rowsToAdd.Count - 1; i >= 0; i--)
+                    {
+                        _gvDetail.Rows.Insert(0, rowsToAdd[i]);
+                        Console.WriteLine($"Added product {rowsToAdd.Count - i}/{validProductsCount} to row {rowsToAdd.Count - 1 - i}");
+                    }
+                    
+                    // Cập nhật lại STT cho tất cả các dòng
+                    for (int i = 0; i < _gvDetail.Rows.Count; i++)
+                    {
+                        if (_gvDetail.Rows[i].IsNewRow) continue;
+                        _gvDetail.Rows[i].Cells["STT"].Value = i + 1;
                     }
                     
                     // Đảm bảo luôn có một hàng trống ở cuối để nhập sản phẩm mới
                     try
                     {
-                        int emptyRowIndex = _gvDetail.Rows.Add();
-                        _gvDetail.Rows[emptyRowIndex].Cells["STT"].Value = currentSTT;
+                        // Kiểm tra xem dòng cuối cùng có phải dòng trống không
+                        bool hasEmptyLastRow = false;
+                        int lastRowIndex = _gvDetail.Rows.Count - 1;
+                        
+                        if (lastRowIndex >= 0 && !_gvDetail.Rows[lastRowIndex].IsNewRow)
+                        {
+                            object barcodeValue = _gvDetail.Rows[lastRowIndex].Cells["BARCODE"].Value;
+                            hasEmptyLastRow = barcodeValue == null || string.IsNullOrEmpty(barcodeValue.ToString());
+                        }
+                        
+                        // Nếu không có dòng trống, thêm mới
+                        if (!hasEmptyLastRow)
+                        {
+                            int emptyRowIndex = _gvDetail.Rows.Add();
+                            _gvDetail.Rows[emptyRowIndex].Cells["STT"].Value = _gvDetail.Rows.Count;
+                            Console.WriteLine($"Added empty row at index {emptyRowIndex}");
+                        }
+                        
                         Console.WriteLine($"Final row count after adding: {_gvDetail.RowCount}");
                     }
                     catch (InvalidOperationException ex)

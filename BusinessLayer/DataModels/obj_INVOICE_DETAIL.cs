@@ -130,6 +130,13 @@ namespace BusinessLayer.DataModels
                 }
             }
         }
+        
+        // Thêm thuộc tính QuantityDetail để binding với DataGridView
+        public Nullable<int> QuantityDetail
+        {
+            get { return Quantity; }
+            set { Quantity = value; }
+        }
 
         private Nullable<double> _price;
         public Nullable<double> Price 
