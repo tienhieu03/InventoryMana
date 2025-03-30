@@ -498,7 +498,6 @@
             this.dtDate.Size = new System.Drawing.Size(180, 22);
             this.dtDate.TabIndex = 3;
             this.dtDate.ValueChanged += new System.EventHandler(this.dtDate_ValueChanged);
-            this.dtDate.Leave += new System.EventHandler(this.dtDate_Leave);
             // 
             // label5
             // 
@@ -681,21 +680,21 @@
             // CmdDeleteRow
             // 
             this.CmdDeleteRow.Name = "CmdDeleteRow";
-            this.CmdDeleteRow.Size = new System.Drawing.Size(180, 22);
+            this.CmdDeleteRow.Size = new System.Drawing.Size(140, 22);
             this.CmdDeleteRow.Text = "Delete Row";
             this.CmdDeleteRow.Click += new System.EventHandler(this.CmdDeleteRow_Click);
             // 
             // CmdDeleteDetail
             // 
             this.CmdDeleteDetail.Name = "CmdDeleteDetail";
-            this.CmdDeleteDetail.Size = new System.Drawing.Size(180, 22);
+            this.CmdDeleteDetail.Size = new System.Drawing.Size(140, 22);
             this.CmdDeleteDetail.Text = "Delete Detail";
             this.CmdDeleteDetail.Click += new System.EventHandler(this.CmdDeleteDetail_Click);
             // 
             // CmdImport
             // 
             this.CmdImport.Name = "CmdImport";
-            this.CmdImport.Size = new System.Drawing.Size(180, 22);
+            this.CmdImport.Size = new System.Drawing.Size(140, 22);
             this.CmdImport.Text = "Import Excel";
             this.CmdImport.Click += new System.EventHandler(this.CmdImport_Click);
             // 

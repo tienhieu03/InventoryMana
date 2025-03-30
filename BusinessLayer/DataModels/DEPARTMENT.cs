@@ -32,7 +32,7 @@ namespace BusinessLayer
         }
         public List<tb_Department> getDepartmentByCp(string companyid, bool warehouse)
         {
-            return db.tb_Department.Where(x => x.CompanyID == companyid && x.Warehouse == true).ToList();
+            return db.tb_Department.Where(x => x.CompanyID == companyid && x.Warehouse == warehouse).ToList();
         }
         public void add(tb_Department department)
         {
@@ -43,7 +43,15 @@ namespace BusinessLayer
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred during data processing" + ex.Message);
+                string errorMessage = "An error occurred during data processing: " + ex.Message;
+                
+                // Get inner exception details if available
+                if (ex.InnerException != null)
+                {
+                    errorMessage += "\nInner Exception: " + ex.InnerException.Message;
+                }
+                
+                throw new Exception(errorMessage);
             }
         }
         public void update(tb_Department department)

@@ -226,6 +226,7 @@
             this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None;
             this.Name = "formLogin";
             this.Padding = new System.Windows.Forms.Padding(3, 24, 3, 3);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formLogin";
             this.Load += new System.EventHandler(this.formLogin_Load);
             this.ResumeLayout(false);

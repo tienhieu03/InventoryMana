@@ -152,31 +152,6 @@ namespace STOCK.StockHelpers
             }
         }
 
-        /// <summary>
-        /// Formats price columns with thousand separators (dots) for Vietnamese currency format
-        /// </summary>
-        /// <param name="dataGridView">The DataGridView to format</param>
-        public static void FormatPriceColumns(DataGridView dataGridView)
-        {
-            // Format Price column
-            if (dataGridView.Columns.Contains("Price"))
-            {
-                dataGridView.Columns["Price"].DefaultCellStyle.Format = "#,##0";
-            }
-
-            // Format SubTotal column
-            if (dataGridView.Columns.Contains("SubTotal"))
-            {
-                dataGridView.Columns["SubTotal"].DefaultCellStyle.Format = "#,##0";
-            }
-
-            // Format TotalPrice column if it exists
-            if (dataGridView.Columns.Contains("TotalPrice"))
-            {
-                dataGridView.Columns["TotalPrice"].DefaultCellStyle.Format = "#,##0";
-            }
-        }
-
         // Helper methods for reflecting properties on dynamic objects
         private static object GetPropertyValue(dynamic obj, string propName)
         {

@@ -91,18 +91,12 @@ namespace STOCK.Forms
 
         private void Login_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Login_Click(sender, e);
-            }
+
         }
 
         private void Exit_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
-            {
-                Exit_Click(sender, e);
-            }
+
         }
     }
 }
