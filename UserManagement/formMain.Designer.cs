@@ -35,11 +35,10 @@
             this.btnUser = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.kryptonRibbonGroupTriple2 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.kryptonRibbonGroup1 = new Krypton.Ribbon.KryptonRibbonGroup();
-            this.kryptonRibbonTab1 = new Krypton.Ribbon.KryptonRibbonTab();
-            this.kryptonRibbon1 = new Krypton.Ribbon.KryptonRibbon();
             this.kryptonRibbonGroupSeparator2 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
             this.kryptonRibbonGroupTriple3 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.btnUpdateInfor = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.kryptonRibbonTab1 = new Krypton.Ribbon.KryptonRibbonTab();
             this.kryptonRibbonGroup2 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple4 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.btnFuntion = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -49,10 +48,11 @@
             this.kryptonRibbonGroup3 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple6 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.btnExit = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.kryptonRibbon1 = new Krypton.Ribbon.KryptonRibbon();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.gvUser = new System.Windows.Forms.DataGridView();
-            this.pnlDepartment = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.pnlDepartment = new System.Windows.Forms.Panel();
+            this.gvUser = new System.Windows.Forms.DataGridView();
             this.IsDisable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsGroup = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -99,23 +99,6 @@
             this.kryptonRibbonGroupTriple3});
             this.kryptonRibbonGroup1.TextLine1 = "Account";
             // 
-            // kryptonRibbonTab1
-            // 
-            this.kryptonRibbonTab1.Groups.AddRange(new Krypton.Ribbon.KryptonRibbonGroup[] {
-            this.kryptonRibbonGroup1,
-            this.kryptonRibbonGroup2,
-            this.kryptonRibbonGroup3});
-            this.kryptonRibbonTab1.Text = "Funtion";
-            // 
-            // kryptonRibbon1
-            // 
-            this.kryptonRibbon1.Name = "kryptonRibbon1";
-            this.kryptonRibbon1.RibbonTabs.AddRange(new Krypton.Ribbon.KryptonRibbonTab[] {
-            this.kryptonRibbonTab1});
-            this.kryptonRibbon1.SelectedTab = this.kryptonRibbonTab1;
-            this.kryptonRibbon1.Size = new System.Drawing.Size(1360, 143);
-            this.kryptonRibbon1.TabIndex = 0;
-            // 
             // kryptonRibbonGroupTriple3
             // 
             this.kryptonRibbonGroupTriple3.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupItem[] {
@@ -123,8 +106,17 @@
             // 
             // btnUpdateInfor
             // 
+            this.btnUpdateInfor.ImageLarge = ((System.Drawing.Image)(resources.GetObject("btnUpdateInfor.ImageLarge")));
             this.btnUpdateInfor.TextLine1 = "Update Infor";
             this.btnUpdateInfor.Click += new System.EventHandler(this.btnUpdateInfor_Click);
+            // 
+            // kryptonRibbonTab1
+            // 
+            this.kryptonRibbonTab1.Groups.AddRange(new Krypton.Ribbon.KryptonRibbonGroup[] {
+            this.kryptonRibbonGroup1,
+            this.kryptonRibbonGroup2,
+            this.kryptonRibbonGroup3});
+            this.kryptonRibbonTab1.Text = "Funtion";
             // 
             // kryptonRibbonGroup2
             // 
@@ -141,6 +133,7 @@
             // 
             // btnFuntion
             // 
+            this.btnFuntion.ImageLarge = ((System.Drawing.Image)(resources.GetObject("btnFuntion.ImageLarge")));
             this.btnFuntion.TextLine1 = "Function";
             this.btnFuntion.Click += new System.EventHandler(this.btnFuntion_Click);
             // 
@@ -151,6 +144,7 @@
             // 
             // btnReport
             // 
+            this.btnReport.ImageLarge = ((System.Drawing.Image)(resources.GetObject("btnReport.ImageLarge")));
             this.btnReport.TextLine1 = "Report";
             this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
@@ -167,8 +161,18 @@
             // 
             // btnExit
             // 
+            this.btnExit.ImageLarge = ((System.Drawing.Image)(resources.GetObject("btnExit.ImageLarge")));
             this.btnExit.TextLine1 = "Exit";
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // kryptonRibbon1
+            // 
+            this.kryptonRibbon1.Name = "kryptonRibbon1";
+            this.kryptonRibbon1.RibbonTabs.AddRange(new Krypton.Ribbon.KryptonRibbonTab[] {
+            this.kryptonRibbonTab1});
+            this.kryptonRibbon1.SelectedTab = this.kryptonRibbonTab1;
+            this.kryptonRibbon1.Size = new System.Drawing.Size(1360, 143);
+            this.kryptonRibbon1.TabIndex = 0;
             // 
             // panel1
             // 
@@ -179,6 +183,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1360, 28);
             this.panel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(889, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 22);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Department";
+            // 
+            // pnlDepartment
+            // 
+            this.pnlDepartment.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlDepartment.Location = new System.Drawing.Point(1002, 0);
+            this.pnlDepartment.Name = "pnlDepartment";
+            this.pnlDepartment.Size = new System.Drawing.Size(358, 28);
+            this.pnlDepartment.TabIndex = 0;
             // 
             // gvUser
             // 
@@ -202,25 +225,6 @@
             this.gvUser.Size = new System.Drawing.Size(1360, 477);
             this.gvUser.TabIndex = 2;
             this.gvUser.DoubleClick += new System.EventHandler(this.gvUser_DoubleClick);
-            // 
-            // pnlDepartment
-            // 
-            this.pnlDepartment.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlDepartment.Location = new System.Drawing.Point(1002, 0);
-            this.pnlDepartment.Name = "pnlDepartment";
-            this.pnlDepartment.Size = new System.Drawing.Size(358, 28);
-            this.pnlDepartment.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(889, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 22);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Department";
             // 
             // IsDisable
             // 
