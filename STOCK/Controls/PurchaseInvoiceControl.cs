@@ -87,7 +87,7 @@ namespace STOCK.Controls
 
             _bsInvoice.PositionChanged += _bsInvoice_PositionChanged;
             LoadCompany();
-            cboCompany.SelectedValue = "DEMO01";
+            cboCompany.SelectedValue = myFunctions._compid;
             cboCompany.SelectedIndexChanged += cboCompany_SelectedIndexChanged;
 
             _status = _STATUS.getList();
@@ -97,31 +97,32 @@ namespace STOCK.Controls
 
             gvList.CellFormatting += gvList_CellFormatting;
             gvList.CellPainting += gvList_CellPainting;
+            gvList.DoubleClick += gvList_DoubleClick;
 
-            LoadWareHouse();
-            LoadDepartment();
+            LoadWareHouseList();
             LoadSupplier();
             _lstInvoice = _invoice.getList(1, dtFrom.Value, dtTill.Value.AddDays(1), cboWarehouse.SelectedValue.ToString());
             _bsInvoice.DataSource = _lstInvoice;
             gvList.DataSource = _bsInvoice;
 
             exportInfor();
-            cboPurchaseUnit.SelectedIndexChanged += cboPurchaseUnit_SelectedIndexChanged;
+            //cboPurchaseUnit.SelectedIndexChanged += cboPurchaseUnit_SelectedIndexChanged;
             cboWarehouse.SelectedIndexChanged += cboWarehouse_SelectedIndexChanged;
             gvDetail.CellMouseDown += gvDetail_CellMouseDown;
             gvDetail.CellValueChanged += gvDetail_CellValueChanged;
             gvDetail.CellEndEdit += gvDetail_CellEndEdit;  // Add this line
             cmdDeleteRow.Click += cmdDeleteRow_Click;
             cmdDeleteDetail.Click += cmdDeleteDetail_Click;
-
-            // Set fixed row header width (optional)
-            gvList.RowHeadersWidth = 25;
-            gvDetail.RowHeadersWidth = 25;
+            
+            // Thêm sự kiện để kiểm soát việc chuyển tab
+            tabInvoice.Selecting += tabInvoice_Selecting;
 
             _enable(false);
             ShowHideControls(true);
             contextMenuDetail.Enabled = false;
             gvList.ClearSelection();
+            
+            _allowTabChange = false;
         }
 
         private void cboPurchaseUnit_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,7 +141,11 @@ namespace STOCK.Controls
             if (cboWarehouse.SelectedValue != null)
             {
                 madvi = cboWarehouse.SelectedValue.ToString();
-                _enable(true);
+                // Chỉ cho phép enable các control khi đang ở chế độ thêm hoặc sửa
+                if (_add || _edit)
+                {
+                    _enable(true);
+                }
             }
             else
             {
@@ -149,7 +154,7 @@ namespace STOCK.Controls
             }
             _lstInvoice = _invoice.getList(1, dtFrom.Value, dtTill.Value.AddDays(1), madvi);
             _bsInvoice.DataSource = _lstInvoice;
-            gvList.DataSource = _bsInvoice;
+            gvDetail.DataSource = _bsInvoice;
         }
 
         private void _bsInvoice_PositionChanged(object sender, EventArgs e)
@@ -172,34 +177,39 @@ namespace STOCK.Controls
             cboCompany.ValueMember = "CompanyID";
         }
 
-        void LoadDepartment()
+        void LoadWareHouseList()
         {
-            cboPurchaseUnit.DataSource = _department.getWarehoseByCp(cboCompany.SelectedValue.ToString());
-            cboPurchaseUnit.DisplayMember = "DepartmentName";
-            cboPurchaseUnit.ValueMember = "DepartmentID";
+            var _lstkho = _department.getWarehoseByCp(cboCompany.SelectedValue.ToString());
+
+            cboWarehouse.DataSource = _lstkho;
+            cboWarehouse.DisplayMember = "DepartmentName";
+            cboWarehouse.ValueMember = "DepartmentID";
+            if (_lstkho.Count == 0)
+            {
+                LoadWareHouse();
+                cboWarehouse.Text = "";
+                cboPurchaseUnit.SelectedIndex = cboWarehouse.SelectedIndex;
+                load_gridData();
+            }
+            else
+            {
+                LoadWareHouse();
+                cboWarehouse.SelectedIndex = 0;
+                cboPurchaseUnit.SelectedIndex = cboWarehouse.SelectedIndex;
+            }
         }
 
         void LoadWareHouse()
         {
-            var _lstStock = _department.getWarehoseByCp(cboCompany.SelectedValue.ToString());
-
-            cboWarehouse.DataSource = _lstStock;
+            var warehouseList = _department.getWarehoseByCp(cboCompany.SelectedValue.ToString());
+            
             cboWarehouse.DisplayMember = "DepartmentName";
             cboWarehouse.ValueMember = "DepartmentID";
+            cboWarehouse.DataSource = warehouseList;
             
-            // Check if the list has any items before trying to set selected indices
-            if(_lstStock != null && _lstStock.Count > 0)
-            {
-                LoadDepartment();
-                cboWarehouse.SelectedIndex = 0;
-                cboPurchaseUnit.SelectedIndex = 0;
-            }
-            else
-            {
-                // Handle the empty list case - perhaps clear other dependent controls
-                LoadDepartment();
-                // Don't try to set selected indices for empty lists
-            }
+            cboPurchaseUnit.DisplayMember = "DepartmentName";
+            cboPurchaseUnit.ValueMember = "DepartmentID";
+            cboPurchaseUnit.DataSource = warehouseList;
         }
 
         void LoadSupplier()
@@ -274,7 +284,10 @@ namespace STOCK.Controls
                 }
             }
             
+            _allowTabChange = true;
             tabInvoice.SelectedTab = pageDetail;
+            _allowTabChange = false;
+            
             gvDetail.ReadOnly = false;
             contextMenuDetail.Enabled = true;
 
@@ -284,8 +297,9 @@ namespace STOCK.Controls
             _enable(true);
             ResetFields();
 
-            // Always ensure there's at least one empty row at the bottom
-            EnsureEmptyRowAtBottom();
+            cboStatus.SelectedIndex = 0;
+
+            EnsureOneEmptyRowAtBottom();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -303,14 +317,40 @@ namespace STOCK.Controls
                     _edit = true;
                     ShowHideControls(false);
                     _enable(true);
+                    
+                    _allowTabChange = true;
                     tabInvoice.SelectedTab = pageDetail;
+                    _allowTabChange = false;
+                    
                     tabInvoice.TabPages[0].Enabled = false; // Disable the first tab page
                     gvDetail.ReadOnly = false; // Enable editing in the DataGridView
                     contextMenuDetail.Enabled = true;
                     cboPurchaseUnit.Enabled = false;
 
+                    // Thêm một dòng trống mới để người dùng có thể thêm sản phẩm
+                    if (gvDetail.DataSource is BindingSource bs)
+                    {
+                        // Nếu DataGridView được liên kết với BindingSource
+                        if (bs.DataSource is List<obj_INVOICE_DETAIL> detailList)
+                        {
+                            // Tạo một đối tượng detail mới và thêm vào danh sách
+                            obj_INVOICE_DETAIL newDetail = new obj_INVOICE_DETAIL();
+                            newDetail.STT = detailList.Count + 1;
+                            newDetail.InvoiceID = current.InvoiceID;
+                            detailList.Add(newDetail);
+                            
+                            // Cập nhật lại binding
+                            bs.ResetBindings(false);
+                        }
+                    }
+                    else
+                    {
+                        // Nếu DataGridView không liên kết với BindingSource, thêm một dòng trực tiếp
+                        gvDetail.Rows.Add();
+                    }
+
                     // Always ensure there's at least one empty row at the bottom
-                    EnsureEmptyRowAtBottom();
+                    EnsureOneEmptyRowAtBottom();
 
                     if (gvDetail.Rows.Count == 0)
                     {
@@ -342,9 +382,13 @@ namespace STOCK.Controls
 
                     if (MessageBox.Show("Do you want to delete this record?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        _invoice.delete(invoiceID, _user.UserID); // Pass the user ID to the delete method
-                        row.Cells["DeletedBy"].Value = _user.UserID; // Update the DeletedBy cell in the DataGridView
+                        // Gọi phương thức delete trong INVOICE với UserID = 1
+                        _invoice.delete(invoiceID, 1);
+                        
+                        // Cập nhật UI để hiển thị trạng thái đã xóa
+                        row.Cells["DeletedBy"].Value = 1;
                         lblDelete.Visible = true;
+                        btnDelete.Enabled = false;
                     }
                 }
                 else
@@ -431,7 +475,7 @@ namespace STOCK.Controls
             
             // List of columns we need to find (case-insensitive)
             string[] requiredColumns = new string[] { 
-                "BARCODE", "ProductID", "ProductName", "Quantity", "Price", "TotalPrice", "Unit" 
+                "BARCODE", "ProductID", "ProductName", "QuantityDetail", "Price", "SubTotal", "Unit" 
             };
 
             // Find all column indices first (case-insensitive)
@@ -464,27 +508,32 @@ namespace STOCK.Controls
                 // Skip new/empty rows
                 if (row.IsNewRow) continue;
 
-                // Skip rows that are intentionally left blank (last row)
-                if (i == gvDetail.Rows.Count - 1 && 
-                    (columnIndices.TryGetValue("BARCODE", out int barcodeColIdx) && 
-                     (row.Cells[barcodeColIdx].Value == null || 
-                      string.IsNullOrWhiteSpace(row.Cells[barcodeColIdx].Value.ToString()))))
+                // Skip empty rows
+                if (columnIndices.TryGetValue("BARCODE", out int barcodeColIdx) && 
+                    (row.Cells[barcodeColIdx].Value == null || 
+                     string.IsNullOrWhiteSpace(row.Cells[barcodeColIdx].Value.ToString())))
+                {
+                    Console.WriteLine($"Skipping row {i} - Empty BARCODE");
                     continue;
+                }
 
                 // Skip rows that just have a "." in the BARCODE field
                 if (columnIndices.TryGetValue("BARCODE", out int barcodeIdx) && 
                     row.Cells[barcodeIdx].Value?.ToString() == ".")
+                {
+                    Console.WriteLine($"Skipping row {i} - BARCODE contains only '.'");
                     continue;
+                }
                     
-                // Skip rows without product name or barcode
-                if ((!columnIndices.ContainsKey("ProductName") || row.Cells[columnIndices["ProductName"]].Value == null) &&
-                    (!columnIndices.ContainsKey("BARCODE") || 
-                     row.Cells[columnIndices["BARCODE"]].Value == null || 
-                     string.IsNullOrWhiteSpace(row.Cells[columnIndices["BARCODE"]].Value.ToString()) ||
-                     row.Cells[columnIndices["BARCODE"]].Value.ToString() == "."))
+                // Skip rows without product name
+                if (columnIndices.TryGetValue("ProductName", out int productNameIdx) &&
+                    (row.Cells[productNameIdx].Value == null ||
+                     string.IsNullOrWhiteSpace(row.Cells[productNameIdx].Value.ToString())))
+                {
+                    Console.WriteLine($"Skipping row {i} - Empty ProductName");
                     continue;
+                }
 
-                // Rest of the method remains the same...
                 try
                 {
                     tb_InvoiceDetail detail = new tb_InvoiceDetail
@@ -495,20 +544,21 @@ namespace STOCK.Controls
                         Day = dtDate.Value
                     };
 
-                    // Get values using the column indices we found
+                    // Get BARCODE
                     if (columnIndices.TryGetValue("BARCODE", out int barIdx) && 
-                        row.Cells[barIdx].Value != null &&
-                        row.Cells[barIdx].Value.ToString() != ".")
+                        row.Cells[barIdx].Value != null)
                     {
                         detail.BARCODE = row.Cells[barIdx].Value.ToString();
+                        Console.WriteLine($"Row {i} has BARCODE: {detail.BARCODE}");
                     }
                     else 
                     {
+                        Console.WriteLine($"Row {i} skipped - invalid BARCODE");
                         continue; // Skip rows without valid barcode
                     }
 
-                    // Default quantity to 1 if not provided
-                    if (columnIndices.TryGetValue("Quantity", out int qtyIdx) && row.Cells[qtyIdx].Value != null)
+                    // Get Quantity
+                    if (columnIndices.TryGetValue("QuantityDetail", out int qtyIdx) && row.Cells[qtyIdx].Value != null)
                     {
                         if (int.TryParse(row.Cells[qtyIdx].Value.ToString(), out int qty))
                             detail.Quantity = qty;
@@ -518,7 +568,7 @@ namespace STOCK.Controls
                     else
                         detail.Quantity = 1;
 
-                    // Set price from grid or get from product if missing
+                    // Get Price
                     if (columnIndices.TryGetValue("Price", out int priceIdx) && row.Cells[priceIdx].Value != null)
                     {
                         if (double.TryParse(row.Cells[priceIdx].Value.ToString(), out double price))
@@ -547,18 +597,18 @@ namespace STOCK.Controls
                             detail.Price = 0;
                     }
 
-                    // Calculate or get total price
-                    if (columnIndices.TryGetValue("TotalPrice", out int totalPriceIdx) && row.Cells[totalPriceIdx].Value != null)
+                    // Get SubTotal
+                    if (columnIndices.TryGetValue("SubTotal", out int totalPriceIdx) && row.Cells[totalPriceIdx].Value != null)
                     {
                         if (double.TryParse(row.Cells[totalPriceIdx].Value.ToString(), out double totalPrice))
-                            detail.TotalPrice = totalPrice;
+                            detail.SubTotal = totalPrice;
                         else
-                            detail.TotalPrice = detail.Price * detail.Quantity; // Calculate if parsing fails
+                            detail.SubTotal = detail.Price * detail.Quantity; // Calculate if parsing fails
                     }
                     else
-                        detail.TotalPrice = detail.Price * detail.Quantity; // Calculate if column doesn't exist
+                        detail.SubTotal = detail.Price * detail.Quantity; // Calculate if column doesn't exist
 
-                    // Set ProductID
+                    // Get ProductID
                     if (columnIndices.TryGetValue("ProductID", out int productIdIdx) && row.Cells[productIdIdx].Value != null)
                     {
                         if (int.TryParse(row.Cells[productIdIdx].Value.ToString(), out int productId))
@@ -581,7 +631,7 @@ namespace STOCK.Controls
 
                     // Debug the values being saved
                     Console.WriteLine($"Row {i} detail: BARCODE={detail.BARCODE}, Qty={detail.Quantity}, " + 
-                                     $"Price={detail.Price}, TotalPrice={detail.TotalPrice}, ProductID={detail.ProductID}");
+                                      $"Price={detail.Price}, TotalPrice={detail.SubTotal}, ProductID={detail.ProductID}");
 
                     detailsToAdd.Add(detail);
                 }
@@ -601,6 +651,78 @@ namespace STOCK.Controls
             else
             {
                 Console.WriteLine("No invoice details to add to database");
+            }
+            
+            // Hàm kiểm tra và debug số lượng sản phẩm trong gvDetail
+            DebugDetailRows();
+        }
+
+        // Hàm kiểm tra và debug số lượng sản phẩm trong gvDetail
+        private void DebugDetailRows()
+        {
+            try
+            {
+                // Đếm số hàng có dữ liệu thực sự
+                int validRows = 0;
+                List<string> productBarcodes = new List<string>();
+                
+                Console.WriteLine("\n==== DEBUG DETAIL ROWS ====");
+                
+                // Tìm các cột cần thiết
+                int barcodeColIndex = -1, productNameColIndex = -1, quantityColIndex = -1;
+                
+                for (int i = 0; i < gvDetail.Columns.Count; i++)
+                {
+                    if (gvDetail.Columns[i].Name.Equals("BARCODE", StringComparison.OrdinalIgnoreCase))
+                        barcodeColIndex = i;
+                    else if (gvDetail.Columns[i].Name.Equals("ProductName", StringComparison.OrdinalIgnoreCase))
+                        productNameColIndex = i;
+                    else if (gvDetail.Columns[i].Name.Equals("QuantityDetail", StringComparison.OrdinalIgnoreCase))
+                        quantityColIndex = i;
+                }
+                
+                if (barcodeColIndex < 0 || productNameColIndex < 0)
+                {
+                    Console.WriteLine("Cannot find required columns for debugging.");
+                    return;
+                }
+                
+                // Kiểm tra từng dòng
+                for (int i = 0; i < gvDetail.Rows.Count; i++)
+                {
+                    if (gvDetail.Rows[i].IsNewRow) continue;
+                    
+                    string barcode = gvDetail.Rows[i].Cells[barcodeColIndex].Value?.ToString();
+                    string productName = gvDetail.Rows[i].Cells[productNameColIndex].Value?.ToString();
+                    
+                    if (!string.IsNullOrEmpty(barcode) && !string.IsNullOrEmpty(productName))
+                    {
+                        validRows++;
+                        productBarcodes.Add(barcode);
+                        
+                        // In thông tin chi tiết của dòng hợp lệ
+                        string rowInfo = $"Row {i} - BARCODE: {barcode}, Product: {productName}";
+                        if (quantityColIndex >= 0)
+                        {
+                            var qty = gvDetail.Rows[i].Cells[quantityColIndex].Value;
+                            rowInfo += $", Quantity: {qty}";
+                        }
+                        Console.WriteLine(rowInfo);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Row {i} - INVALID/EMPTY: Barcode={barcode}, ProductName={productName}");
+                    }
+                }
+                
+                Console.WriteLine($"Total rows in grid: {gvDetail.Rows.Count}");
+                Console.WriteLine($"Valid product rows: {validRows}");
+                Console.WriteLine($"Products to be saved: {string.Join(", ", productBarcodes)}");
+                Console.WriteLine("==== END DEBUG ====\n");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in DebugDetailRows: {ex.Message}");
             }
         }
 
@@ -622,7 +744,7 @@ namespace STOCK.Controls
                 invoice.InvoiceID = Guid.NewGuid();
                 invoice.Day = dtDate.Value;
                 invoice.Invoice = _seq.SEQVALUE.Value.ToString("000000") + "/" + DateTime.Today.Year.ToString().Substring(2, 2) + "/NHM/" + dp.Symbol;
-                invoice.CreatedBy = 1;
+                invoice.CreatedBy = 1;//_user.UserID;
                 invoice.CreatedDate = DateTime.Now;
             }
 
@@ -640,7 +762,7 @@ namespace STOCK.Controls
             int quantityColIndex = -1;
             for (int i = 0; i < gvDetail.Columns.Count; i++)
             {
-                if (gvDetail.Columns[i].Name.Equals("Quantity", StringComparison.OrdinalIgnoreCase))
+                if (gvDetail.Columns[i].Name.Equals("QuantityDetail", StringComparison.OrdinalIgnoreCase))
                 {
                     quantityColIndex = i;
                     break;
@@ -676,7 +798,12 @@ namespace STOCK.Controls
             int totalPriceColIndex = -1;
             for (int i = 0; i < gvDetail.Columns.Count; i++)
             {
-                if (gvDetail.Columns[i].Name.Equals("TotalPrice", StringComparison.OrdinalIgnoreCase))
+                if (gvDetail.Columns[i].Name.Equals("SubTotal", StringComparison.OrdinalIgnoreCase))
+                {
+                    totalPriceColIndex = i;
+                    break;
+                }
+                else if (gvDetail.Columns[i].Name.Equals("TotalPrice", StringComparison.OrdinalIgnoreCase))
                 {
                     totalPriceColIndex = i;
                     break;
@@ -711,7 +838,7 @@ namespace STOCK.Controls
             }
             
             invoice.TotalPrice = _total;
-            invoice.UpdatedBy = 1; //_user.UserID;
+            invoice.UpdatedBy = 1;
             invoice.UpdatedDate = DateTime.Now;
         }
 
@@ -892,14 +1019,26 @@ namespace STOCK.Controls
 
         private void gvList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (gvList.Columns[e.ColumnIndex].Name == "STATUS")
+            if (gvList.Columns[e.ColumnIndex].Name == "Status")
             {
-                if (e.Value != null && e.Value.ToString() == "1")
-                    e.Value = "Chưa hoàn tất";
-                else
-                    e.Value = "Đã hoàn tất";
-
-                e.FormattingApplied = true; // Xác nhận đã xử lý format
+                if (e.Value != null)
+                {
+                    // Kiểm tra trên chuỗi hoặc trên số
+                    if (e.Value.ToString() == "1")
+                    {
+                        e.Value = "Not Complete";
+                    }
+                    else if (e.Value.ToString() == "2")
+                    {
+                        e.Value = "Confirm";
+                    }
+                    
+                    // Đánh dấu rằng đã xử lý việc định dạng
+                    e.FormattingApplied = true;
+                    
+                    // Log để kiểm tra
+                    Console.WriteLine($"Status value: {e.Value} (original: {gvList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value})");
+                }
             }
         }
 
@@ -909,7 +1048,7 @@ namespace STOCK.Controls
             //{
             //    e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.ContentForeground);
 
-            //    Image img = Properties.Resources.del_Icon_x16; // Ảnh xóa
+            //    Image img = Properties.Resources.trash.png; // Ảnh xóa
             //    int imgX = e.CellBounds.X + (e.CellBounds.Width - img.Width) / 2;
             //    int imgY = e.CellBounds.Y + (e.CellBounds.Height - img.Height) / 2;
 
@@ -945,59 +1084,65 @@ namespace STOCK.Controls
                     if (barcode.StartsWith(".")) // Nếu barcode bắt đầu bằng "."
                     {
                         _isImport = true;
+                        int currentRowIndex = e.RowIndex; // Lưu lại vị trí hàng hiện tại
+
                         try
                         {
-                            // Remember the original value
-                            string originalValue = barcode;
-                            
                             // Pass the current row index to formList
-                            formList _popList = new formList(gvDetail, barcode, e.RowIndex);
+                            formList _popList = new formList(gvDetail, barcode, currentRowIndex);
                             _popList.ShowDialog();
                             
-                            // Clear the "." if it's still there after closing the form
-                            if (e.RowIndex < gvDetail.Rows.Count && !gvDetail.Rows[e.RowIndex].IsNewRow)
+                            // Sau khi đóng form, kiểm tra xem có dữ liệu nào được thêm vào không
+                            bool dataAdded = false;
+                            
+                            // Lấy số hàng trước khi kiểm tra để tránh lỗi khi xóa hàng
+                            int totalRows = gvDetail.Rows.Count;
+                            
+                            // Kiểm tra xem dòng hiện tại còn chứa dấu "." không
+                            // Nếu còn tồn tại và chưa được cập nhật, xóa dấu "." đó
+                            if (currentRowIndex < totalRows && !gvDetail.Rows[currentRowIndex].IsNewRow)
                             {
-                                if (gvDetail.Rows[e.RowIndex].Cells["BARCODE"].Value?.ToString() == originalValue)
+                                var currentBarcode = gvDetail.Rows[currentRowIndex].Cells["BARCODE"].Value?.ToString();
+                                if (currentBarcode == barcode) // Vẫn còn giữ dấu "."
                                 {
-                                    gvDetail.Rows[e.RowIndex].Cells["BARCODE"].Value = null;
+                                    // Kiểm tra xem có phải dòng cuối cùng không
+                                    bool isLastDataRow = true;
+                                    for (int i = currentRowIndex + 1; i < gvDetail.Rows.Count; i++)
+                                    {
+                                        if (!gvDetail.Rows[i].IsNewRow && 
+                                            gvDetail.Rows[i].Cells["BARCODE"].Value != null && 
+                                            !string.IsNullOrWhiteSpace(gvDetail.Rows[i].Cells["BARCODE"].Value.ToString()))
+                                        {
+                                            isLastDataRow = false;
+                                            break;
+                                        }
+                                    }
+                                    
+                                    if (isLastDataRow)
+                                    {
+                                        // Nếu là dòng cuối cùng, chỉ xóa giá trị "." mà không xóa dòng
+                                        gvDetail.Rows[currentRowIndex].Cells["BARCODE"].Value = null;
+                                    }
+                                    else
+                                    {
+                                        // Nếu không phải dòng cuối, xóa dòng này
+                                        gvDetail.Rows.RemoveAt(currentRowIndex);
+                                    }
+                                }
+                                else
+                                {
+                                    dataAdded = true;
                                 }
                             }
                             
-                            // After the form closes, safely recalculate dependent values
-                            try
-                            {
-                                // Check if columns exist first using column index method which is safer
-                                int quantityColIndex = -1, priceColIndex = -1, totalPriceColIndex = -1;
-                                
-                                for (int i = 0; i < gvDetail.Columns.Count; i++)
-                                {
-                                    if (gvDetail.Columns[i].Name.Equals("Quantity", StringComparison.OrdinalIgnoreCase))
-                                        quantityColIndex = i;
-                                    else if (gvDetail.Columns[i].Name.Equals("Price", StringComparison.OrdinalIgnoreCase))
-                                        priceColIndex = i;
-                                    else if (gvDetail.Columns[i].Name.Equals("TotalPrice", StringComparison.OrdinalIgnoreCase))
-                                        totalPriceColIndex = i;
-                                }
-                                
-                                if (quantityColIndex >= 0 && priceColIndex >= 0 && totalPriceColIndex >= 0 && 
-                                    e.RowIndex < gvDetail.Rows.Count) // Make sure row still exists
-                                {
-                                    var quantityValue = gvDetail.Rows[e.RowIndex].Cells[quantityColIndex].Value;
-                                    var priceValue = gvDetail.Rows[e.RowIndex].Cells[priceColIndex].Value;
-                                    
-                                    if (quantityValue != null && priceValue != null &&
-                                        double.TryParse(quantityValue.ToString(), out double quantity) &&
-                                        double.TryParse(priceValue.ToString(), out double price))
-                                    {
-                                        gvDetail.Rows[e.RowIndex].Cells[totalPriceColIndex].Value = quantity * price;
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"Error updating TotalPrice after form close: {ex.Message}");
-                                // Don't show error to user, just log it
-                            }
+                            // Đảm bảo SubTotal được tính đúng sau khi thêm sản phẩm
+                            AutoUpdateTotalPriceForBoundGrid();
+                            
+                            // Đảm bảo có một dòng trống ở cuối
+                            EnsureOneEmptyRowAtBottom();
+                            
+                            // Debug gridview để xem các sản phẩm đã được thêm vào
+                            DebugDetailRows();
                         }
                         finally
                         {
@@ -1033,15 +1178,12 @@ namespace STOCK.Controls
                                 DataGridViewRow row = gvDetail.Rows[e.RowIndex];
                                 row.Cells["ProductName"].Value = pd.ProductName;
                                 row.Cells["Unit"].Value = pd.Unit;
-                                row.Cells["Quantity"].Value = 1;
+                                row.Cells["QuantityDetail"].Value = 1;
                                 row.Cells["Price"].Value = pd.Price;
-                                row.Cells["TotalPrice"].Value = pd.Price;
+                                row.Cells["SubTotal"].Value = pd.Price;
                                 
-                                // If this is the last row, add a new row for convenience
-                                if (e.RowIndex == gvDetail.Rows.Count - 1 && !gvDetail.Rows[e.RowIndex].IsNewRow)
-                                {
-                                    gvDetail.Rows.Add();
-                                }
+                                // Đảm bảo có một dòng trống ở cuối
+                                EnsureOneEmptyRowAtBottom();
                             }
                         }
                         else
@@ -1054,11 +1196,11 @@ namespace STOCK.Controls
                     }
                 }
 
-                // Kiểm tra nếu thay đổi cột "Quantity" hoặc "Price"
-                if (columnName == "Quantity" || columnName == "Price")
+                // Phần code xử lý thay đổi Quantity và Price giữ nguyên
+                if (columnName == "QuantityDetail" || columnName == "Price")
                 {
                     object barcodeValue = gvDetail.Rows[e.RowIndex].Cells["BARCODE"]?.Value;
-                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["Quantity"]?.Value;
+                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["QuantityDetail"]?.Value;
                     object priceValue = gvDetail.Rows[e.RowIndex].Cells["Price"]?.Value;
 
                     if (barcodeValue != null && quantityValue != null && priceValue != null)
@@ -1066,18 +1208,18 @@ namespace STOCK.Controls
                         if (double.TryParse(quantityValue.ToString(), out double quantity) && 
                             double.TryParse(priceValue.ToString(), out double price))
                         {
-                            if (quantity == 0 && columnName == "Quantity")
+                            if (quantity == 0 && columnName == "QuantityDetail")
                             {
                                 MessageBox.Show("Số lượng sản phẩm không thể bằng 0", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                gvDetail.Rows[e.RowIndex].Cells["Quantity"].Value = 1;
+                                gvDetail.Rows[e.RowIndex].Cells["QuantityDetail"].Value = 1;
                                 quantity = 1;
                             }
                             
                             // Calculate and update total price
                             double totalPrice = price * quantity;
-                            gvDetail.Rows[e.RowIndex].Cells["TotalPrice"].Value = totalPrice;
+                            gvDetail.Rows[e.RowIndex].Cells["SubTotal"].Value = totalPrice;
                             
-                            Console.WriteLine($"Updated TotalPrice for row {e.RowIndex}: {totalPrice} = {price} * {quantity}");
+                            Console.WriteLine($"Updated SubTotal for row {e.RowIndex}: {totalPrice} = {price} * {quantity}");
                         }
                         else
                         {
@@ -1087,12 +1229,7 @@ namespace STOCK.Controls
                     gvDetail.Refresh();
                 }
 
-                // After cell value changes, ensure there's an empty row at the bottom
-                // Don't call this during import to avoid recursion
-                if (!_isImport && (_add || _edit))
-                {
-                    EnsureEmptyRowAtBottom();
-                }
+                // Không gọi EnsureEmptyRowAtBottom ở đây để tránh tạo nhiều dòng trống
             }
             catch (Exception ex)
             {
@@ -1101,15 +1238,64 @@ namespace STOCK.Controls
             }
         }
 
-        // Add this new method to ensure there's always an empty row at the bottom
-        private void EnsureEmptyRowAtBottom()
+        // Thêm phương thức mới để đảm bảo chỉ có 1 dòng trống ở cuối
+        private void EnsureOneEmptyRowAtBottom()
         {
-            // Only do this in add or edit mode
-            if (!_add && !_edit)
-                return;
-            
-            // Use the utility method from DataGridViewHelper
-            DataGridViewHelper.EnsureEmptyRowAtBottom(gvDetail);
+            try
+            {
+                // Đếm số dòng trống ở cuối
+                int emptyRows = 0;
+                int lastRowWithData = -1;
+                
+                // Duyệt từ cuối lên để tìm dòng trống
+                for (int i = gvDetail.Rows.Count - 1; i >= 0; i--)
+                {
+                    if (gvDetail.Rows[i].IsNewRow) continue;
+                    
+                    var barcodeValue = gvDetail.Rows[i].Cells["BARCODE"].Value;
+                    var productNameValue = gvDetail.Rows[i].Cells["ProductName"].Value;
+                    
+                    if (barcodeValue == null || string.IsNullOrWhiteSpace(barcodeValue.ToString()) ||
+                        productNameValue == null || string.IsNullOrWhiteSpace(productNameValue.ToString()))
+                    {
+                        emptyRows++;
+                    }
+                    else
+                    {
+                        lastRowWithData = i;
+                        break;
+                    }
+                }
+                
+                // Nếu không có dòng trống nào, thêm một dòng trống mới
+                if (emptyRows == 0 && lastRowWithData >= 0)
+                {
+                    int newRowIndex = gvDetail.Rows.Add();
+                    gvDetail.Rows[newRowIndex].Cells["STT"].Value = lastRowWithData + 2; // STT = index của dòng dữ liệu cuối + 2
+                }
+                // Nếu có nhiều hơn 1 dòng trống, xóa bớt dòng trống
+                else if (emptyRows > 1)
+                {
+                    for (int i = 0; i < emptyRows - 1; i++)
+                    {
+                        int indexToRemove = lastRowWithData + 1;
+                        if (indexToRemove < gvDetail.Rows.Count && !gvDetail.Rows[indexToRemove].IsNewRow)
+                        {
+                            gvDetail.Rows.RemoveAt(indexToRemove);
+                        }
+                    }
+                }
+                
+                // Cập nhật STT của dòng trống cuối cùng
+                if (lastRowWithData >= 0 && lastRowWithData + 1 < gvDetail.Rows.Count)
+                {
+                    gvDetail.Rows[lastRowWithData + 1].Cells["STT"].Value = lastRowWithData + 2;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in EnsureOneEmptyRowAtBottom: {ex.Message}");
+            }
         }
 
         private void cmdDeleteRow_Click(object sender, EventArgs e)
@@ -1267,9 +1453,9 @@ namespace STOCK.Controls
                         row.Cells[gvDetail.Columns["BARCODE"].Index].Value = _h.BARCODE;
                         row.Cells[gvDetail.Columns["Unit"].Index].Value = _h.Unit;
                         row.Cells[gvDetail.Columns["ProductName"].Index].Value = _h.ProductName;
-                        row.Cells[gvDetail.Columns["Quantity"].Index].Value = _quantity;
+                        row.Cells[gvDetail.Columns["QuantityDetail"].Index].Value = _quantity;
                         row.Cells[gvDetail.Columns["Price"].Index].Value = _h.Price;
-                        row.Cells[gvDetail.Columns["TotalPrice"].Index].Value = _h.Price * _quantity;
+                        row.Cells[gvDetail.Columns["SubTotal"].Index].Value = _h.Price * _quantity;
 
                         gvDetail.Rows.Add(row);
                     }
@@ -1316,6 +1502,19 @@ namespace STOCK.Controls
             if (_edit == false && tabInvoice.SelectedTab == pageDetail)
             {
                 gvDetail.ReadOnly = true; // Nếu gvDetail là DataGridView
+                
+                // Kiểm tra nếu hóa đơn hiện tại đã bị xóa thì hiển thị label Delete
+                tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
+                if (current != null && current.DeletedBy != null)
+                {
+                    lblDelete.Visible = true;
+                    btnDelete.Enabled = false;
+                }
+                else
+                {
+                    lblDelete.Visible = false;
+                    btnDelete.Enabled = true;
+                }
             }
         }
 
@@ -1417,9 +1616,19 @@ namespace STOCK.Controls
 
         private void gvList_DoubleClick(object sender, EventArgs e)
         {
-            if (gvList.Rows.Count > 0)
+            if (gvList.Rows.Count > 0 && gvList.SelectedRows.Count > 0)
             {
-                tabInvoice.SelectedTab = pageDetail; // Chuyển tab
+                // Lấy dữ liệu của dòng được chọn
+                tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
+                
+                // Chuyển đến tab chi tiết
+                _allowTabChange = true;
+                tabInvoice.SelectedTab = pageDetail;
+                _allowTabChange = false;
+                
+                // Hiển thị thông tin chi tiết nhưng không cho phép chỉnh sửa
+                gvDetail.ReadOnly = true;
+                contextMenuDetail.Enabled = false;
             }
         }
 
@@ -1437,7 +1646,7 @@ namespace STOCK.Controls
                             // Update total price if we have quantity and price
                             if (item.Quantity.HasValue && item.Price.HasValue)
                             {
-                                item.TotalPrice = item.Quantity.Value * item.Price.Value;
+                                item.SubTotal = item.Quantity.Value * item.Price.Value;
                             }
                         }
                         bs.ResetBindings(false);
@@ -1459,11 +1668,11 @@ namespace STOCK.Controls
 
                 string columnName = gvDetail.Columns[e.ColumnIndex].Name;
                 
-                // When Price or Quantity is edited, recalculate TotalPrice
-                if (columnName.Equals("Quantity", StringComparison.OrdinalIgnoreCase) || 
+                // When Price or Quantity is edited, recalculate SubTotal
+                if (columnName.Equals("QuantityDetail", StringComparison.OrdinalIgnoreCase) || 
                     columnName.Equals("Price", StringComparison.OrdinalIgnoreCase))
                 {
-                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["Quantity"]?.Value;
+                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["QuantityDetail"]?.Value;
                     object priceValue = gvDetail.Rows[e.RowIndex].Cells["Price"]?.Value;
                     
                     if (quantityValue != null && priceValue != null &&
@@ -1471,15 +1680,15 @@ namespace STOCK.Controls
                         double.TryParse(priceValue.ToString(), out double price))
                     {
                         double totalPrice = quantity * price;
-                        gvDetail.Rows[e.RowIndex].Cells["TotalPrice"].Value = totalPrice;
-                        Console.WriteLine($"Updated TotalPrice in cell edit: {totalPrice} = {quantity} * {price}");
+                        gvDetail.Rows[e.RowIndex].Cells["SubTotal"].Value = totalPrice;
+                        Console.WriteLine($"Updated SubTotal in cell edit: {totalPrice} = {quantity} * {price}");
                     }
                 }
-                // When TotalPrice is edited directly, update Price (assuming Quantity stays the same)
-                else if (columnName.Equals("TotalPrice", StringComparison.OrdinalIgnoreCase))
+                // When SubTotal is edited directly, update Price (assuming Quantity stays the same)
+                else if (columnName.Equals("SubTotal", StringComparison.OrdinalIgnoreCase))
                 {
-                    object totalPriceValue = gvDetail.Rows[e.RowIndex].Cells["TotalPrice"]?.Value;
-                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["Quantity"]?.Value;
+                    object totalPriceValue = gvDetail.Rows[e.RowIndex].Cells["SubTotal"]?.Value;
+                    object quantityValue = gvDetail.Rows[e.RowIndex].Cells["QuantityDetail"]?.Value;
                     
                     if (totalPriceValue != null && quantityValue != null &&
                         double.TryParse(totalPriceValue.ToString(), out double totalPrice) &&
@@ -1488,7 +1697,7 @@ namespace STOCK.Controls
                     {
                         double price = totalPrice / quantity;
                         gvDetail.Rows[e.RowIndex].Cells["Price"].Value = price;
-                        Console.WriteLine($"Updated Price based on TotalPrice: {price} = {totalPrice} / {quantity}");
+                        Console.WriteLine($"Updated Price based on SubTotal: {price} = {totalPrice} / {quantity}");
                     }
                 }
             }
@@ -1502,6 +1711,22 @@ namespace STOCK.Controls
         private void UpdateAllTotalPrices()
         {
             DataGridViewHelper.UpdateAllTotalPrices(gvDetail);
+        }
+
+        // Biến để kiểm soát việc cho phép chuyển tab
+        private bool _allowTabChange = false;
+
+        private void tabInvoice_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            // Nếu đang cố gắng chuyển đến tab Detail và không phải ở chế độ thêm hoặc sửa
+            if (e.TabPage == pageDetail && !_add && !_edit)
+            {
+                // Hủy việc chuyển tab, trừ khi đang thực hiện double-click
+                if (!_allowTabChange)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

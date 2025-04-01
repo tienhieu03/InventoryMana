@@ -138,52 +138,90 @@ namespace STOCK.Controls
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (_add)
+            try
             {
-                tb_Department dp = new tb_Department()
+                // Validate required fields
+                if (string.IsNullOrWhiteSpace(txtId.Text))
                 {
-                    DepartmentID = txtId.Text,
-                    CompanyID = CboCp.SelectedValue.ToString(),
-                    DepartmentName = txtName.Text,
-                    DepartmentPhone = txtPhone.Text,
-                    DepartmentAddress = txtAddress.Text,
-                    DepartmentFax = txtFax.Text,
-                    DepartmentEmail = txtEmail.Text,
-                    Warehouse = chkWarehouse.Checked,
-                    Symbol = txtSymbol.Text,
-                    IsDisabled = chkDisable.Checked,
-                    CreatedDate = DateTime.Now,  // Gán ngày tạo mới
-                    DeletedDate = null,         // Mặc định NULL
-                    UpdatedDate = null,
-                    RestoredDate = null
-                };
-                _department.add(dp);
-            }
-            else
-            {
-                tb_Department dp = _department.getItem(_departmentid);
-                bool wasDisabled = dp.IsDisabled ?? false;
-                dp.CompanyID = CboCp.SelectedValue.ToString();
-                dp.DepartmentName = txtName.Text;
-                dp.DepartmentPhone = txtPhone.Text;
-                dp.DepartmentAddress = txtAddress.Text;
-                dp.DepartmentFax = txtFax.Text;
-                dp.DepartmentEmail = txtEmail.Text;
-                dp.Warehouse = chkWarehouse.Checked;
-                dp.Symbol = txtSymbol.Text;
-                dp.IsDisabled = chkDisable.Checked;
-                dp.UpdatedDate = DateTime.Now;
-                if (wasDisabled && !chkDisable.Checked)
-                {
-                    dp.RestoredDate = DateTime.Now;
+                    MessageBox.Show("Department ID cannot be empty!", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtId.Focus();
+                    return;
                 }
-                _department.update(dp);
+
+                if (string.IsNullOrWhiteSpace(txtName.Text))
+                {
+                    MessageBox.Show("Department Name cannot be empty!", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtName.Focus();
+                    return;
+                }
+
+                // If Warehouse is checked, Symbol is required
+                if (chkWarehouse.Checked && string.IsNullOrWhiteSpace(txtSymbol.Text))
+                {
+                    MessageBox.Show("Symbol is required for Warehouse departments!", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSymbol.Focus();
+                    return;
+                }
+
+                if (_add)
+                {
+                    // Check if department ID already exists
+                    if (_department.getItem(txtId.Text) != null)
+                    {
+                        MessageBox.Show("Department ID already exists!", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtId.Focus();
+                        return;
+                    }
+
+                    tb_Department dp = new tb_Department()
+                    {
+                        DepartmentID = txtId.Text,
+                        CompanyID = CboCp.SelectedValue.ToString(),
+                        DepartmentName = txtName.Text,
+                        DepartmentPhone = txtPhone.Text,
+                        DepartmentAddress = txtAddress.Text,
+                        DepartmentFax = txtFax.Text,
+                        DepartmentEmail = txtEmail.Text,
+                        Warehouse = chkWarehouse.Checked,
+                        Symbol = txtSymbol.Text,
+                        IsDisabled = chkDisable.Checked,
+                        CreatedDate = DateTime.Now,  // Gán ngày tạo mới
+                        DeletedDate = null,         // Mặc định NULL
+                        UpdatedDate = null,
+                        RestoredDate = null
+                    };
+                    _department.add(dp);
+                }
+                else
+                {
+                    tb_Department dp = _department.getItem(_departmentid);
+                    bool wasDisabled = dp.IsDisabled ?? false;
+                    dp.CompanyID = CboCp.SelectedValue.ToString();
+                    dp.DepartmentName = txtName.Text;
+                    dp.DepartmentPhone = txtPhone.Text;
+                    dp.DepartmentAddress = txtAddress.Text;
+                    dp.DepartmentFax = txtFax.Text;
+                    dp.DepartmentEmail = txtEmail.Text;
+                    dp.Warehouse = chkWarehouse.Checked;
+                    dp.Symbol = txtSymbol.Text;
+                    dp.IsDisabled = chkDisable.Checked;
+                    dp.UpdatedDate = DateTime.Now;
+                    if (wasDisabled && !chkDisable.Checked)
+                    {
+                        dp.RestoredDate = DateTime.Now;
+                    }
+                    _department.update(dp);
+                }
+                _add = false;
+                LoadDpByCp();
+                _enable(false);
+                ShowHideControls(true);
+                txtId.Enabled = false;
             }
-            _add = false;
-            LoadDpByCp();
-            _enable(false);
-            ShowHideControls(true);
-            txtId.Enabled = false;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

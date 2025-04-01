@@ -130,6 +130,13 @@ namespace BusinessLayer.DataModels
                 }
             }
         }
+        
+        // Thêm thuộc tính QuantityDetail để binding với DataGridView
+        public Nullable<int> QuantityDetail
+        {
+            get { return Quantity; }
+            set { Quantity = value; }
+        }
 
         private Nullable<double> _price;
         public Nullable<double> Price 
@@ -162,7 +169,7 @@ namespace BusinessLayer.DataModels
         }
 
         private Nullable<double> _totalPrice;
-        public Nullable<double> TotalPrice 
+        public Nullable<double> SubTotal 
         { 
             get { return _totalPrice; }
             set 
@@ -208,7 +215,7 @@ namespace BusinessLayer.DataModels
         {
             if (Quantity.HasValue && Price.HasValue)
             {
-                TotalPrice = Quantity.Value * Price.Value;
+                SubTotal = Quantity.Value * Price.Value;
             }
         }
     }

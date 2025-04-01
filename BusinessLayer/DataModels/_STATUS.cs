@@ -21,8 +21,8 @@ namespace BusinessLayer.DataModels
             List<_STATUS> _lst = new List<_STATUS>();
             _STATUS[] collect = new _STATUS[2]
             {
-                new _STATUS(1, "Not complete"),
-                new _STATUS(2, "Confirmed"),
+                new _STATUS(1, "Not Complete"),
+                new _STATUS(2, "Confirm"),
             };
             _lst.AddRange(collect);
             return _lst;

@@ -79,6 +79,12 @@
     <Compile Include="Controls\DepartmentControl.Designer.cs">
       <DependentUpon>DepartmentControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\InternalDeliveryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\InternalDeliveryControl.Designer.cs">
+      <DependentUpon>InternalDeliveryControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\OriginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +127,18 @@
     <Compile Include="Forms\formConnect.Designer.cs">
       <DependentUpon>formConnect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\formLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formLogin.Designer.cs">
+      <DependentUpon>formLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formSetParam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formSetParam.Designer.cs">
+      <DependentUpon>formSetParam.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +169,9 @@
     <EmbeddedResource Include="Controls\DepartmentControl.resx">
       <DependentUpon>DepartmentControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InternalDeliveryControl.resx">
+      <DependentUpon>InternalDeliveryControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\OriginControl.resx">
       <DependentUpon>OriginControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,6 +192,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\formConnect.resx">
       <DependentUpon>formConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formLogin.resx">
+      <DependentUpon>formLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formSetParam.resx">
+      <DependentUpon>formSetParam.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

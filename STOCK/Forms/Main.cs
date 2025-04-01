@@ -18,6 +18,8 @@ namespace STOCK.Forms
 {
     public partial class Main : MaterialForm
     {
+        private tb_SYS_USER _currentUser;
+        
         public Main()
         {
             InitializeComponent();
@@ -27,6 +29,11 @@ namespace STOCK.Forms
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue800, Primary.Blue900, Primary.Blue500, Accent.LightBlue200, TextShade.WHITE);
             flpMenu.BackColor = Color.LightGray;
             pnlMain.BackColor = Color.White;
+        }
+        
+        public Main(tb_SYS_USER user) : this()
+        {
+            _currentUser = user;
         }
 
         SYS_FUNC _func;
@@ -168,6 +175,10 @@ namespace STOCK.Forms
                         else if (_ch.FUNC_CODE == "PURCHASE INVOICE")
                         {
                             ShowUserControl(new PurchaseInvoiceControl());
+                        }
+                        else if (_ch.FUNC_CODE == "INTERNAL DELIVERY INVOICE")
+                        {
+                            ShowUserControl(new InternalDeliveryControl());
                         }
                         else
                         {

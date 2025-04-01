@@ -12,20 +12,21 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class V_USER_NOTION_GROUP
+    public partial class V_USER_NOTIN_GROUP
     {
-        public int IDUser { get; set; }
+        public int UserID { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string CompanyID { get; set; }
         public string DepartmentID { get; set; }
-        public string LastPasswordChange { get; set; }
+        public Nullable<System.DateTime> LastPasswordChange { get; set; }
         public Nullable<bool> IsGroup { get; set; }
         public Nullable<bool> IsDisable { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<System.DateTime> RestoredDate { get; set; }
     }
 }

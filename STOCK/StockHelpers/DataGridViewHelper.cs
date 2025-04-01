@@ -93,7 +93,7 @@ namespace STOCK.StockHelpers
         }
 
         /// <summary>
-        /// Updates the TotalPrice column based on Price and Quantity columns
+        /// Updates the SubTotal column based on Price and QuantityDetail columns
         /// </summary>
         /// <param name="dataGridView">The DataGridView to update</param>
         public static void UpdateAllTotalPrices(DataGridView dataGridView)
@@ -104,7 +104,13 @@ namespace STOCK.StockHelpers
                 
                 try
                 {
-                    object quantityValue = dataGridView.Rows[i].Cells["Quantity"]?.Value;
+                    // Try to find the quantity column - it could be Quantity or QuantityDetail
+                    object quantityValue = null;
+                    if (dataGridView.Columns.Contains("QuantityDetail"))
+                        quantityValue = dataGridView.Rows[i].Cells["QuantityDetail"]?.Value;
+                    else if (dataGridView.Columns.Contains("Quantity"))
+                        quantityValue = dataGridView.Rows[i].Cells["Quantity"]?.Value;
+                    
                     object priceValue = dataGridView.Rows[i].Cells["Price"]?.Value;
                     
                     if (quantityValue != null && priceValue != null &&
@@ -114,7 +120,13 @@ namespace STOCK.StockHelpers
                         double totalPrice = quantity * price;
                         
                         // Only update if different (to avoid infinite loops with data binding)
-                        object currentTotalPriceValue = dataGridView.Rows[i].Cells["TotalPrice"]?.Value;
+                        // Try to find the total price column - it could be TotalPrice or SubTotal
+                        object currentTotalPriceValue = null;
+                        if (dataGridView.Columns.Contains("SubTotal"))
+                            currentTotalPriceValue = dataGridView.Rows[i].Cells["SubTotal"]?.Value;
+                        else if (dataGridView.Columns.Contains("TotalPrice"))
+                            currentTotalPriceValue = dataGridView.Rows[i].Cells["TotalPrice"]?.Value;
+                        
                         double currentTotalPrice = 0;
                         if (currentTotalPriceValue != null)
                         {
@@ -123,13 +135,19 @@ namespace STOCK.StockHelpers
                         
                         if (Math.Abs(currentTotalPrice - totalPrice) > 0.001) // Small tolerance for floating point comparison
                         {
-                            dataGridView.Rows[i].Cells["TotalPrice"].Value = totalPrice;
+                            // Update the appropriate column
+                            if (dataGridView.Columns.Contains("SubTotal"))
+                                dataGridView.Rows[i].Cells["SubTotal"].Value = totalPrice;
+                            else if (dataGridView.Columns.Contains("TotalPrice"))
+                                dataGridView.Rows[i].Cells["TotalPrice"].Value = totalPrice;
+                            
+                            Console.WriteLine($"Updated total price for row {i}: {totalPrice} = {quantity} * {price}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error updating TotalPrice for row {i}: {ex.Message}");
+                    Console.WriteLine($"Error updating total price for row {i}: {ex.Message}");
                 }
             }
         }

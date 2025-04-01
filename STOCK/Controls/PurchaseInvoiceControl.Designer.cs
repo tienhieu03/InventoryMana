@@ -46,6 +46,16 @@
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.gvList = new System.Windows.Forms.DataGridView();
+            this.DeletedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceNo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Day2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuDetail = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmdDeleteRow = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdDeleteDetail = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,18 +84,10 @@
             this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QuantityDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPriceDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeletedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvoiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvoiceNo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Day2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.kryptonToolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -283,6 +285,7 @@
             this.gvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DeletedBy,
+            this.InvoiceID,
             this.InvoiceNo,
             this.Date,
             this.InvoiceNo2,
@@ -304,6 +307,79 @@
             this.gvList.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.gvList_CellPainting);
             this.gvList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvList_CellValueChanged);
             this.gvList.DoubleClick += new System.EventHandler(this.gvList_DoubleClick);
+            // 
+            // DeletedBy
+            // 
+            this.DeletedBy.DataPropertyName = "DeletedBy";
+            this.DeletedBy.HeaderText = "Deleted_By";
+            this.DeletedBy.Name = "DeletedBy";
+            this.DeletedBy.ReadOnly = true;
+            // 
+            // InvoiceID
+            // 
+            this.InvoiceID.DataPropertyName = "InvoiceID";
+            this.InvoiceID.HeaderText = "InvoiceID";
+            this.InvoiceID.Name = "InvoiceID";
+            this.InvoiceID.ReadOnly = true;
+            this.InvoiceID.Visible = false;
+            // 
+            // InvoiceNo
+            // 
+            this.InvoiceNo.DataPropertyName = "Invoice";
+            this.InvoiceNo.HeaderText = "Invoice No";
+            this.InvoiceNo.Name = "InvoiceNo";
+            this.InvoiceNo.ReadOnly = true;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Day";
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            // 
+            // InvoiceNo2
+            // 
+            this.InvoiceNo2.DataPropertyName = "Invoice2";
+            this.InvoiceNo2.HeaderText = "InvoiceNo2";
+            this.InvoiceNo2.Name = "InvoiceNo2";
+            this.InvoiceNo2.ReadOnly = true;
+            this.InvoiceNo2.Visible = false;
+            // 
+            // Day2
+            // 
+            this.Day2.DataPropertyName = "Day2";
+            this.Day2.HeaderText = "Receive Date";
+            this.Day2.Name = "Day2";
+            this.Day2.ReadOnly = true;
+            this.Day2.Visible = false;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.HeaderText = "Quantity";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            // 
+            // TotalPrice
+            // 
+            this.TotalPrice.DataPropertyName = "TotalPrice";
+            this.TotalPrice.HeaderText = "TotalPrice";
+            this.TotalPrice.Name = "TotalPrice";
+            this.TotalPrice.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             // 
             // contextMenuDetail
             // 
@@ -538,7 +614,7 @@
             this.Unit,
             this.QuantityDetail,
             this.Price,
-            this.TotalPriceDetail,
+            this.SubTotal,
             this.QRCODE,
             this.ProductID});
             this.gvDetail.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -584,24 +660,24 @@
             // 
             // QuantityDetail
             // 
-            this.QuantityDetail.DataPropertyName = "Quantity";
+            this.QuantityDetail.DataPropertyName = "QuantityDetail";
             this.QuantityDetail.HeaderText = "Quantity";
             this.QuantityDetail.Name = "QuantityDetail";
             this.QuantityDetail.ReadOnly = true;
             // 
             // Price
             // 
-            this.Price.DataPropertyName = "PricePrice";
+            this.Price.DataPropertyName = "Price";
             this.Price.HeaderText = "Price";
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
             // 
-            // TotalPriceDetail
+            // SubTotal
             // 
-            this.TotalPriceDetail.DataPropertyName = "TotalPrice";
-            this.TotalPriceDetail.HeaderText = "Total Price";
-            this.TotalPriceDetail.Name = "TotalPriceDetail";
-            this.TotalPriceDetail.ReadOnly = true;
+            this.SubTotal.DataPropertyName = "SubTotal";
+            this.SubTotal.HeaderText = "Total Price";
+            this.SubTotal.Name = "SubTotal";
+            this.SubTotal.ReadOnly = true;
             // 
             // QRCODE
             // 
@@ -619,70 +695,11 @@
             this.ProductID.ReadOnly = true;
             this.ProductID.Visible = false;
             // 
-            // DeletedBy
+            // imageList1
             // 
-            this.DeletedBy.DataPropertyName = "DeletedBy";
-            this.DeletedBy.HeaderText = "Deleted_By";
-            this.DeletedBy.Name = "DeletedBy";
-            this.DeletedBy.ReadOnly = true;
-            // 
-            // InvoiceNo
-            // 
-            this.InvoiceNo.DataPropertyName = "Invoice";
-            this.InvoiceNo.HeaderText = "Invoice No";
-            this.InvoiceNo.Name = "InvoiceNo";
-            this.InvoiceNo.ReadOnly = true;
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Day";
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // InvoiceNo2
-            // 
-            this.InvoiceNo2.DataPropertyName = "Invoice2";
-            this.InvoiceNo2.HeaderText = "InvoiceNo2";
-            this.InvoiceNo2.Name = "InvoiceNo2";
-            this.InvoiceNo2.ReadOnly = true;
-            this.InvoiceNo2.Visible = false;
-            // 
-            // Day2
-            // 
-            this.Day2.DataPropertyName = "Day2";
-            this.Day2.HeaderText = "Receive Date";
-            this.Day2.Name = "Day2";
-            this.Day2.ReadOnly = true;
-            this.Day2.Visible = false;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.HeaderText = "Quantity";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            // 
-            // TotalPrice
-            // 
-            this.TotalPrice.DataPropertyName = "TotalPrice";
-            this.TotalPrice.HeaderText = "TotalPrice";
-            this.TotalPrice.Name = "TotalPrice";
-            this.TotalPrice.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.DataPropertyName = "Description";
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // Status
-            // 
-            this.Status.DataPropertyName = "Status";
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "delete");
             // 
             // PurchaseInvoiceControl
             // 
@@ -761,10 +778,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
         private System.Windows.Forms.DataGridViewTextBoxColumn QuantityDetail;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalPriceDetail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeletedBy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceID;
         private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNo2;
@@ -773,5 +791,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
