@@ -96,11 +96,23 @@
     <Compile Include="formMain.Designer.cs">
       <DependentUpon>formMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FuncForm\formFuncPermission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncForm\formFuncPermission.Designer.cs">
+      <DependentUpon>formFuncPermission.cs</DependentUpon>
+    </Compile>
     <Compile Include="FuncForm\formGroup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FuncForm\formGroup.Designer.cs">
       <DependentUpon>formGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FuncForm\formReportPer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncForm\formReportPer.Designer.cs">
+      <DependentUpon>formReportPer.cs</DependentUpon>
     </Compile>
     <Compile Include="FuncForm\formShowGroups.cs">
       <SubType>Form</SubType>
@@ -131,8 +143,14 @@
     <EmbeddedResource Include="formMain.resx">
       <DependentUpon>formMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FuncForm\formFuncPermission.resx">
+      <DependentUpon>formFuncPermission.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FuncForm\formGroup.resx">
       <DependentUpon>formGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FuncForm\formReportPer.resx">
+      <DependentUpon>formReportPer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FuncForm\formShowGroups.resx">
       <DependentUpon>formShowGroups.cs</DependentUpon>
