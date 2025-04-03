@@ -38,6 +38,9 @@ _ReSharper*/
 *.ldf
 *.dba
 
+.cursor
+.vscode
+
 # Windows Forms Designer generated files
 *.resx.bak
 
