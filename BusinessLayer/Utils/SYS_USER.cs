@@ -30,10 +30,6 @@ namespace BusinessLayer.Utils
         {
             return db.tb_SYS_USER.Where(x=>x.CompanyID == cpid && x.DepartmentID == dpid).ToList();
         }
-        public List<tb_SYS_USER> getUserByDpFunc(string cpid, string dpid)
-        {
-            return db.tb_SYS_USER.Where(x => x.CompanyID == cpid && x.DepartmentID == dpid && x.IsDisable == false).OrderByDescending(x=>x.IsGroup).ToList();
-        }
         public bool checkUserExist(string cpid, string dpid, string username)
         {
             var us = db.tb_SYS_USER.FirstOrDefault(x => x.CompanyID == cpid && x.DepartmentID == dpid && x.UserName == username);

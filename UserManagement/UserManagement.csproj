@@ -114,12 +114,6 @@
     <Compile Include="FuncForm\formShowMembers.Designer.cs">
       <DependentUpon>formShowMembers.cs</DependentUpon>
     </Compile>
-    <Compile Include="FuncForm\formSysFuncRight.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FuncForm\formSysFuncRight.Designer.cs">
-      <DependentUpon>formSysFuncRight.cs</DependentUpon>
-    </Compile>
     <Compile Include="FuncForm\formUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,9 +139,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FuncForm\formShowMembers.resx">
       <DependentUpon>formShowMembers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FuncForm\formSysFuncRight.resx">
-      <DependentUpon>formSysFuncRight.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FuncForm\formUser.resx">
       <DependentUpon>formUser.cs</DependentUpon>

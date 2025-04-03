@@ -194,18 +194,18 @@ namespace UserManagement
             if (gvUser.RowCount > 0 && gvUser.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = gvUser.SelectedRows[0];
-
-                formSysFuncRight frm = new formSysFuncRight();
-                frm._userID = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
-                frm._cmpID = _companyID;
-                frm._dpID = _departmentID;
-                frm.ShowDialog();
-        }
+                
+                //formFuncPermission frm = new formFuncPermission();
+                //frm._userID = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
+                //frm._companyID = _companyID;
+                //frm._departmentID = _departmentID;
+                //frm.ShowDialog();
+            }
             else
             {
                 MessageBox.Show("Vui lòng chọn người dùng cần phân quyền chức năng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-}
+        }
 
         private void btnReport_Click(object sender, EventArgs e)
         {
