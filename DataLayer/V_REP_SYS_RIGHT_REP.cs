@@ -18,7 +18,7 @@ namespace DataLayer
         public string RepName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> Visible { get; set; }
-        public int IDUser { get; set; }
+        public int UserID { get; set; }
         public string Access { get; set; }
     }
 }

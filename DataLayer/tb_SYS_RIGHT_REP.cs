@@ -16,6 +16,6 @@ namespace DataLayer
     {
         public int REP_CODE { get; set; }
         public int UserID { get; set; }
-        public string UserRight { get; set; }
+        public Nullable<bool> UserRight { get; set; }
     }
 }
