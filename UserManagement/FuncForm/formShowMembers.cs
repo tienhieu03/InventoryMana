@@ -56,6 +56,8 @@ namespace UserManagement.FuncForm
                 _sysGroup.add(gr);
                 
                 objGroup.loadUserInGroup(_idGroup);
+                
+                MessageBox.Show("Đã thêm thành viên vào nhóm thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else

@@ -127,6 +127,15 @@ namespace UserManagement.FuncForm
                 _user.CompanyID = _companyID;
                 _user.DepartmentID = _departmentID;
                 _sysUser.add(_user);
+                
+                // Lấy ID của user vừa thêm
+                _userID = _sysUser.getItem(_companyID, _departmentID, txtUsername.Text.Trim()).UserID;
+                _add = false;
+                
+                // Reload danh sách nhóm của user
+                loadGroupByUser(_userID);
+                
+                MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -138,8 +147,14 @@ namespace UserManagement.FuncForm
                 _user.CompanyID = _companyID;
                 _user.DepartmentID = _departmentID;
                 _sysUser.update(_user);
+                
+                // Reload danh sách nhóm của user
+                loadGroupByUser(_userID);
+                
+                MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            //objMain.loadUser(_companyID, _departmentID);
+            // Reload danh sách user trong form chính
+            objMain.LoadUser(_companyID, _departmentID);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
