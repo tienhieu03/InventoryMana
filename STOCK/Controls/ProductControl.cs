@@ -24,7 +24,14 @@ namespace STOCK.Controls
         public ProductControl()
         {
             InitializeComponent();
+            _right = 2; // Mặc định là full quyền nếu không truyền vào
+        }
 
+        public ProductControl(tb_SYS_USER user, int right)
+        {
+            InitializeComponent();
+            _user = user;
+            _right = right;
         }
 
         tb_SYS_USER _user;
@@ -141,9 +148,18 @@ namespace STOCK.Controls
             cboCategory.SelectedIndexChanged += cboCategory_SelectedIndexChanged;
             gvList.CellFormatting += gvList_CellFormatting;
             gvList.ClearSelection();
+            
+            // Cập nhật trạng thái các nút dựa trên quyền hạn
+            UpdateButtonsByPermission();
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (_right < 2) // Nếu không có quyền Full Function
+            {
+                MessageBox.Show("You do not have permission to add records.", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             _add = true;
             _enable(true);
             txtBarcode.Enabled = false;
@@ -154,6 +170,12 @@ namespace STOCK.Controls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (_right < 2) // Nếu không có quyền Full Function
+            {
+                MessageBox.Show("You do not have permission to delete records.", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             if (gvList.SelectedRows.Count > 0)
             {
                 int productID = Convert.ToInt32(gvList.SelectedRows[0].Cells["ProductID"].Value);
@@ -172,6 +194,12 @@ namespace STOCK.Controls
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (_right < 2) // Nếu không có quyền Full Function
+            {
+                MessageBox.Show("You do not have permission to edit records.", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             _add = false;
             _enable(true);
             txtBarcode.Enabled = false;
@@ -434,6 +462,32 @@ namespace STOCK.Controls
                     e.Value = price.ToString("N0");
                     e.FormattingApplied = true;
                 }
+            }
+        }
+
+        // Phương thức cập nhật trạng thái các nút dựa trên quyền
+        private void UpdateButtonsByPermission()
+        {
+            if (_right == 0) // Lock Function
+            {
+                btnAdd.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+                btnExport.Enabled = false;
+            }
+            else if (_right == 1) // View Only
+            {
+                btnAdd.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+                btnExport.Enabled = true;
+            }
+            else // Full Function (2)
+            {
+                btnAdd.Enabled = true;
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
+                btnExport.Enabled = true;
             }
         }
     }

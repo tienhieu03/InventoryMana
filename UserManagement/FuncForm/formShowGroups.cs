@@ -60,7 +60,11 @@ namespace UserManagement.FuncForm
                     gr.Groups = groupId;
                     gr.Member = _userID;
                     _sysGroup.add(gr);
+                    
+                    // Reload lại dữ liệu trong form cha
                     objUser.loadGroupByUser(_userID);
+                    
+                    MessageBox.Show("Đã thêm người dùng vào nhóm thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
@@ -76,7 +80,7 @@ namespace UserManagement.FuncForm
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

@@ -76,8 +76,11 @@
     <Compile Include="Utils\SYS_GROUP.cs" />
     <Compile Include="Utils\SYS_PARAM.cs" />
     <Compile Include="Utils\SYS_RIGHT.cs" />
+    <Compile Include="Utils\SYS_RIGHT_REP.cs" />
     <Compile Include="Utils\SYS_SEQ.cs" />
     <Compile Include="Utils\SYS_USER.cs" />
+    <Compile Include="Utils\VIEW_FUNC_SYS_RIGHT.cs" />
+    <Compile Include="Utils\VIEW_REP_SYS_RIGHT_REP.cs" />
     <Compile Include="Utils\VIEW_USER_IN_GROUPS.cs" />
     <Compile Include="Utils\VIEW_USER_NOTIN_GROUP.cs" />
   </ItemGroup>

@@ -41,7 +41,18 @@ namespace STOCK.Forms
         private void Main_Load(object sender, EventArgs e)
         {
             _func = new SYS_FUNC();
-            LeftMenu();;
+            LeftMenu();
+        }
+
+        private int GetUserRight(string funcCode)
+        {
+            if (_currentUser == null) return 0;
+            
+            SYS_RIGHT sysRight = new SYS_RIGHT();
+            var right = sysRight.getRight(_currentUser.UserID, funcCode);
+            
+            if (right == null) return 0;
+            return right.UserRight ?? 0;
         }
 
         private void ShowUserControl(UserControl uc)
@@ -118,8 +129,19 @@ namespace STOCK.Forms
                 };
 
                 var _IsChild = _func.getChild(_pr.FUNC_CODE);
+                bool hasVisibleChildMenus = false;
+                
                 foreach (var _ch in _IsChild)
                 {
+                    int userRight = GetUserRight(_ch.FUNC_CODE);
+                    
+                    if (userRight == 0)
+                    {
+                        continue;
+                    }
+                    
+                    hasVisibleChildMenus = true;
+                    
                     Button btnChild = new Button
                     {
                         Text = _ch.Description,
@@ -144,41 +166,43 @@ namespace STOCK.Forms
 
                     btnChild.Click += (sender, e) =>
                     {
+                        int currentUserRight = GetUserRight(_ch.FUNC_CODE);
+                        
                         if (_ch.FUNC_CODE == "COMPANY")
                         {
-                            ShowUserControl(new CompanyControl());
+                            ShowUserControl(new CompanyControl(_currentUser, currentUserRight));
                         }
                         else if (_ch.FUNC_CODE == "DEPARTMENT")
                         {
-                            ShowUserControl(new DepartmentControl());
+                            ShowUserControl(new DepartmentControl(_currentUser, currentUserRight));
                         }
                         else if(_ch.FUNC_CODE == "SUPPLIER")
                         {
-                            ShowUserControl(new SupplierControl());
+                            ShowUserControl(new SupplierControl(_currentUser, currentUserRight));
                         }
                         else if(_ch.FUNC_CODE == "ORIGIN")
                         {
-                            ShowUserControl(new OriginControl());
+                            ShowUserControl(new OriginControl(_currentUser, currentUserRight));
                         }
                         else if(_ch.FUNC_CODE == "UNIT")
                         {
-                            ShowUserControl(new UnitControl());
+                            ShowUserControl(new UnitControl(_currentUser, currentUserRight));
                         }
                         else if(_ch.FUNC_CODE == "CATEGORY")
                         {
-                            ShowUserControl(new Product_CategoryControl());
+                            ShowUserControl(new Product_CategoryControl(_currentUser, currentUserRight));
                         }
                         else if(_ch.FUNC_CODE == "PRODUCT")
                         {
-                            ShowUserControl(new ProductControl());
+                            ShowUserControl(new ProductControl(_currentUser, currentUserRight));
                         }
                         else if (_ch.FUNC_CODE == "PURCHASE INVOICE")
                         {
-                            ShowUserControl(new PurchaseInvoiceControl());
+                            ShowUserControl(new PurchaseInvoiceControl(_currentUser, currentUserRight));
                         }
                         else if (_ch.FUNC_CODE == "INTERNAL DELIVERY INVOICE")
                         {
-                            ShowUserControl(new InternalDeliveryControl());
+                            ShowUserControl(new InternalDeliveryControl(_currentUser, currentUserRight));
                         }
                         else
                         {
@@ -188,14 +212,17 @@ namespace STOCK.Forms
 
                     subMenuPanel.Controls.Add(btnChild);
                 }
-
-                btnParent.Click += (sender, e) =>
+                
+                if (hasVisibleChildMenus)
                 {
-                    subMenuPanel.Visible = !subMenuPanel.Visible;
-                };
+                    btnParent.Click += (sender, e) =>
+                    {
+                        subMenuPanel.Visible = !subMenuPanel.Visible;
+                    };
 
-                flpMenu.Controls.Add(btnParent);
-                flpMenu.Controls.Add(subMenuPanel);
+                    flpMenu.Controls.Add(btnParent);
+                    flpMenu.Controls.Add(subMenuPanel);
+                }
             }
         }
 

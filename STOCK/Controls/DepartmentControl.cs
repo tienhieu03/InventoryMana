@@ -14,12 +14,22 @@ namespace STOCK.Controls
         public DepartmentControl()
         {
             InitializeComponent();
-
+            _right = 2; // Mặc định là full quyền nếu không truyền vào
         }
+        
+        public DepartmentControl(tb_SYS_USER user, int right)
+        {
+            InitializeComponent();
+            _user = user;
+            _right = right;
+        }
+        
         DEPARTMENT _department;
         COMPANY _company;
         bool _add;
         string _departmentid;
+        tb_SYS_USER _user;
+        int _right;
 
         private void DepartmentControl_Load(object sender, EventArgs e)
         {
@@ -31,6 +41,32 @@ namespace STOCK.Controls
             txtId.Enabled = false;
             CboCp.SelectedIndexChanged += CboCp_SelectedIndexChanged;
             LoadDpByCp();
+            
+            // Cập nhật trạng thái các nút dựa trên quyền hạn
+            UpdateButtonsByPermission();
+        }
+        
+        // Phương thức cập nhật trạng thái các nút dựa trên quyền
+        private void UpdateButtonsByPermission()
+        {
+            if (_right == 0) // Lock Function
+            {
+                btnAdd.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+            }
+            else if (_right == 1) // View Only
+            {
+                btnAdd.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+            }
+            else // Full Function (2)
+            {
+                btnAdd.Enabled = true;
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
+            }
         }
 
         void ShowHideControls(bool t)
@@ -89,6 +125,12 @@ namespace STOCK.Controls
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (_right < 2) // Nếu không có quyền Full Function
+            {
+                MessageBox.Show("You do not have permission to add records.", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             _add = true;
             _enable(true);
             ResetFields();
@@ -98,6 +140,12 @@ namespace STOCK.Controls
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (_right < 2) // Nếu không có quyền Full Function
+            {
+                MessageBox.Show("You do not have permission to edit records.", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             if (gvList.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a department before editing!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -113,6 +161,12 @@ namespace STOCK.Controls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (_right < 2) // Nếu không có quyền Full Function
+            {
+                MessageBox.Show("You do not have permission to delete records.", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             if (gvList.SelectedRows.Count > 0)
             {
                 string departmentID = gvList.SelectedRows[0].Cells["DepartmentID"].Value?.ToString();

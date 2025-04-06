@@ -99,14 +99,28 @@ namespace UserManagement.FuncForm
                 _user.CompanyID = _companyID;
                 _user.DepartmentID = _departmentID;
                 _sysUser.add(_user);
-                objMain.LoadUser(_companyID, _departmentID);
+                
+                // Lấy ID của nhóm vừa thêm
+                _userID = _sysUser.getItem(_companyID, _departmentID, txtGroup.Text.Trim()).UserID;
+                _add = false;
+                
+                // Reload danh sách thành viên trong nhóm
+                loadUserInGroup(_userID);
+                
+                MessageBox.Show("Group added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 _user = _sysUser.getItem(_userID);
                 _user.FullName = txtDescrip.Text;
                 _sysUser.update(_user);
+                
+                // Reload danh sách thành viên trong nhóm
+                loadUserInGroup(_userID);
+                
+                MessageBox.Show("Group updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            // Reload danh sách user trong form chính
             objMain.LoadUser(_companyID, _departmentID);
         }
 

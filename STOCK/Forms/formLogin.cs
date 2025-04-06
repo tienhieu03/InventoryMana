@@ -70,6 +70,13 @@ namespace STOCK.Forms
             }
             string pass = Encryptor.Encrypt(txtPassword.Text, "qwertyuiop!@#$", true);
             tb_SYS_USER user = _sysUser.getItem(txtUsername.Text.Trim(), _sysParam.companyId, _sysParam.departmentId);
+            
+            if (user.IsDisable == true)
+            {
+                MessageBox.Show("Tài khoản đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.", "Tài khoản bị khóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             if (user.Password.Equals(pass))
             {
                 Main frm = new Main(user);
