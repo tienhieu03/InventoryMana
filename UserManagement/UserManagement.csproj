@@ -197,6 +197,10 @@
       <Project>{3b8a04cd-40cf-4ea7-ba36-55b83c2889da}</Project>
       <Name>SharedControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\STOCK\STOCK.csproj">
+      <Project>{bee49c84-0bfc-41c5-afee-eb2ca0c2bf24}</Project>
+      <Name>STOCK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

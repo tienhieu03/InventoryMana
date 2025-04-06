@@ -35,6 +35,7 @@ namespace BusinessLayer.DataModels
                               .ToList();
         }
 
+
         public List<tb_Invoice> getReceiveInvoice(int lct, DateTime from, DateTime till, string dpid)
         {
             return db.tb_Invoice.Where(x => x.ReceivingDepartmentID == dpid &&

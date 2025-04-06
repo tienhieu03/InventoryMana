@@ -175,6 +175,7 @@ namespace STOCK.Controls
                     CompanyFax = txtFax.Text,
                     CompanyAddress = txtAddress.Text,
                     IsDisabled = chkDisable.Checked,
+                    CreatedBy = _user.UserID,
                     CreatedDate = DateTime.Now,
                     DeletedDate = null,
                     UpdatedDate = null,
