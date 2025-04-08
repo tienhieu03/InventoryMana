@@ -127,6 +127,9 @@ namespace STOCK.Controls
             ShowHideControls(true);
             contextMenuStrip.Enabled = false;
             gvList.ClearSelection();
+            
+            // Update buttons based on user permissions
+            UpdateButtonsByPermission();
         }
 
         private void _bsInvoice_PositionChanged(object sender, EventArgs e)
@@ -595,11 +598,12 @@ namespace STOCK.Controls
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (_right == 1)
+            if (_right != 2)
             {
-                MessageBox.Show("Không có quyền thao tác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("You don't have permission to perform this operation", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
             cboExportUnit.SelectedValue = cboDepartment.SelectedValue;
             _bsInvoiceDT.DataSource = _invoiceDetail.getListbyIDFull(_id);
             gvDetail.DataSource = _bsInvoiceDT;
@@ -653,99 +657,97 @@ namespace STOCK.Controls
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (_right == 1)
+            if (_right != 2)
             {
-                MessageBox.Show("You do not have permission to perform this operation", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("You don't have permission to perform this operation", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+            
+            tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
+            if (current.Status == 1)
             {
-                tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
-                if (current.Status == 1)
+                _add = false;
+                _edit = true;
+                ShowHideControls(false);
+                _enable(true);
+                
+                // Cho phép chuyển tab tạm thời
+                _allowTabChange = true;
+                tabInvoice.SelectedTab = pageDetail;
+                _allowTabChange = false;
+                
+                tabInvoice.TabPages[0].Enabled = false; // Disable the first tab page
+                gvDetail.ReadOnly = false; // Enable editing in the DataGridView
+                contextMenuStrip.Enabled = true;
+                cboExportUnit.Enabled = false;
+
+                // Thêm một dòng trống mới để người dùng có thể thêm sản phẩm
+                if (gvDetail.DataSource is BindingSource bs)
                 {
-                    _add = false;
-                    _edit = true;
-                    ShowHideControls(false);
-                    _enable(true);
-                    
-                    // Cho phép chuyển tab tạm thời
-                    _allowTabChange = true;
-                    tabInvoice.SelectedTab = pageDetail;
-                    _allowTabChange = false;
-                    
-                    tabInvoice.TabPages[0].Enabled = false; // Disable the first tab page
-                    gvDetail.ReadOnly = false; // Enable editing in the DataGridView
-                    contextMenuStrip.Enabled = true;
-                    cboExportUnit.Enabled = false;
-
-                    // Thêm một dòng trống mới để người dùng có thể thêm sản phẩm
-                    if (gvDetail.DataSource is BindingSource bs)
+                    // Nếu DataGridView được liên kết với BindingSource
+                    if (bs.DataSource is List<obj_INVOICE_DETAIL> detailList)
                     {
-                        // Nếu DataGridView được liên kết với BindingSource
-                        if (bs.DataSource is List<obj_INVOICE_DETAIL> detailList)
-                        {
-                            // Tạo một đối tượng detail mới và thêm vào danh sách
-                            obj_INVOICE_DETAIL newDetail = new obj_INVOICE_DETAIL();
-                            newDetail.STT = detailList.Count + 1;
-                            newDetail.InvoiceID = current.InvoiceID;
-                            detailList.Add(newDetail);
+                        // Tạo một đối tượng detail mới và thêm vào danh sách
+                        obj_INVOICE_DETAIL newDetail = new obj_INVOICE_DETAIL();
+                        newDetail.STT = detailList.Count + 1;
+                        newDetail.InvoiceID = current.InvoiceID;
+                        detailList.Add(newDetail);
 
-                            // Cập nhật lại binding
-                            bs.ResetBindings(false);
-                        }
-                    }
-                    else
-                    {
-                        // Nếu DataGridView không liên kết với BindingSource, thêm một dòng trực tiếp
-                        gvDetail.Rows.Add();
-                    }
-
-                    // Always ensure there's at least one empty row at the bottom
-                    EnsureOneEmptyRowAtBottom();
-
-                    if (gvDetail.Rows.Count == 0)
-                    {
-                        List<V_INVOICE_DETAIL> _lstDetail = new List<V_INVOICE_DETAIL>();
-                        _bsInvoice.DataSource = _lstDetail;
-                        gvDetail.DataSource = _bsInvoice;
-                        gvDetail.Rows.Add(); // Add a new row to the DataGridView
-                        gvDetail.Rows[gvDetail.Rows.Count - 1].Cells["STT"].Value = 1; // Set the value of the "STT" column in the newly added row
+                        // Cập nhật lại binding
+                        bs.ResetBindings(false);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("This invoice has been approved, you cannot edit it", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Nếu DataGridView không liên kết với BindingSource, thêm một dòng trực tiếp
+                    gvDetail.Rows.Add();
                 }
+
+                // Always ensure there's at least one empty row at the bottom
+                EnsureOneEmptyRowAtBottom();
+
+                if (gvDetail.Rows.Count == 0)
+                {
+                    List<V_INVOICE_DETAIL> _lstDetail = new List<V_INVOICE_DETAIL>();
+                    _bsInvoice.DataSource = _lstDetail;
+                    gvDetail.DataSource = _bsInvoice;
+                    gvDetail.Rows.Add(); // Add a new row to the DataGridView
+                    gvDetail.Rows[gvDetail.Rows.Count - 1].Cells["STT"].Value = 1; // Set the value of the "STT" column in the newly added row
+                }
+            }
+            else
+            {
+                MessageBox.Show("This invoice has been approved, you cannot edit it", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (_right == 1)
+            if (_right != 2)
             {
-                MessageBox.Show("You do not have permission", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("You don't have permission to perform this operation", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            if (gvList.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = gvList.SelectedRows[0];
+                Guid invoiceID = (Guid)row.Cells["InvoiceID"].Value;
+
+                if (MessageBox.Show("Do you want to delete this record?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    // Gọi phương thức delete trong INVOICE với UserID = 1
+                    _invoice.delete(invoiceID, 1);
+
+                    // Cập nhật UI để hiển thị trạng thái đã xóa
+                    row.Cells["DeletedBy"].Value = _user.UserID;
+                    lblDelete.Visible = true;
+                    btnDelete.Enabled = false;
+                }
             }
             else
             {
-                if (gvList.SelectedRows.Count > 0)
-                {
-                    DataGridViewRow row = gvList.SelectedRows[0];
-                    Guid invoiceID = (Guid)row.Cells["InvoiceID"].Value;
-
-                    if (MessageBox.Show("Do you want to delete this record?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                    {
-                        // Gọi phương thức delete trong INVOICE với UserID = 1
-                        _invoice.delete(invoiceID, 1);
-
-                        // Cập nhật UI để hiển thị trạng thái đã xóa
-                        row.Cells["DeletedBy"].Value = 1;
-                        lblDelete.Visible = true;
-                        btnDelete.Enabled = false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Please select a record to delete!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                MessageBox.Show("Please select a record to delete!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1044,7 +1046,7 @@ namespace STOCK.Controls
                 invoice.InvoiceID = Guid.NewGuid();
                 invoice.Day = dtDate.Value;
                 invoice.Invoice = _seq.SEQVALUE.Value.ToString("000000") + "/" + DateTime.Today.Year.ToString().Substring(2, 2) + "/XNB/" + dp.Symbol;
-                invoice.CreatedBy = 1;
+                invoice.CreatedBy = _user.UserID;
                 invoice.CreatedDate = DateTime.Now;
             }
 
@@ -1138,7 +1140,7 @@ namespace STOCK.Controls
             }
 
             invoice.TotalPrice = _total;
-            invoice.UpdatedBy = 1;
+            invoice.UpdatedBy = _user.UserID;
             invoice.UpdatedDate = DateTime.Now;
         }
 
@@ -1360,6 +1362,12 @@ namespace STOCK.Controls
 
         private void CmdDeleteDetail_Click(object sender, EventArgs e)
         {
+            if (_right != 2)
+            {
+                MessageBox.Show("You don't have permission to perform this operation", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             _lstBarcode.Clear();
 
             // Duyệt từ dưới lên để xóa dữ liệu trong DataGridView
@@ -1379,6 +1387,12 @@ namespace STOCK.Controls
 
         private void CmdDeleteRow_Click(object sender, EventArgs e)
         {
+            if (_right != 2)
+            {
+                MessageBox.Show("You don't have permission to perform this operation", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             if (gvDetail.SelectedRows.Count > 0)
             {
                 int index = gvDetail.SelectedRows[0].Index;
@@ -1425,6 +1439,12 @@ namespace STOCK.Controls
 
         private void CmdImport_Click(object sender, EventArgs e)
         {
+            if (_right != 2)
+            {
+                MessageBox.Show("You don't have permission to perform this operation", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             importExcel();
         }
         private void importExcel()
@@ -1631,6 +1651,55 @@ namespace STOCK.Controls
             {
                 // Hủy thao tác chuyển tab
                 e.Cancel = true;
+            }
+        }
+
+        // Add method to update buttons based on permissions
+        private void UpdateButtonsByPermission()
+        {
+            // Handle permissions based on _right value
+            // 0 = Lock Function - All buttons disabled
+            // 1 = View Only - Only view/export allowed
+            // 2 = Full Function - All functions allowed
+            
+            if (_right == 0) // Lock Function
+            {
+                btnAdd.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+                btnSave.Enabled = false;
+                btnCancel.Enabled = false;
+                btnPrint.Enabled = false;
+                CmdDeleteRow.Enabled = false;
+                CmdDeleteDetail.Enabled = false;
+                CmdImport.Enabled = false;
+                contextMenuStrip.Enabled = false;
+            }
+            else if (_right == 1) // View Only
+            {
+                btnAdd.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+                btnSave.Enabled = false;
+                btnCancel.Enabled = false;
+                btnPrint.Enabled = true; // Allow printing/export
+                CmdDeleteRow.Enabled = false;
+                CmdDeleteDetail.Enabled = false;
+                CmdImport.Enabled = false;
+                contextMenuStrip.Enabled = false;
+            }
+            else // Full Function (2)
+            {
+                btnAdd.Enabled = true;
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
+                btnSave.Enabled = true;
+                btnCancel.Enabled = true;
+                btnPrint.Enabled = true;
+                CmdDeleteRow.Enabled = true;
+                CmdDeleteDetail.Enabled = true;
+                CmdImport.Enabled = true;
+                // Context menu will be enabled when in edit mode
             }
         }
     }
