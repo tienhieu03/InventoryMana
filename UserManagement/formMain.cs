@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -125,8 +125,9 @@ namespace UserManagement
             else
             {
                 _isRoot = false;
-                _companyID = _treeView.TreeView.SelectedNode.Name.Substring(0, 4);
-                _departmentID = _treeView.TreeView.SelectedNode.Name.Substring(5);
+                string[] parts = _treeView.TreeView.SelectedNode.Name.Split('.');
+                _companyID = parts[0]; // Lấy đầy đủ CompanyID
+                _departmentID = parts[1]; // Lấy DepartmentID
             }
             LoadUser(_companyID, _departmentID);
             _treeView.dropDown.Close();

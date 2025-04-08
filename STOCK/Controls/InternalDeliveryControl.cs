@@ -812,7 +812,7 @@ namespace STOCK.Controls
                 InvoiceDetail_Infor(resultInvoice);
 
                 // Refresh the data in the grid
-                _lstInvoice = _invoice.getList(1, dtFrom.Value, dtTill.Value.AddDays(1), cboDepartment.SelectedValue.ToString());
+                _lstInvoice = _invoice.getList(2, dtFrom.Value, dtTill.Value.AddDays(1), cboDepartment.SelectedValue.ToString());
                 _bsInvoice.DataSource = _lstInvoice;
 
                 // Find and select the updated invoice

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -78,15 +78,15 @@ namespace STOCK.Controls
             gvList.CellFormatting += GvList_CellFormatting; ;
             gvList.CellPainting += GvList_CellPainting; ;
 
+            // Thiết lập giá trị cho các cột trong DataGridView
+            SetupDataGridViewColumns();
+
             LoadDepartment();
             LoadExport();
             LoadReceiveUnit();
-            _lstInvoice = _invoice.getReceiveInvoice(2, dtFrom.Value, dtTill.Value.AddDays(1), cboDepartment.SelectedValue.ToString());
-            _bsInvoice.DataSource = _lstInvoice;
-            gvList.DataSource = _bsInvoice;
-
-            exportInfor();
-            if(myFunctions._dpid == "~")
+            
+            // Thiết lập giá trị cho cboExportUnit dựa trên myFunctions._dpid
+            if (myFunctions._dpid == "~")
             {
                 cboExportUnit.SelectedValue = "DW2";
                 cboExportUnit.Enabled = false;
@@ -96,7 +96,18 @@ namespace STOCK.Controls
                 cboExportUnit.SelectedValue = myFunctions._dpid;
                 cboExportUnit.Enabled = false;
             }
+            
+            // Thiết lập giá trị cho cboDepartment dựa trên myFunctions._dpid
+            if (myFunctions._dpid != "~")
+            {
+                cboDepartment.SelectedValue = myFunctions._dpid;
+            }
+            
+            // Đăng ký sự kiện SelectedIndexChanged sau khi đã thiết lập giá trị
             cboDepartment.SelectedIndexChanged += CboDepartment_SelectedIndexChanged;
+            
+            // Load dữ liệu invoice dựa trên department đã chọn
+            LoadInvoiceData();
 
             // Set fixed row header width (optional)
             gvList.RowHeadersWidth = 25;
@@ -120,7 +131,7 @@ namespace STOCK.Controls
         {
             if (gvList.Rows.Count > 0)
             {
-                // Cho phép chuyển tab tạm thời
+                // Cho phép chuyển tab tạm thởi
                 _allowTabChange = true;
                 tabInvoice.SelectedTab = pageDetail;
                 _allowTabChange = false;
@@ -203,10 +214,7 @@ namespace STOCK.Controls
 
         private void CboDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _lstInvoice = _invoice.getList(2, dtFrom.Value, dtTill.Value.AddDays(1), cboDepartment.SelectedValue.ToString());
-            _bsInvoice.DataSource = _lstInvoice;
-            gvList.DataSource = _bsInvoice;
-            exportInfor();
+            LoadInvoiceData();
         }
 
         private void CboCompany_SelectedIndexChanged(object sender, EventArgs e)
@@ -238,7 +246,7 @@ namespace STOCK.Controls
 
         void LoadDepartment()
         {
-            cboDepartment.DataSource = _department.getWarehoseByCp(cboCompany.SelectedValue.ToString());
+            cboDepartment.DataSource = _department.getAll(cboCompany.SelectedValue.ToString());
             cboDepartment.DisplayMember = "DepartmentName";
             cboDepartment.ValueMember = "DepartmentID";
         }
@@ -265,6 +273,8 @@ namespace STOCK.Controls
             dtDate.Enabled = t;
             txtInvoiceNo.Enabled = t;
             dtDate.Enabled = t;
+            dtReceiveDate.Enabled = t;
+            txtReceiveInvoiceNo.Enabled = t;
         }
         private void btnCreateCode_Click(object sender, EventArgs e)
         {
@@ -300,9 +310,10 @@ namespace STOCK.Controls
                 invoice.Invoice2 = _seq.SEQVALUE.Value.ToString("000000") + "/" + DateTime.Today.Year.ToString().Substring(2, 2) + "/NNB/" + dp.Symbol;
                 invoice.Day2 = DateTime.Now;
                 var resultInvoice = _invoice.update(invoice);
+                _sequence.udpate(_seq);
 
                 // Refresh the data in the grid
-                _lstInvoice = _invoice.getList(1, dtFrom.Value, dtTill.Value.AddDays(1), cboDepartment.SelectedValue.ToString());
+                _lstInvoice = _invoice.getReceiveInvoice(2, dtFrom.Value, dtTill.Value.AddDays(1), cboDepartment.SelectedValue.ToString());
                 _bsInvoice.DataSource = _lstInvoice;
 
                 // Find and select the updated invoice
@@ -332,10 +343,15 @@ namespace STOCK.Controls
             {
                 tb_Department dp = _department.getItem(current.DepartmentID);
                 dtDate.Value = current.Day.Value;
-                txtInvoiceNo.Text = current.Invoice;
+                txtInvoiceNo.Text = current.Invoice2;
                 txtNote.Text = current.Description;
                 cboExportUnit.SelectedValue = current.DepartmentID;
                 cboReceiveUnit.SelectedValue = current.ReceivingDepartmentID;
+                if (current.Day2 != null)
+                {
+                    dtReceiveDate.Value = current.Day2.Value;
+                }
+                txtReceiveInvoiceNo.Text = current.Invoice2;
                 cboStatus.SelectedValue = current.Status;
 
                 if (current.Invoice2 != null)
@@ -428,6 +444,56 @@ namespace STOCK.Controls
         private void gvList_DoubleClick_1(object sender, EventArgs e)
         {
             tabInvoice.SelectedTab = pageDetail;
+        }
+
+        // Phương thức mới để load dữ liệu invoice
+        private void LoadInvoiceData()
+        {
+            if (cboDepartment.SelectedValue != null)
+            {
+                string departmentId = cboDepartment.SelectedValue.ToString();
+                _lstInvoice = _invoice.getReceiveInvoice(2, dtFrom.Value, dtTill.Value.AddDays(1), departmentId);
+                _bsInvoice.DataSource = _lstInvoice;
+                gvList.DataSource = _bsInvoice;
+                exportInfor();
+            }
+        }
+
+        // Phương thức mới để thiết lập giá trị cho các cột trong DataGridView
+        private void SetupDataGridViewColumns()
+        {
+            // Thiết lập giá trị cho các cột trong gvList
+            if (gvList.Columns.Contains("DeletedBy"))
+                gvList.Columns["DeletedBy"].DataPropertyName = "DeletedBy";
+                
+            if (gvList.Columns.Contains("InvoiceID"))
+                gvList.Columns["InvoiceID"].DataPropertyName = "InvoiceID";
+                
+            // Sử dụng Invoice2 thay vì Invoice cho cột InvoiceNo
+            if (gvList.Columns.Contains("InvoiceNo2"))
+                gvList.Columns["InvoiceNo2"].DataPropertyName = "Invoice2";
+                
+            // Sử dụng Day2 thay vì Day cho cột Date
+            if (gvList.Columns.Contains("Date"))
+                gvList.Columns["Date"].DataPropertyName = "Day2";
+                
+            if (gvList.Columns.Contains("InvoiceNo"))
+                gvList.Columns["InvoiceNo"].DataPropertyName = "Invoice";
+                
+            if (gvList.Columns.Contains("Day2"))
+                gvList.Columns["Day2"].DataPropertyName = "Day";
+                
+            if (gvList.Columns.Contains("Quantity"))
+                gvList.Columns["Quantity"].DataPropertyName = "Quantity";
+                
+            if (gvList.Columns.Contains("TotalPrice"))
+                gvList.Columns["TotalPrice"].DataPropertyName = "TotalPrice";
+                
+            if (gvList.Columns.Contains("Description"))
+                gvList.Columns["Description"].DataPropertyName = "Description";
+                
+            if (gvList.Columns.Contains("Status"))
+                gvList.Columns["Status"].DataPropertyName = "Status";
         }
     }
 }

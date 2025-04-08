@@ -144,7 +144,6 @@ namespace STOCK.Controls
             if (cboWarehouse.SelectedValue != null)
             {
                 madvi = cboWarehouse.SelectedValue.ToString();
-                // Chỉ cho phép enable các control khi đang ở chế độ thêm hoặc sửa
                 if (_add || _edit)
                 {
                     _enable(true);
@@ -257,14 +256,14 @@ namespace STOCK.Controls
             cboPurchaseUnit.SelectedValue = cboWarehouse.SelectedValue;
             _bsInvoiceDT.DataSource = _invoiceDetail.getListbyIDFull(_id);
             gvDetail.DataSource = _bsInvoiceDT;
-
+            
             if (_bsInvoiceDT.DataSource is List<obj_INVOICE_DETAIL> detailList)
             {
                 obj_INVOICE_DETAIL newDetail = new obj_INVOICE_DETAIL();
                 newDetail.STT = detailList.Count + 1;
                 newDetail.InvoiceID = _id;
                 detailList.Add(newDetail);
-
+                
                 _bsInvoiceDT.ResetBindings(false);
             }
             else
@@ -279,12 +278,12 @@ namespace STOCK.Controls
                     }
                 }
             }
-
+            
             // Cho phép chuyển tab tạm thời
             _allowTabChange = true;
             tabInvoice.SelectedTab = pageDetail;
             _allowTabChange = false;
-
+            
             gvDetail.ReadOnly = false;
             contextMenuDetail.Enabled = true;
 
@@ -309,7 +308,7 @@ namespace STOCK.Controls
                 return;
             }
             
-            tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
+                tb_Invoice current = (tb_Invoice)_bsInvoice.Current;
             if (current != null)
             {
                 if (current.Status == 1) // Chỉ cho phép sửa hóa đơn chưa được xác nhận
@@ -318,29 +317,29 @@ namespace STOCK.Controls
                     _edit = true;
                     ShowHideControls(false);
                     _enable(true);
-
+                    
                     // Cho phép chuyển tab tạm thời
                     _allowTabChange = true;
                     tabInvoice.SelectedTab = pageDetail;
                     _allowTabChange = false;
-
+                    
                     tabInvoice.TabPages[0].Enabled = false; // Disable the first tab page
                     gvDetail.ReadOnly = false; // Enable editing in the DataGridView
                     contextMenuDetail.Enabled = true;
 
                     // Đảm bảo luôn có một dòng trống ở cuối
                     EnsureOneEmptyRowAtBottom();
+                    }
+                    else
+                    {
+                    MessageBox.Show("This invoice has been approved, you cannot edit it", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("This invoice has been approved, you cannot edit it", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select an invoice to edit", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else
-            {
-                MessageBox.Show("Please select an invoice to edit", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -350,27 +349,27 @@ namespace STOCK.Controls
                 return;
             }
             
-            if (gvList.SelectedRows.Count > 0)
-            {
-                DataGridViewRow row = gvList.SelectedRows[0];
-                Guid invoiceID = (Guid)row.Cells["InvoiceID"].Value;
-
-                if (MessageBox.Show("Do you want to delete this record?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (gvList.SelectedRows.Count > 0)
                 {
-                    // Gọi phương thức delete trong INVOICE 
-                    _invoice.delete(invoiceID, 1);
+                    DataGridViewRow row = gvList.SelectedRows[0];
+                    Guid invoiceID = (Guid)row.Cells["InvoiceID"].Value;
 
-                    // Cập nhật UI để hiển thị trạng thái đã xóa
-                    row.Cells["DeletedBy"].Value = 1;
-                    lblDelete.Visible = true;
-                    btnDelete.Enabled = false;
+                    if (MessageBox.Show("Do you want to delete this record?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                    // Gọi phương thức delete trong INVOICE 
+                        _invoice.delete(invoiceID, 1);
+                        
+                        // Cập nhật UI để hiển thị trạng thái đã xóa
+                        row.Cells["DeletedBy"].Value = 1;
+                        lblDelete.Visible = true;
+                        btnDelete.Enabled = false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select a record to delete!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else
-            {
-                MessageBox.Show("Please select a record to delete!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {

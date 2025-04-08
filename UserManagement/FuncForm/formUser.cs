@@ -96,7 +96,7 @@ namespace UserManagement.FuncForm
                 txtUsername.Focus();
                 return;
             }
-            if (!txtPass.Text.Equals(txtRepass.Text))//Ngài hãy lãnh đạo chúng toioke em
+            if (!txtPass.Text.Equals(txtRepass.Text))
             {
                 MessageBox.Show("Mật khẩu không trùng khớp", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtUsername.SelectAll();
@@ -127,12 +127,6 @@ namespace UserManagement.FuncForm
                 _user.CompanyID = _companyID;
                 _user.DepartmentID = _departmentID;
                 _sysUser.add(_user);
-                
-                // Lấy ID của user vừa thêm
-                _userID = _sysUser.getItem(_companyID, _departmentID, txtUsername.Text.Trim()).UserID;
-                _add = false;
-                
-                // Reload danh sách nhóm của user
                 loadGroupByUser(_userID);
                 
                 MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -148,12 +142,10 @@ namespace UserManagement.FuncForm
                 _user.DepartmentID = _departmentID;
                 _sysUser.update(_user);
                 
-                // Reload danh sách nhóm của user
                 loadGroupByUser(_userID);
                 
                 MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            // Reload danh sách user trong form chính
             objMain.LoadUser(_companyID, _departmentID);
         }
 

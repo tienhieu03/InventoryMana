@@ -124,7 +124,7 @@
   <data name="btnCreateCode.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAA2DSURBVHhe7d3JiuzlAcbhRldBUcFpEVGcp1swajDGVdYi
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAA2DSURBVHhe7d3JiuzlAcbhRldBUcFpEVGcp1swajDGVdYi
         ruKUS0gQJaJGcMCFI5JFiARyAYJzsvIKxCE4JnHExGxiULMweb+DkRY/TfU5PdS/3ueBHxzqVNew6e89
         p6urtoCNd066MT2Snk+vp3+kf6fPv/zzuGz83cPphnR2AgAW5sJ0V3o7/ecweyv9Kl2QAIA1dkl6Is0O
         9CPphfSTBACskfPTc2l2eO9mz6RzEwBwgI5Kt6TP0uzA3ovGfd2cxn0DAPvs1DReuDc7pPej8b8BJycA
@@ -188,7 +188,7 @@
   <data name="btnPrint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAACpESURBVHhe7d150C5lfebxl4MiYNCIuCNbxmhUiIkZy7BZ
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACpESURBVHhe7d150C5lfebxl4MiYNCIuCNbxmhUiIkZy7BZ
         psyYco0DWpVkXEstK1oiQRDjGAmBsKOJW/mPSf4Sxw1QykoyQVEIVmayDBOi0YiyRFlkXwRUZq4fKHmF
         63DOebv7eu6++/up+v7THKC737vvfs/z9LIGTGwv9Vz1OnWs+gv1OXWh+rq6Vl2nblH/j2gB1VivMV9j
         v46BOhbqmKhjo46R16o6ZvZUADALT1E1eX1IfVndoNwESERbVx1DX1IfVHVsPVkBwMr9nHqzOktdo9wE
@@ -378,13 +378,13 @@
   <metadata name="InvoiceID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="InvoiceNo2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="InvoiceNo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="InvoiceNo2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Day2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
