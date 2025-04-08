@@ -1,6 +1,6 @@
 ﻿namespace STOCK.Controls
 {
-    partial class InternalDeliveryControl
+    partial class InternalReceipt
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InternalDeliveryControl));
-            this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InternalReceipt));
+            this.kryptonToolStrip1 = new Krypton.Toolkit.KryptonToolStrip();
+            this.btnCreateCode = new System.Windows.Forms.ToolStripButton();
+            this.btnPrint = new System.Windows.Forms.ToolStripButton();
             this.tabInvoice = new System.Windows.Forms.TabControl();
             this.pageList = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -76,18 +77,9 @@
             this.QuantityDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kryptonToolStrip1 = new Krypton.Toolkit.KryptonToolStrip();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.btnCancel = new System.Windows.Forms.ToolStripButton();
-            this.btnPrint = new System.Windows.Forms.ToolStripButton();
-            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.CmdDeleteRow = new System.Windows.Forms.ToolStripMenuItem();
-            this.CmdDeleteDetail = new System.Windows.Forms.ToolStripMenuItem();
-            this.CmdImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.kryptonToolStrip1.SuspendLayout();
             this.tabInvoice.SuspendLayout();
             this.pageList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -101,19 +93,42 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).BeginInit();
-            this.kryptonToolStrip1.SuspendLayout();
-            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // QRCODE
+            // kryptonToolStrip1
             // 
-            this.QRCODE.DataPropertyName = "QRCODE";
-            this.QRCODE.HeaderText = "QRCODE";
-            this.QRCODE.MinimumWidth = 6;
-            this.QRCODE.Name = "QRCODE";
-            this.QRCODE.ReadOnly = true;
-            this.QRCODE.Visible = false;
-            this.QRCODE.Width = 125;
+            this.kryptonToolStrip1.AutoSize = false;
+            this.kryptonToolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.kryptonToolStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.kryptonToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.kryptonToolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.kryptonToolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnCreateCode,
+            this.btnPrint});
+            this.kryptonToolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.kryptonToolStrip1.Name = "kryptonToolStrip1";
+            this.kryptonToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.kryptonToolStrip1.Size = new System.Drawing.Size(1264, 43);
+            this.kryptonToolStrip1.TabIndex = 3;
+            this.kryptonToolStrip1.Text = "kryptonToolStrip1";
+            // 
+            // btnCreateCode
+            // 
+            this.btnCreateCode.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateCode.Image")));
+            this.btnCreateCode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCreateCode.Name = "btnCreateCode";
+            this.btnCreateCode.Size = new System.Drawing.Size(115, 40);
+            this.btnCreateCode.Text = "Create Code";
+            this.btnCreateCode.Click += new System.EventHandler(this.btnCreateCode_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(63, 40);
+            this.btnPrint.Text = "Print";
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // tabInvoice
             // 
@@ -122,21 +137,20 @@
             this.tabInvoice.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabInvoice.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabInvoice.Location = new System.Drawing.Point(0, 43);
-            this.tabInvoice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabInvoice.Margin = new System.Windows.Forms.Padding(4);
             this.tabInvoice.Name = "tabInvoice";
             this.tabInvoice.SelectedIndex = 0;
             this.tabInvoice.Size = new System.Drawing.Size(1264, 572);
-            this.tabInvoice.TabIndex = 10;
-            this.tabInvoice.SelectedIndexChanged += new System.EventHandler(this.tabInvoice_SelectedIndexChanged);
+            this.tabInvoice.TabIndex = 11;
             // 
             // pageList
             // 
             this.pageList.Controls.Add(this.splitContainer1);
             this.pageList.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pageList.Location = new System.Drawing.Point(4, 28);
-            this.pageList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageList.Margin = new System.Windows.Forms.Padding(4);
             this.pageList.Name = "pageList";
-            this.pageList.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageList.Padding = new System.Windows.Forms.Padding(4);
             this.pageList.Size = new System.Drawing.Size(1256, 540);
             this.pageList.TabIndex = 0;
             this.pageList.Text = "List";
@@ -146,7 +160,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(4, 4);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -165,7 +179,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gvList);
             this.splitContainer1.Size = new System.Drawing.Size(1248, 532);
-            this.splitContainer1.SplitterDistance = 114;
+            this.splitContainer1.SplitterDistance = 113;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 3;
             // 
@@ -174,7 +188,7 @@
             this.cboDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDepartment.FormattingEnabled = true;
             this.cboDepartment.Location = new System.Drawing.Point(265, 79);
-            this.cboDepartment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboDepartment.Margin = new System.Windows.Forms.Padding(4);
             this.cboDepartment.Name = "cboDepartment";
             this.cboDepartment.Size = new System.Drawing.Size(692, 27);
             this.cboDepartment.TabIndex = 7;
@@ -195,7 +209,7 @@
             this.cboCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCompany.FormattingEnabled = true;
             this.cboCompany.Location = new System.Drawing.Point(265, 46);
-            this.cboCompany.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboCompany.Margin = new System.Windows.Forms.Padding(4);
             this.cboCompany.Name = "cboCompany";
             this.cboCompany.Size = new System.Drawing.Size(692, 27);
             this.cboCompany.TabIndex = 5;
@@ -217,12 +231,10 @@
             this.dtTill.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtTill.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtTill.Location = new System.Drawing.Point(692, 6);
-            this.dtTill.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtTill.Margin = new System.Windows.Forms.Padding(4);
             this.dtTill.Name = "dtTill";
             this.dtTill.Size = new System.Drawing.Size(265, 26);
             this.dtTill.TabIndex = 3;
-            this.dtTill.ValueChanged += new System.EventHandler(this.dtTill_ValueChanged);
-            this.dtTill.Leave += new System.EventHandler(this.dtTill_Leave);
             // 
             // label2
             // 
@@ -241,12 +253,10 @@
             this.dtFrom.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtFrom.Location = new System.Drawing.Point(265, 6);
-            this.dtFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtFrom.Margin = new System.Windows.Forms.Padding(4);
             this.dtFrom.Name = "dtFrom";
             this.dtFrom.Size = new System.Drawing.Size(265, 26);
             this.dtFrom.TabIndex = 1;
-            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
-            this.dtFrom.Leave += new System.EventHandler(this.dtFrom_Leave);
             // 
             // label1
             // 
@@ -277,15 +287,15 @@
             this.Status});
             this.gvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gvList.Location = new System.Drawing.Point(0, 0);
-            this.gvList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gvList.Margin = new System.Windows.Forms.Padding(4);
             this.gvList.Name = "gvList";
             this.gvList.ReadOnly = true;
             this.gvList.RowHeadersVisible = false;
             this.gvList.RowHeadersWidth = 51;
             this.gvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvList.Size = new System.Drawing.Size(1248, 413);
+            this.gvList.Size = new System.Drawing.Size(1248, 414);
             this.gvList.TabIndex = 0;
-            this.gvList.DoubleClick += new System.EventHandler(this.gvList_DoubleClick);
+            this.gvList.DoubleClick += new System.EventHandler(this.gvList_DoubleClick_1);
             // 
             // DeletedBy
             // 
@@ -384,9 +394,9 @@
             // 
             this.pageDetail.Controls.Add(this.splitContainer2);
             this.pageDetail.Location = new System.Drawing.Point(4, 28);
-            this.pageDetail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageDetail.Margin = new System.Windows.Forms.Padding(4);
             this.pageDetail.Name = "pageDetail";
-            this.pageDetail.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageDetail.Padding = new System.Windows.Forms.Padding(4);
             this.pageDetail.Size = new System.Drawing.Size(1256, 540);
             this.pageDetail.TabIndex = 1;
             this.pageDetail.Text = "Detail";
@@ -396,7 +406,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(4, 4);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -439,7 +449,7 @@
             // txtNote
             // 
             this.txtNote.Location = new System.Drawing.Point(85, 110);
-            this.txtNote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNote.Margin = new System.Windows.Forms.Padding(4);
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(1123, 26);
             this.txtNote.TabIndex = 13;
@@ -460,7 +470,7 @@
             this.cboReceiveUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboReceiveUnit.FormattingEnabled = true;
             this.cboReceiveUnit.Location = new System.Drawing.Point(780, 64);
-            this.cboReceiveUnit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboReceiveUnit.Margin = new System.Windows.Forms.Padding(4);
             this.cboReceiveUnit.Name = "cboReceiveUnit";
             this.cboReceiveUnit.Size = new System.Drawing.Size(413, 27);
             this.cboReceiveUnit.TabIndex = 11;
@@ -481,7 +491,7 @@
             this.cboExportUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboExportUnit.FormattingEnabled = true;
             this.cboExportUnit.Location = new System.Drawing.Point(176, 64);
-            this.cboExportUnit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboExportUnit.Margin = new System.Windows.Forms.Padding(4);
             this.cboExportUnit.Name = "cboExportUnit";
             this.cboExportUnit.Size = new System.Drawing.Size(413, 27);
             this.cboExportUnit.TabIndex = 9;
@@ -502,7 +512,7 @@
             this.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboStatus.FormattingEnabled = true;
             this.cboStatus.Location = new System.Drawing.Point(867, 23);
-            this.cboStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboStatus.Margin = new System.Windows.Forms.Padding(4);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(252, 27);
             this.cboStatus.TabIndex = 7;
@@ -521,7 +531,7 @@
             // txtInvoiceNo
             // 
             this.txtInvoiceNo.Location = new System.Drawing.Point(535, 21);
-            this.txtInvoiceNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtInvoiceNo.Margin = new System.Windows.Forms.Padding(4);
             this.txtInvoiceNo.Name = "txtInvoiceNo";
             this.txtInvoiceNo.ReadOnly = true;
             this.txtInvoiceNo.Size = new System.Drawing.Size(179, 26);
@@ -544,11 +554,10 @@
             this.dtDate.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtDate.Location = new System.Drawing.Point(148, 23);
-            this.dtDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtDate.Name = "dtDate";
             this.dtDate.Size = new System.Drawing.Size(239, 26);
             this.dtDate.TabIndex = 3;
-            this.dtDate.ValueChanged += new System.EventHandler(this.dtDate_ValueChanged);
             // 
             // label5
             // 
@@ -578,7 +587,7 @@
             this.ProductID});
             this.gvDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gvDetail.Location = new System.Drawing.Point(0, 0);
-            this.gvDetail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gvDetail.Margin = new System.Windows.Forms.Padding(4);
             this.gvDetail.Name = "gvDetail";
             this.gvDetail.ReadOnly = true;
             this.gvDetail.RowHeadersVisible = false;
@@ -586,7 +595,6 @@
             this.gvDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gvDetail.Size = new System.Drawing.Size(1248, 378);
             this.gvDetail.TabIndex = 0;
-            this.gvDetail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gvDetail_KeyDown);
             // 
             // STT
             // 
@@ -651,6 +659,16 @@
             this.SubTotal.ReadOnly = true;
             this.SubTotal.Width = 125;
             // 
+            // QRCODE
+            // 
+            this.QRCODE.DataPropertyName = "QRCODE";
+            this.QRCODE.HeaderText = "QRCODE";
+            this.QRCODE.MinimumWidth = 6;
+            this.QRCODE.Name = "QRCODE";
+            this.QRCODE.ReadOnly = true;
+            this.QRCODE.Visible = false;
+            this.QRCODE.Width = 125;
+            // 
             // ProductID
             // 
             this.ProductID.DataPropertyName = "ProductID";
@@ -661,123 +679,17 @@
             this.ProductID.Visible = false;
             this.ProductID.Width = 125;
             // 
-            // kryptonToolStrip1
-            // 
-            this.kryptonToolStrip1.AutoSize = false;
-            this.kryptonToolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.kryptonToolStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.kryptonToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.kryptonToolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.kryptonToolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnAdd,
-            this.btnEdit,
-            this.btnDelete,
-            this.btnSave,
-            this.btnCancel,
-            this.btnPrint});
-            this.kryptonToolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonToolStrip1.Name = "kryptonToolStrip1";
-            this.kryptonToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.kryptonToolStrip1.Size = new System.Drawing.Size(1264, 43);
-            this.kryptonToolStrip1.TabIndex = 9;
-            this.kryptonToolStrip1.Text = "kryptonToolStrip1";
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
-            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(61, 40);
-            this.btnAdd.Text = "Add";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
-            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(59, 40);
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
-            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(77, 40);
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(64, 40);
-            this.btnSave.Text = "Save";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(77, 40);
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
-            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(63, 40);
-            this.btnPrint.Text = "Print";
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // contextMenuStrip
-            // 
-            this.contextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CmdDeleteRow,
-            this.CmdDeleteDetail,
-            this.CmdImport});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(167, 76);
-            // 
-            // CmdDeleteRow
-            // 
-            this.CmdDeleteRow.Name = "CmdDeleteRow";
-            this.CmdDeleteRow.Size = new System.Drawing.Size(166, 24);
-            this.CmdDeleteRow.Text = "Delete Row";
-            this.CmdDeleteRow.Click += new System.EventHandler(this.CmdDeleteRow_Click);
-            // 
-            // CmdDeleteDetail
-            // 
-            this.CmdDeleteDetail.Name = "CmdDeleteDetail";
-            this.CmdDeleteDetail.Size = new System.Drawing.Size(166, 24);
-            this.CmdDeleteDetail.Text = "Delete Detail";
-            this.CmdDeleteDetail.Click += new System.EventHandler(this.CmdDeleteDetail_Click);
-            // 
-            // CmdImport
-            // 
-            this.CmdImport.Name = "CmdImport";
-            this.CmdImport.Size = new System.Drawing.Size(166, 24);
-            this.CmdImport.Text = "Import Excel";
-            this.CmdImport.Click += new System.EventHandler(this.CmdImport_Click);
-            // 
-            // InternalDeliveryControl
+            // InternalReceipt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabInvoice);
             this.Controls.Add(this.kryptonToolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "InternalDeliveryControl";
+            this.Name = "InternalReceipt";
             this.Size = new System.Drawing.Size(1264, 615);
-            this.Load += new System.EventHandler(this.InternalDeliveryControl_Load);
+            this.Load += new System.EventHandler(this.InternalReceipt_Load);
+            this.kryptonToolStrip1.ResumeLayout(false);
+            this.kryptonToolStrip1.PerformLayout();
             this.tabInvoice.ResumeLayout(false);
             this.pageList.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -793,16 +705,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).EndInit();
-            this.kryptonToolStrip1.ResumeLayout(false);
-            this.kryptonToolStrip1.PerformLayout();
-            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
+        private Krypton.Toolkit.KryptonToolStrip kryptonToolStrip1;
+        private System.Windows.Forms.ToolStripButton btnCreateCode;
+        private System.Windows.Forms.ToolStripButton btnPrint;
         private System.Windows.Forms.TabControl tabInvoice;
         private System.Windows.Forms.TabPage pageList;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -848,17 +759,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn QuantityDetail;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
-        private Krypton.Toolkit.KryptonToolStrip kryptonToolStrip1;
-        private System.Windows.Forms.ToolStripButton btnAdd;
-        private System.Windows.Forms.ToolStripButton btnEdit;
-        private System.Windows.Forms.ToolStripButton btnDelete;
-        private System.Windows.Forms.ToolStripButton btnSave;
-        private System.Windows.Forms.ToolStripButton btnCancel;
-        private System.Windows.Forms.ToolStripButton btnPrint;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem CmdDeleteRow;
-        private System.Windows.Forms.ToolStripMenuItem CmdDeleteDetail;
-        private System.Windows.Forms.ToolStripMenuItem CmdImport;
     }
 }

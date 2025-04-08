@@ -200,9 +200,13 @@ namespace STOCK.Forms
                         {
                             ShowUserControl(new PurchaseInvoiceControl(_currentUser, currentUserRight));
                         }
-                        else if (_ch.FUNC_CODE == "INTERNAL DELIVERY INVOICE")
+                        else if (_ch.FUNC_CODE == "INTERNAL EXPORT INVOICE")
                         {
                             ShowUserControl(new InternalDeliveryControl(_currentUser, currentUserRight));
+                        }
+                        else if (_ch.FUNC_CODE == "INTERNAL RECEIPT INVOICE")
+                        {
+                            ShowUserControl(new InternalReceipt(_currentUser, currentUserRight));
                         }
                         else
                         {
