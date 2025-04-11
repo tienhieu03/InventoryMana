@@ -36,14 +36,18 @@
             this.imgListMenu = new System.Windows.Forms.ImageList(this.components);
             this.btnCountStock = new System.Windows.Forms.Button();
             this.pnlSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlSidebar
             // 
             this.pnlSidebar.BackColor = System.Drawing.Color.LightGray;
             this.pnlSidebar.Controls.Add(this.flpMenu);
-            this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlSidebar.Location = new System.Drawing.Point(3, 64);
+            this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
             this.pnlSidebar.Name = "pnlSidebar";
             this.pnlSidebar.Size = new System.Drawing.Size(240, 648);
             this.pnlSidebar.TabIndex = 0;
@@ -102,6 +106,10 @@
             this.Text = "Inventory Management";
             this.Load += new System.EventHandler(this.Main_Load);
             this.pnlSidebar.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
