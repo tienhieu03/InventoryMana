@@ -63,5 +63,10 @@ namespace DataLayer
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Inventory_Balance_by_Branch", dATECParameter, departmentIDParameter);
         }
+    
+        public virtual int Stock_Evaluation_Date(ObjectParameter dATEC, ObjectParameter dATED, ObjectParameter year, ObjectParameter period)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Stock_Evaluation_Date", dATEC, dATED, year, period);
+        }
     }
 }

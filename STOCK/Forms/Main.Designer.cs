@@ -35,6 +35,7 @@
             this.pnlMain = new System.Windows.Forms.Panel();
             this.imgListMenu = new System.Windows.Forms.ImageList(this.components);
             this.btnCountStock = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnlSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -49,7 +50,7 @@
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Size = new System.Drawing.Size(240, 648);
+            this.pnlSidebar.Size = new System.Drawing.Size(283, 648);
             this.pnlSidebar.TabIndex = 0;
             // 
             // flpMenu
@@ -59,7 +60,7 @@
             this.flpMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpMenu.Location = new System.Drawing.Point(0, 0);
             this.flpMenu.Name = "flpMenu";
-            this.flpMenu.Size = new System.Drawing.Size(240, 648);
+            this.flpMenu.Size = new System.Drawing.Size(283, 648);
             this.flpMenu.TabIndex = 0;
             this.flpMenu.WrapContents = false;
             // 
@@ -67,9 +68,9 @@
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(243, 64);
+            this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1120, 648);
+            this.pnlMain.Size = new System.Drawing.Size(1073, 648);
             this.pnlMain.TabIndex = 1;
             // 
             // imgListMenu
@@ -92,15 +93,31 @@
             this.btnCountStock.UseVisualStyleBackColor = false;
             this.btnCountStock.Click += new System.EventHandler(this.btnCountStock_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 64);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.pnlSidebar);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.pnlMain);
+            this.splitContainer1.Size = new System.Drawing.Size(1360, 648);
+            this.splitContainer1.SplitterDistance = 283;
+            this.splitContainer1.TabIndex = 1;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1366, 715);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.btnCountStock);
-            this.Controls.Add(this.pnlMain);
-            this.Controls.Add(this.pnlSidebar);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventory Management";
@@ -121,5 +138,6 @@
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.ImageList imgListMenu;
         private System.Windows.Forms.Button btnCountStock;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
