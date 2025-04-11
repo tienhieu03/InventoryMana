@@ -12,6 +12,8 @@ namespace DataLayer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Entities : DbContext
     {
@@ -32,7 +34,6 @@ namespace DataLayer
         public virtual DbSet<tb_Invoice> tb_Invoice { get; set; }
         public virtual DbSet<tb_InvoiceDetail> tb_InvoiceDetail { get; set; }
         public virtual DbSet<tb_Origin> tb_Origin { get; set; }
-        public virtual DbSet<tb_Product> tb_Product { get; set; }
         public virtual DbSet<tb_ProductCategory> tb_ProductCategory { get; set; }
         public virtual DbSet<tb_Supplier> tb_Supplier { get; set; }
         public virtual DbSet<tb_SYS_FUNC> tb_SYS_FUNC { get; set; }
@@ -48,5 +49,11 @@ namespace DataLayer
         public virtual DbSet<V_REP_SYS_RIGHT_REP> V_REP_SYS_RIGHT_REP { get; set; }
         public virtual DbSet<V_USER_IN_GROUP> V_USER_IN_GROUP { get; set; }
         public virtual DbSet<V_USER_NOTIN_GROUP> V_USER_NOTIN_GROUP { get; set; }
+        public virtual DbSet<tb_Product> tb_Product { get; set; }
+    
+        public virtual int Stock_Evaluation_Date(ObjectParameter dATEC, ObjectParameter dATED, ObjectParameter year, ObjectParameter period)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Stock_Evaluation_Date", dATEC, dATED, year, period);
+        }
     }
 }

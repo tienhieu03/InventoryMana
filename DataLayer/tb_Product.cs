@@ -16,7 +16,6 @@ namespace DataLayer
     {
         public int ProductID { get; set; }
         public string BARCODE { get; set; }
-        public string QRCODE { get; set; }
         public string ProductName { get; set; }
         public string ShortName { get; set; }
         public string Unit { get; set; }

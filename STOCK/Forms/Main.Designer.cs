@@ -34,17 +34,23 @@
             this.flpMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.imgListMenu = new System.Windows.Forms.ImageList(this.components);
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnCountStock = new System.Windows.Forms.Button();
             this.pnlSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlSidebar
             // 
             this.pnlSidebar.BackColor = System.Drawing.Color.LightGray;
             this.pnlSidebar.Controls.Add(this.flpMenu);
-            this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlSidebar.Location = new System.Drawing.Point(3, 64);
+            this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Size = new System.Drawing.Size(222, 648);
+            this.pnlSidebar.Size = new System.Drawing.Size(261, 648);
             this.pnlSidebar.TabIndex = 0;
             // 
             // flpMenu
@@ -54,7 +60,7 @@
             this.flpMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpMenu.Location = new System.Drawing.Point(0, 0);
             this.flpMenu.Name = "flpMenu";
-            this.flpMenu.Size = new System.Drawing.Size(222, 648);
+            this.flpMenu.Size = new System.Drawing.Size(261, 648);
             this.flpMenu.TabIndex = 0;
             this.flpMenu.WrapContents = false;
             // 
@@ -62,9 +68,9 @@
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(225, 64);
+            this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1138, 648);
+            this.pnlMain.Size = new System.Drawing.Size(1095, 648);
             this.pnlMain.TabIndex = 1;
             // 
             // imgListMenu
@@ -75,19 +81,58 @@
             this.imgListMenu.Images.SetKeyName(1, "INVOICE");
             this.imgListMenu.Images.SetKeyName(2, "MANAGEMENT");
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 64);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.pnlSidebar);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.pnlMain);
+            this.splitContainer1.Size = new System.Drawing.Size(1360, 648);
+            this.splitContainer1.SplitterDistance = 261;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // btnCountStock
+            // 
+            this.btnCountStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnCountStock.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(179)))), ((int)(((byte)(0)))));
+            this.btnCountStock.FlatAppearance.BorderSize = 0;
+            this.btnCountStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCountStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCountStock.ForeColor = System.Drawing.Color.White;
+            this.btnCountStock.Image = ((System.Drawing.Image)(resources.GetObject("btnCountStock.Image")));
+            this.btnCountStock.Location = new System.Drawing.Point(1326, 27);
+            this.btnCountStock.Name = "btnCountStock";
+            this.btnCountStock.Size = new System.Drawing.Size(37, 34);
+            this.btnCountStock.TabIndex = 1;
+            this.btnCountStock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCountStock.UseVisualStyleBackColor = false;
+            this.btnCountStock.Click += new System.EventHandler(this.btnCountStock_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1366, 715);
-            this.Controls.Add(this.pnlMain);
-            this.Controls.Add(this.pnlSidebar);
+            this.Controls.Add(this.btnCountStock);
+            this.Controls.Add(this.splitContainer1);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventory Management";
             this.Load += new System.EventHandler(this.Main_Load);
             this.pnlSidebar.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -98,5 +143,7 @@
         private System.Windows.Forms.FlowLayoutPanel flpMenu;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.ImageList imgListMenu;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button btnCountStock;
     }
 }

@@ -44,8 +44,6 @@
             this.cboSupplier = new System.Windows.Forms.ComboBox();
             this.cboOrigin = new System.Windows.Forms.ComboBox();
             this.cboUnit = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtQrCode = new Krypton.Toolkit.KryptonTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.rtxtDetail = new Krypton.Toolkit.KryptonRichTextBox();
@@ -60,20 +58,20 @@
             this.txtBarcode = new Krypton.Toolkit.KryptonTextBox();
             this.chkDisable = new System.Windows.Forms.CheckBox();
             this.gvList = new System.Windows.Forms.DataGridView();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BARCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OriginID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.kryptonToolStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
@@ -190,8 +188,6 @@
             this.groupBox1.Controls.Add(this.cboSupplier);
             this.groupBox1.Controls.Add(this.cboOrigin);
             this.groupBox1.Controls.Add(this.cboUnit);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.txtQrCode);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.rtxtDetail);
@@ -217,7 +213,7 @@
             // nudPrice
             // 
             this.nudPrice.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.nudPrice.Location = new System.Drawing.Point(82, 177);
+            this.nudPrice.Location = new System.Drawing.Point(82, 140);
             this.nudPrice.Margin = new System.Windows.Forms.Padding(2);
             this.nudPrice.Maximum = new decimal(new int[] {
             -1981284352,
@@ -233,7 +229,7 @@
             // 
             this.cboSupplier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSupplier.FormattingEnabled = true;
-            this.cboSupplier.Location = new System.Drawing.Point(82, 374);
+            this.cboSupplier.Location = new System.Drawing.Point(82, 337);
             this.cboSupplier.Margin = new System.Windows.Forms.Padding(2);
             this.cboSupplier.Name = "cboSupplier";
             this.cboSupplier.Size = new System.Drawing.Size(218, 29);
@@ -243,7 +239,7 @@
             // 
             this.cboOrigin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboOrigin.FormattingEnabled = true;
-            this.cboOrigin.Location = new System.Drawing.Point(82, 338);
+            this.cboOrigin.Location = new System.Drawing.Point(82, 301);
             this.cboOrigin.Margin = new System.Windows.Forms.Padding(2);
             this.cboOrigin.Name = "cboOrigin";
             this.cboOrigin.Size = new System.Drawing.Size(218, 29);
@@ -253,34 +249,16 @@
             // 
             this.cboUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboUnit.FormattingEnabled = true;
-            this.cboUnit.Location = new System.Drawing.Point(82, 214);
+            this.cboUnit.Location = new System.Drawing.Point(82, 177);
             this.cboUnit.Margin = new System.Windows.Forms.Padding(2);
             this.cboUnit.Name = "cboUnit";
             this.cboUnit.Size = new System.Drawing.Size(218, 29);
             this.cboUnit.TabIndex = 64;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 67);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(75, 21);
-            this.label9.TabIndex = 62;
-            this.label9.Text = "QR Code";
-            // 
-            // txtQrCode
-            // 
-            this.txtQrCode.Location = new System.Drawing.Point(82, 66);
-            this.txtQrCode.Name = "txtQrCode";
-            this.txtQrCode.ReadOnly = true;
-            this.txtQrCode.Size = new System.Drawing.Size(217, 32);
-            this.txtQrCode.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQrCode.TabIndex = 61;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 379);
+            this.label8.Location = new System.Drawing.Point(14, 342);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 21);
             this.label8.TabIndex = 60;
@@ -289,7 +267,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 341);
+            this.label7.Location = new System.Drawing.Point(14, 304);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(58, 21);
             this.label7.TabIndex = 58;
@@ -297,7 +275,7 @@
             // 
             // rtxtDetail
             // 
-            this.rtxtDetail.Location = new System.Drawing.Point(82, 250);
+            this.rtxtDetail.Location = new System.Drawing.Point(82, 213);
             this.rtxtDetail.Name = "rtxtDetail";
             this.rtxtDetail.Size = new System.Drawing.Size(217, 81);
             this.rtxtDetail.TabIndex = 56;
@@ -306,7 +284,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 249);
+            this.label6.Location = new System.Drawing.Point(14, 212);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 21);
             this.label6.TabIndex = 55;
@@ -315,7 +293,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 212);
+            this.label3.Location = new System.Drawing.Point(14, 175);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 21);
             this.label3.TabIndex = 54;
@@ -324,7 +302,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 181);
+            this.label4.Location = new System.Drawing.Point(14, 144);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 21);
             this.label4.TabIndex = 51;
@@ -333,7 +311,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 143);
+            this.label10.Location = new System.Drawing.Point(14, 106);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(47, 21);
             this.label10.TabIndex = 49;
@@ -341,7 +319,7 @@
             // 
             // txtShortName
             // 
-            this.txtShortName.Location = new System.Drawing.Point(82, 141);
+            this.txtShortName.Location = new System.Drawing.Point(82, 104);
             this.txtShortName.Name = "txtShortName";
             this.txtShortName.Size = new System.Drawing.Size(217, 32);
             this.txtShortName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -350,7 +328,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(14, 106);
+            this.label11.Location = new System.Drawing.Point(14, 69);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(56, 21);
             this.label11.TabIndex = 47;
@@ -358,7 +336,7 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(82, 103);
+            this.txtName.Location = new System.Drawing.Point(82, 66);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(217, 32);
             this.txtName.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -385,7 +363,7 @@
             // chkDisable
             // 
             this.chkDisable.AutoSize = true;
-            this.chkDisable.Location = new System.Drawing.Point(82, 414);
+            this.chkDisable.Location = new System.Drawing.Point(82, 377);
             this.chkDisable.Name = "chkDisable";
             this.chkDisable.Size = new System.Drawing.Size(96, 25);
             this.chkDisable.TabIndex = 36;
@@ -400,13 +378,13 @@
             this.gvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IsDisabled,
+            this.Quantity,
             this.BARCODE,
             this.ProductID,
             this.ProductName,
             this.Unit,
             this.Price,
             this.Description,
-            this.QRCODE,
             this.SupplierID,
             this.CategoryID,
             this.OriginID,
@@ -423,6 +401,35 @@
             this.gvList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gvList_CellFormatting);
             this.gvList.Click += new System.EventHandler(this.gvList_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 35);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.progressBarExport);
+            this.splitContainer1.Panel1.Controls.Add(this.gvList);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Size = new System.Drawing.Size(948, 465);
+            this.splitContainer1.SplitterDistance = 597;
+            this.splitContainer1.SplitterWidth = 3;
+            this.splitContainer1.TabIndex = 11;
+            // 
+            // progressBarExport
+            // 
+            this.progressBarExport.Location = new System.Drawing.Point(451, 220);
+            this.progressBarExport.Name = "progressBarExport";
+            this.progressBarExport.Size = new System.Drawing.Size(100, 23);
+            this.progressBarExport.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBarExport.TabIndex = 51;
+            this.progressBarExport.Visible = false;
+            // 
             // IsDisabled
             // 
             this.IsDisabled.DataPropertyName = "IsDisabled";
@@ -433,6 +440,13 @@
             this.IsDisabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.IsDisabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.IsDisabled.Width = 50;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.HeaderText = "Quantity";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
             // 
             // BARCODE
             // 
@@ -489,16 +503,6 @@
             this.Description.Name = "Description";
             this.Description.ReadOnly = true;
             // 
-            // QRCODE
-            // 
-            this.QRCODE.DataPropertyName = "QRCODE";
-            this.QRCODE.HeaderText = "QRCODE";
-            this.QRCODE.MinimumWidth = 6;
-            this.QRCODE.Name = "QRCODE";
-            this.QRCODE.ReadOnly = true;
-            this.QRCODE.Visible = false;
-            this.QRCODE.Width = 125;
-            // 
             // SupplierID
             // 
             this.SupplierID.DataPropertyName = "SupplierID";
@@ -539,35 +543,6 @@
             this.ShortName.Visible = false;
             this.ShortName.Width = 125;
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 35);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.progressBarExport);
-            this.splitContainer1.Panel1.Controls.Add(this.gvList);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(948, 465);
-            this.splitContainer1.SplitterDistance = 597;
-            this.splitContainer1.SplitterWidth = 3;
-            this.splitContainer1.TabIndex = 11;
-            // 
-            // progressBarExport
-            // 
-            this.progressBarExport.Location = new System.Drawing.Point(451, 220);
-            this.progressBarExport.Name = "progressBarExport";
-            this.progressBarExport.Size = new System.Drawing.Size(100, 23);
-            this.progressBarExport.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBarExport.TabIndex = 51;
-            this.progressBarExport.Visible = false;
-            // 
             // ProductControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -605,8 +580,6 @@
         private System.Windows.Forms.ToolStripComboBox cboCategory;
         private System.Windows.Forms.ToolStripButton btnExport;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label9;
-        private Krypton.Toolkit.KryptonTextBox txtQrCode;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private Krypton.Toolkit.KryptonRichTextBox rtxtDetail;
@@ -626,18 +599,18 @@
         private System.Windows.Forms.ComboBox cboOrigin;
         private System.Windows.Forms.ComboBox cboUnit;
         private System.Windows.Forms.NumericUpDown nudPrice;
+        private System.Windows.Forms.ProgressBar progressBarExport;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsDisabled;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierID;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn OriginID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ShortName;
-        private System.Windows.Forms.ProgressBar progressBarExport;
     }
 }
