@@ -12,8 +12,7 @@
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Invoice" Width="1.5" PointX="6.75" PointY="0.75" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_InvoiceDetail" Width="1.5" PointX="4.75" PointY="6.75" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Origin" Width="1.5" PointX="6.75" PointY="6.75" />
-        <EntityTypeShape EntityType="InventoryManagerModel.tb_Product" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="InventoryManagerModel.tb_ProductCategory" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="InventoryManagerModel.tb_ProductCategory" Width="1.5" PointX="8.625" PointY="1.625" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_Supplier" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_SYS_FUNC" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="InventoryManagerModel.tb_SYS_GROUP" Width="1.5" PointX="10.75" PointY="4.75" />
@@ -28,6 +27,7 @@
         <EntityTypeShape EntityType="InventoryManagerModel.V_REP_SYS_RIGHT_REP" Width="1.5" PointX="8.75" PointY="13.75" />
         <EntityTypeShape EntityType="InventoryManagerModel.V_USER_IN_GROUP" Width="1.5" PointX="14.75" PointY="0.75" />
         <EntityTypeShape EntityType="InventoryManagerModel.V_USER_NOTIN_GROUP" Width="1.5" PointX="4.75" PointY="14.75" />
+        <EntityTypeShape EntityType="InventoryManagerModel.tb_Product" Width="1.5" PointX="11.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

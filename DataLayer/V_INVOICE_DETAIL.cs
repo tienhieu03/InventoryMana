@@ -36,5 +36,6 @@ namespace DataLayer
         public string DepartmentID { get; set; }
         public string ReceivingDepartmentID { get; set; }
         public Nullable<bool> Status { get; set; }
+        public int? ProductID { get; set; }
     }
 }

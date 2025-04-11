@@ -34,6 +34,7 @@
             this.flpMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.imgListMenu = new System.Windows.Forms.ImageList(this.components);
+            this.btnCountStock = new System.Windows.Forms.Button();
             this.pnlSidebar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +45,7 @@
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSidebar.Location = new System.Drawing.Point(3, 64);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Size = new System.Drawing.Size(222, 648);
+            this.pnlSidebar.Size = new System.Drawing.Size(240, 648);
             this.pnlSidebar.TabIndex = 0;
             // 
             // flpMenu
@@ -54,7 +55,7 @@
             this.flpMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpMenu.Location = new System.Drawing.Point(0, 0);
             this.flpMenu.Name = "flpMenu";
-            this.flpMenu.Size = new System.Drawing.Size(222, 648);
+            this.flpMenu.Size = new System.Drawing.Size(240, 648);
             this.flpMenu.TabIndex = 0;
             this.flpMenu.WrapContents = false;
             // 
@@ -62,9 +63,9 @@
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(225, 64);
+            this.pnlMain.Location = new System.Drawing.Point(243, 64);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1138, 648);
+            this.pnlMain.Size = new System.Drawing.Size(1120, 648);
             this.pnlMain.TabIndex = 1;
             // 
             // imgListMenu
@@ -75,12 +76,25 @@
             this.imgListMenu.Images.SetKeyName(1, "INVOICE");
             this.imgListMenu.Images.SetKeyName(2, "MANAGEMENT");
             // 
+            // btnCountStock
+            // 
+            this.btnCountStock.BackColor = System.Drawing.Color.Transparent;
+            this.btnCountStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCountStock.Image = ((System.Drawing.Image)(resources.GetObject("btnCountStock.Image")));
+            this.btnCountStock.Location = new System.Drawing.Point(1312, 28);
+            this.btnCountStock.Name = "btnCountStock";
+            this.btnCountStock.Size = new System.Drawing.Size(48, 30);
+            this.btnCountStock.TabIndex = 2;
+            this.btnCountStock.UseVisualStyleBackColor = false;
+            this.btnCountStock.Click += new System.EventHandler(this.btnCountStock_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1366, 715);
+            this.Controls.Add(this.btnCountStock);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlSidebar);
             this.Name = "Main";
@@ -98,5 +112,6 @@
         private System.Windows.Forms.FlowLayoutPanel flpMenu;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.ImageList imgListMenu;
+        private System.Windows.Forms.Button btnCountStock;
     }
 }

@@ -12,8 +12,8 @@ namespace MATERIAL.MyFunctions
         public static string _compid;
         public static string _dpid;
         public static string _dpname;
-        public static string _servername;
-        public static string _userid;
+        public static string _srv;
+        public static string _us;
         public static string _pw;
         public static string _db;
 

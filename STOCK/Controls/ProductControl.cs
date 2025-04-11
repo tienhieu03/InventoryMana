@@ -99,7 +99,6 @@ namespace STOCK.Controls
         void ResetFields()
         {
             txtBarcode.Text = "";
-            txtQrCode.Text = "";
             txtName.Text = "";
             txtShortName.Text = "";
             rtxtDetail.Text = "";
@@ -134,7 +133,6 @@ namespace STOCK.Controls
             _sysSeq = new SYS_SEQ();
             _enable(false);
             txtBarcode.Enabled = false;
-            txtQrCode.Enabled = false;
             ShowHideControls(true);
             loadCategory();
             loadData();
@@ -163,7 +161,6 @@ namespace STOCK.Controls
             _add = true;
             _enable(true);
             txtBarcode.Enabled = false;
-            txtQrCode.Enabled = false;
             ResetFields();
             ShowHideControls(false);
         }
@@ -203,7 +200,6 @@ namespace STOCK.Controls
             _add = false;
             _enable(true);
             txtBarcode.Enabled = false;
-            txtQrCode.Enabled = false;
             ShowHideControls(false);
         }
 
@@ -223,10 +219,9 @@ namespace STOCK.Controls
                 pd.BARCODE = BarcodeEAN13.BuildEan13(DateTime.Now.Year.ToString() + cboCategory.ComboBox.SelectedValue.ToString() + _seq.SEQVALUE.Value.ToString("0000000"));
                 pd.ProductName = txtName.Text;
                 pd.ShortName = txtShortName.Text;
-                pd.QRCODE = txtQrCode.Text;//sửa
                 pd.CategoryID = int.Parse(cboCategory.ComboBox.SelectedValue.ToString());
                 pd.Description = rtxtDetail.Text;
-                pd.SupplierID = int.Parse(cboSupplier.SelectedValue.ToString());
+                pd.SupplierID = (cboSupplier.SelectedValue.ToString());
                 pd.OriginID = int.Parse(cboOrigin.SelectedValue.ToString());
                 pd.Unit = cboUnit.Text;
                 pd.IsDisabled = chkDisable.Checked;
@@ -246,7 +241,7 @@ namespace STOCK.Controls
                 pd.ShortName = txtShortName.Text;
                 pd.CategoryID = int.Parse(cboCategory.ComboBox.SelectedValue.ToString());
                 pd.Description = rtxtDetail.Text;
-                pd.SupplierID = int.Parse(cboSupplier.SelectedValue.ToString());
+                pd.SupplierID = (cboSupplier.SelectedValue.ToString());
                 pd.OriginID = int.Parse(cboOrigin.SelectedValue.ToString());
                 pd.Unit = cboUnit.Text;
                 pd.IsDisabled = chkDisable.Checked;
@@ -285,7 +280,6 @@ namespace STOCK.Controls
                 _productID = (int)row.Cells["ProductID"].Value;
                 cboCategory.ComboBox.SelectedValue = row.Cells["CategoryID"].Value;
                 txtBarcode.Text = row.Cells["BARCODE"].Value.ToString();
-                txtQrCode.Text = row.Cells["QRCODE"].Value.ToString();
                 txtName.Text = row.Cells["ProductName"].Value.ToString();
                 txtShortName.Text = row.Cells["ShortName"].Value.ToString();
                 rtxtDetail.Text = row.Cells["Description"].Value.ToString();
@@ -371,34 +365,32 @@ namespace STOCK.Controls
 
                     // Ghi dữ liệu vào Excel
                     ws.Cells[2, 1].Value = "BARCODE";
-                    ws.Cells[2, 2].Value = "QRCODE";
-                    ws.Cells[2, 3].Value = "ProductName";
-                    ws.Cells[2, 4].Value = "ShortName";
-                    ws.Cells[2, 5].Value = "Unit";
-                    ws.Cells[2, 6].Value = "Price";
-                    ws.Cells[2, 7].Value = "Description";
-                    ws.Cells[2, 8].Value = "CategoryID";
-                    ws.Cells[2, 9].Value = "Category";
-                    ws.Cells[2, 10].Value = "SupplierID";
-                    ws.Cells[2, 11].Value = "SupplierName";
-                    ws.Cells[2, 12].Value = "OriginID";
-                    ws.Cells[2, 13].Value = "OriginName";
+                    ws.Cells[2, 2].Value = "ProductName";
+                    ws.Cells[2, 3].Value = "ShortName";
+                    ws.Cells[2, 4].Value = "Unit";
+                    ws.Cells[2, 5].Value = "Price";
+                    ws.Cells[2, 6].Value = "Description";
+                    ws.Cells[2, 7].Value = "CategoryID";
+                    ws.Cells[2, 8].Value = "Category";
+                    ws.Cells[2, 9].Value = "SupplierID";
+                    ws.Cells[2, 10].Value = "SupplierName";
+                    ws.Cells[2, 11].Value = "OriginID";
+                    ws.Cells[2, 12].Value = "OriginName";
 
                     for (int i = 0; i < productList.Count; i++)
                     {
                         ws.Cells[i + 3, 1].Value = productList[i].BARCODE;
-                        ws.Cells[i + 3, 2].Value = productList[i].QRCODE;
-                        ws.Cells[i + 3, 3].Value = productList[i].ProductName;
-                        ws.Cells[i + 3, 4].Value = productList[i].ShortName;
-                        ws.Cells[i + 3, 5].Value = productList[i].Unit;
-                        ws.Cells[i + 3, 6].Value = productList[i].Price;
-                        ws.Cells[i + 3, 7].Value = productList[i].Description;
-                        ws.Cells[i + 3, 8].Value = productList[i].CategoryID;
-                        ws.Cells[i + 3, 9].Value = productList[i].Category;
-                        ws.Cells[i + 3, 10].Value = productList[i].SupplierID;
-                        ws.Cells[i + 3, 11].Value = productList[i].SupplierName;
-                        ws.Cells[i + 3, 12].Value = productList[i].OriginID;
-                        ws.Cells[i + 3, 13].Value = productList[i].OriginName;
+                        ws.Cells[i + 3, 2].Value = productList[i].ProductName;
+                        ws.Cells[i + 3, 3].Value = productList[i].ShortName;
+                        ws.Cells[i + 3, 4].Value = productList[i].Unit;
+                        ws.Cells[i + 3, 5].Value = productList[i].Price;
+                        ws.Cells[i + 3, 6].Value = productList[i].Description;
+                        ws.Cells[i + 3, 7].Value = productList[i].CategoryID;
+                        ws.Cells[i + 3, 8].Value = productList[i].Category;
+                        ws.Cells[i + 3, 9].Value = productList[i].SupplierID;
+                        ws.Cells[i + 3, 10].Value = productList[i].SupplierName;
+                        ws.Cells[i + 3, 11].Value = productList[i].OriginID;
+                        ws.Cells[i + 3, 12].Value = productList[i].OriginName;
                     }
 
                     wb.SaveAs(nameFile);

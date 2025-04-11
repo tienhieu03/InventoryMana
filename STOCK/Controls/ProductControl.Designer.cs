@@ -44,8 +44,6 @@
             this.cboSupplier = new System.Windows.Forms.ComboBox();
             this.cboOrigin = new System.Windows.Forms.ComboBox();
             this.cboUnit = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtQrCode = new Krypton.Toolkit.KryptonTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.rtxtDetail = new Krypton.Toolkit.KryptonRichTextBox();
@@ -190,8 +188,6 @@
             this.groupBox1.Controls.Add(this.cboSupplier);
             this.groupBox1.Controls.Add(this.cboOrigin);
             this.groupBox1.Controls.Add(this.cboUnit);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.txtQrCode);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.rtxtDetail);
@@ -258,24 +254,6 @@
             this.cboUnit.Name = "cboUnit";
             this.cboUnit.Size = new System.Drawing.Size(218, 29);
             this.cboUnit.TabIndex = 64;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 67);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(75, 21);
-            this.label9.TabIndex = 62;
-            this.label9.Text = "QR Code";
-            // 
-            // txtQrCode
-            // 
-            this.txtQrCode.Location = new System.Drawing.Point(82, 66);
-            this.txtQrCode.Name = "txtQrCode";
-            this.txtQrCode.ReadOnly = true;
-            this.txtQrCode.Size = new System.Drawing.Size(217, 32);
-            this.txtQrCode.StateCommon.Content.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQrCode.TabIndex = 61;
             // 
             // label8
             // 
@@ -605,8 +583,6 @@
         private System.Windows.Forms.ToolStripComboBox cboCategory;
         private System.Windows.Forms.ToolStripButton btnExport;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label9;
-        private Krypton.Toolkit.KryptonTextBox txtQrCode;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private Krypton.Toolkit.KryptonRichTextBox rtxtDetail;

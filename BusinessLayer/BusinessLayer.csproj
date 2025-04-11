@@ -60,6 +60,7 @@
     <Compile Include="DataModels\CUSTOMER.cs" />
     <Compile Include="DataModels\DEPARTMENT.cs" />
     <Compile Include="DataModels\FUNC.cs" />
+    <Compile Include="DataModels\INVENTORY.cs" />
     <Compile Include="DataModels\INVOICE.cs" />
     <Compile Include="DataModels\INVOICE_DETAIL.cs" />
     <Compile Include="DataModels\obj_INVOICE_DETAIL.cs" />

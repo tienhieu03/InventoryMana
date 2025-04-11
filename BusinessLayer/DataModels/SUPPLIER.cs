@@ -16,7 +16,7 @@ namespace BusinessLayer
             db = Entities.CreateEntities();
         }
 
-        public tb_Supplier getItem(int supplierid)
+        public tb_Supplier getItem(string supplierid)
         {
             return db.tb_Supplier.FirstOrDefault(x => x.SupplierID == supplierid);
         }
@@ -55,7 +55,7 @@ namespace BusinessLayer
                 throw new Exception("An error occurred during data processing" + ex.Message);
             }
         }
-        public void delete(int supplierid)
+        public void delete(string supplierid)
         {
             tb_Supplier cp = db.tb_Supplier.FirstOrDefault(x => x.SupplierID == supplierid);
             cp.IsDisabled = true;

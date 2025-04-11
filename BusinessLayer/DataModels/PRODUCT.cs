@@ -54,7 +54,6 @@ namespace BusinessLayer.DataModels
             {
                 pd = new obj_PRODUCT();
                 pd.BARCODE = item.BARCODE;
-                pd.QRCODE = item.QRCODE;
                 pd.ProductID = item.ProductID;
                 pd.ProductName = item.ProductName;
                 pd.ShortName = item.ShortName;
@@ -80,7 +79,6 @@ namespace BusinessLayer.DataModels
             var _h = db.tb_Product.FirstOrDefault(x => x.BARCODE == barcode);
             obj_PRODUCT hh = new obj_PRODUCT();
             hh.BARCODE = _h.BARCODE;
-            hh.QRCODE = _h.QRCODE;
             hh.ProductID = _h.ProductID;
             hh.ProductName = _h.ProductName;
             hh.ShortName = _h.ShortName;
@@ -106,7 +104,6 @@ namespace BusinessLayer.DataModels
             {
                 hh = new obj_PRODUCT();
                 hh.ProductID = item.ProductID;
-                hh.QRCODE = item.QRCODE;
                 hh.BARCODE = item.BARCODE;
                 hh.ProductName = item.ProductName;
                 hh.ShortName = item.ShortName;

@@ -45,7 +45,7 @@ namespace UserManagement.FuncForm
                 txtFullName.Text = user.FullName;
                 chkDisable.Checked = user.IsDisable.Value;
                 txtUsername.ReadOnly = true;
-                
+
                 try
                 {
                     // Giải mã mật khẩu
@@ -56,11 +56,11 @@ namespace UserManagement.FuncForm
                 {
                     // Xử lý lỗi khi chuỗi mật khẩu không phải định dạng Base64 hợp lệ
                     Console.WriteLine($"Lỗi giải mã mật khẩu: {ex.Message}");
-                    
+
                     // Hiển thị mật khẩu trống để người dùng có thể nhập mật khẩu mới
                     txtPass.Text = "";
                     txtRepass.Text = "";
-                    
+
                     MessageBox.Show("Không thể giải mã mật khẩu. Vui lòng nhập mật khẩu mới.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
@@ -128,7 +128,7 @@ namespace UserManagement.FuncForm
                 _user.DepartmentID = _departmentID;
                 _sysUser.add(_user);
                 loadGroupByUser(_userID);
-                
+
                 MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -141,9 +141,9 @@ namespace UserManagement.FuncForm
                 _user.CompanyID = _companyID;
                 _user.DepartmentID = _departmentID;
                 _sysUser.update(_user);
-                
+
                 loadGroupByUser(_userID);
-                
+
                 MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             objMain.LoadUser(_companyID, _departmentID);

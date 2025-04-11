@@ -210,6 +210,8 @@ namespace BusinessLayer.DataModels
             }
         }
 
+        public int? TotalPrice { get; set; }
+
         // Method to automatically update the TotalPrice property
         private void UpdateTotalPrice()
         {

@@ -29,7 +29,7 @@ namespace STOCK.Controls
 
         SUPPLIER _supplier;
         bool _add;
-        int _id;
+        string _id;
         tb_SYS_USER _user;
         int _right;
 
@@ -83,6 +83,7 @@ namespace STOCK.Controls
         {
             txtName.Enabled = t;
             txtPhone.Enabled = t;
+            txtId.Enabled = t;
             txtFax.Enabled = t;
             txtEmail.Enabled = t;
             txtAddress.Enabled = t;
@@ -119,7 +120,7 @@ namespace STOCK.Controls
             _add = true;
             _enable(true);
             ResetFields();
-            txtId.Enabled = false;
+            txtId.Enabled = true;
             ShowHideControls(false);
         }
 
@@ -140,6 +141,7 @@ namespace STOCK.Controls
             _add = false;
             _enable(true);
             ShowHideControls(false);
+            txtId.Enabled = false;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -154,7 +156,7 @@ namespace STOCK.Controls
             {
                 DataGridViewRow row = gvList.SelectedRows[0];
 
-                int supplierID = (int)row.Cells["SupplierID"].Value;
+                string supplierID = (string)row.Cells["SupplierID"].Value;
 
                 if (MessageBox.Show("Do you want to delete this record?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
@@ -170,10 +172,15 @@ namespace STOCK.Controls
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (txtId.Text == "")
+            {
+                MessageBox.Show("Please enter Supplier ID!", "NOTIFICATION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             if (_add)
             {
                 tb_Supplier ct = new tb_Supplier()
                 {
+                    SupplierID = txtId.Text,
                     SupplierName = txtName.Text,
                     SupplierEmail = txtEmail.Text,
                     SupplierPhone = txtPhone.Text,
@@ -210,6 +217,7 @@ namespace STOCK.Controls
             ShowHideControls(true);
             gvList.ClearSelection();
             ResetFields();
+            txtId.Enabled = false;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -218,6 +226,7 @@ namespace STOCK.Controls
             _enable(false);
             ShowHideControls(true);
             gvList.ClearSelection();
+            txtId.Enabled = false;
         }
 
         private void gvList_Click(object sender, EventArgs e)
@@ -226,7 +235,7 @@ namespace STOCK.Controls
             {
                 DataGridViewRow row = gvList.SelectedRows[0];
 
-                _id = (int)row.Cells["SupplierID"].Value;
+                _id = (string)row.Cells["SupplierID"].Value;
                 txtId.Text = _id.ToString();
                 txtName.Text = row.Cells["SupplierName"].Value?.ToString() ?? "";
                 txtPhone.Text = row.Cells["SupplierPhone"].Value?.ToString() ?? "";

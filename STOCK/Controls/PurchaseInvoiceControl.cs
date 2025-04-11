@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +17,10 @@ using MATERIAL.MyFunctions;
 using STOCK.Forms;
 using STOCK.StockHelpers;
 using STOCK.PopUpForm;
+using Microsoft.Reporting.WinForms;
+// Removed duplicate using Microsoft.Reporting.WinForms;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.IO; // Added for file operations
 
 namespace STOCK.Controls
 {
@@ -826,7 +829,7 @@ namespace STOCK.Controls
                 txtInvoiceNo.Text = current.Invoice;
                 txtNote.Text = current.Description;
                 cboPurchaseUnit.SelectedValue = current.DepartmentID;
-                cboSupplier.SelectedValue = int.Parse(current.ReceivingDepartmentID);
+                cboSupplier.SelectedValue = (current.ReceivingDepartmentID);
                 cboStatus.SelectedValue = current.Status;
 
                 if (current.DeletedBy != null)
@@ -1555,42 +1558,111 @@ namespace STOCK.Controls
 
         private void exportReport(string _reportName, string _tieude)
         {
-            //if (_pinvoiceID != null)
-            //{
-            //    Form frm = new Form();
-            //    CrystalReportViewer Crv = new CrystalReportViewer();
-            //    Crv.ShowGroupTreeButton = false;
-            //    Crv.ShowParameterPanelButton = false;
-            //    Crv.ToolPanelView = ToolPanelViewType.None;
-            //    TableLogOnInfo Thongtin;
-            //    ReportDocument doc = new ReportDocument();
-            //    doc.Load(Application.StartupPath + "\\Reports\\" + _reportName + @".rpt");
-            //    Thongtin = doc.Database.Tables[0].LogOnInfo;
-            //    Thongtin.ConnectionInfo.ServerName = myFunctions._srv;
-            //    Thongtin.ConnectionInfo.DatabaseName = myFunctions._db;
-            //    Thongtin.ConnectionInfo.UserID = myFunctions._us;
-            //    Thongtin.ConnectionInfo.Password = myFunctions._pw;
-            //    doc.Database.Tables[0].ApplyLogOnInfo(Thongtin);
-            //    try
-            //    {
-            //        doc.SetParameterValue("khoa", "{" + _pinvoiceID.ToString() + "}");
-            //        Crv.Dock = DockStyle.Fill;
-            //        Crv.ReportSource = doc;
-            //        frm.Controls.Add(Crv);
-            //        Crv.Refresh();
-            //        frm.Text = _tieude;
-            //        frm.WindowState = FormWindowState.Maximized;
-            //        frm.ShowDialog();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Lỗi: " + ex.ToString());
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Không có dữ liệu", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            // Ensure an invoice is selected
+            if (_bsInvoice.Current == null)
+            {
+                MessageBox.Show("Please select an invoice to export.", "No Invoice Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            tb_Invoice currentInvoice = (tb_Invoice)_bsInvoice.Current;
+            List<obj_INVOICE_DETAIL> details = _bsInvoiceDT.DataSource as List<obj_INVOICE_DETAIL>;
+
+            if (details == null || details.Count == 0)
+            {
+                 // Attempt to reload details if empty
+                 details = _invoiceDetail.getListbyIDFull(currentInvoice.InvoiceID);
+                 if (details == null || details.Count == 0)
+                 {
+                    MessageBox.Show("No details found for the selected invoice.", "No Details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                 }
+            }
+
+            // Fetch related data
+            tb_Company company = _company.getItem(currentInvoice.CompanyID);
+            tb_Department department = _department.getItem(currentInvoice.DepartmentID);
+            tb_Supplier supplier = _supplier.getItem(currentInvoice.ReceivingDepartmentID);
+
+            // Create DataTable matching the RDLC DataSet structure
+            DataTable dtReportData = new DataTable("DataTable1"); // Match table name in dsInvoice.xsd if applicable
+            // Add columns based on RDLC Fields (ensure names match exactly)
+            dtReportData.Columns.Add("Invoice", typeof(string));
+            dtReportData.Columns.Add("Day", typeof(string)); // Changed to string for formatting
+            dtReportData.Columns.Add("Description", typeof(string));
+            dtReportData.Columns.Add("TotalPrice", typeof(double)); // Invoice Total
+            dtReportData.Columns.Add("InvoiceDate", typeof(string)); // Changed to string for formatting
+            dtReportData.Columns.Add("CompanyName", typeof(string));
+            dtReportData.Columns.Add("CompanyAddress", typeof(string));
+            dtReportData.Columns.Add("CompanyPhone", typeof(string));
+            dtReportData.Columns.Add("DepartmentName", typeof(string));
+            dtReportData.Columns.Add("DepartmentAddress", typeof(string));
+            dtReportData.Columns.Add("DepartmentPhone", typeof(string));
+            dtReportData.Columns.Add("SupplierName", typeof(string));
+            dtReportData.Columns.Add("SupplierAddress", typeof(string));
+            dtReportData.Columns.Add("SupplierPhone", typeof(string));
+            dtReportData.Columns.Add("BARCODE", typeof(string));
+            dtReportData.Columns.Add("ProductName", typeof(string));
+            dtReportData.Columns.Add("Unit", typeof(string));
+            dtReportData.Columns.Add("Quantity", typeof(int)); // Detail Quantity
+            dtReportData.Columns.Add("Price", typeof(double)); // Detail Price
+            dtReportData.Columns.Add("SubTotal", typeof(double)); // Detail SubTotal
+
+            // Populate DataTable
+            foreach (var detail in details)
+            {
+                DataRow dr = dtReportData.NewRow();
+                dr["Invoice"] = currentInvoice.Invoice;
+                // Format date before adding to DataTable
+                dr["Day"] = (currentInvoice.Day ?? DateTime.Now).ToString("dd/MM/yyyy");
+                dr["Description"] = currentInvoice.Description;
+                dr["TotalPrice"] = currentInvoice.TotalPrice ?? 0;
+                // Format date before adding to DataTable
+                dr["InvoiceDate"] = (currentInvoice.Day ?? DateTime.Now).ToString("dd/MM/yyyy"); // Assuming InvoiceDate is same as Day
+                dr["CompanyName"] = company?.CompanyName;
+                dr["CompanyAddress"] = company?.CompanyAddress; // Corrected property name
+                dr["CompanyPhone"] = company?.CompanyPhone; // Corrected property name
+                dr["DepartmentName"] = department?.DepartmentName;
+                dr["DepartmentAddress"] = department?.DepartmentAddress; // Corrected property name
+                dr["DepartmentPhone"] = department?.DepartmentPhone; // Corrected property name
+                dr["SupplierName"] = supplier?.SupplierName;
+                dr["SupplierAddress"] = supplier?.SupplierAddress; // Corrected property name
+                dr["SupplierPhone"] = supplier?.SupplierPhone; // Corrected property name
+                dr["BARCODE"] = detail.BARCODE;
+                dr["ProductName"] = detail.ProductName;
+                dr["Unit"] = detail.Unit;
+                dr["Quantity"] = detail.Quantity ?? 0;
+                dr["Price"] = detail.Price ?? 0;
+                dr["SubTotal"] = detail.SubTotal ?? 0;
+                dtReportData.Rows.Add(dr);
+            }
+
+            // Configure ReportViewer
+            LocalReport report = new LocalReport();
+            // Make sure the path matches the embedded resource name.
+            // Check project properties -> Build Action for the rdlc file should be "Embedded Resource"
+            // The name is typically Namespace.FolderName.FileName.rdlc
+            report.ReportEmbeddedResource = "STOCK.PurchaseInvoice.rdlc"; // Adjust if namespace/folder differs
+
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "dsInvoice"; // This MUST match the DataSet Name in the RDLC file
+            rds.Value = dtReportData;
+            report.DataSources.Clear();
+            report.DataSources.Add(rds);
+
+            report.Refresh(); // Refresh the report definition and data
+
+            // Create and show the report viewer form
+            try
+            {
+                formReportViewer frmViewer = new formReportViewer(report);
+                frmViewer.Text = string.IsNullOrEmpty(_tieude) ? "Purchase Invoice Report" : _tieude; // Set form title
+                frmViewer.ShowDialog(); // Show the form modally
+            }
+            catch (Exception ex)
+            {
+                 MessageBox.Show($"Error opening report preview: {ex.Message}", "Preview Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void gvDetail_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -1768,6 +1840,11 @@ namespace STOCK.Controls
                 cmdImport.Enabled = true;
                 // Context menu will be enabled when in edit mode
             }
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            exportReport("PURCHASE_SUPPLIER_INVOICE", "");
         }
     }
 }

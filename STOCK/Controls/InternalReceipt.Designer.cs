@@ -44,6 +44,16 @@
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.gvList = new System.Windows.Forms.DataGridView();
+            this.DeletedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceNo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Day2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageDetail = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.txtReceiveInvoiceNo = new System.Windows.Forms.MaskedTextBox();
@@ -73,16 +83,6 @@
             this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeletedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvoiceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvoiceNo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvoiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Day2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonToolStrip1.SuspendLayout();
             this.tabInvoice.SuspendLayout();
             this.pageList.SuspendLayout();
@@ -152,7 +152,7 @@
             this.pageList.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pageList.Location = new System.Drawing.Point(4, 24);
             this.pageList.Name = "pageList";
-            this.pageList.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.pageList.Padding = new System.Windows.Forms.Padding(3);
             this.pageList.Size = new System.Drawing.Size(940, 437);
             this.pageList.TabIndex = 0;
             this.pageList.Text = "List";
@@ -288,12 +288,102 @@
             this.gvList.TabIndex = 0;
             this.gvList.DoubleClick += new System.EventHandler(this.gvList_DoubleClick_1);
             // 
+            // DeletedBy
+            // 
+            this.DeletedBy.DataPropertyName = "DeletedBy";
+            this.DeletedBy.HeaderText = "Deleted_By";
+            this.DeletedBy.MinimumWidth = 6;
+            this.DeletedBy.Name = "DeletedBy";
+            this.DeletedBy.ReadOnly = true;
+            this.DeletedBy.Width = 125;
+            // 
+            // InvoiceID
+            // 
+            this.InvoiceID.DataPropertyName = "InvoiceID";
+            this.InvoiceID.HeaderText = "InvoiceID";
+            this.InvoiceID.MinimumWidth = 6;
+            this.InvoiceID.Name = "InvoiceID";
+            this.InvoiceID.ReadOnly = true;
+            this.InvoiceID.Visible = false;
+            this.InvoiceID.Width = 125;
+            // 
+            // InvoiceNo2
+            // 
+            this.InvoiceNo2.DataPropertyName = "Invoice2";
+            this.InvoiceNo2.HeaderText = "Receive Invoice No";
+            this.InvoiceNo2.MinimumWidth = 6;
+            this.InvoiceNo2.Name = "InvoiceNo2";
+            this.InvoiceNo2.ReadOnly = true;
+            this.InvoiceNo2.Width = 125;
+            // 
+            // InvoiceNo
+            // 
+            this.InvoiceNo.DataPropertyName = "Invoice";
+            this.InvoiceNo.HeaderText = "InvoiceNo";
+            this.InvoiceNo.Name = "InvoiceNo";
+            this.InvoiceNo.ReadOnly = true;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Day2";
+            this.Date.HeaderText = "Date";
+            this.Date.MinimumWidth = 6;
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Width = 125;
+            // 
+            // Day2
+            // 
+            this.Day2.DataPropertyName = "Day2";
+            this.Day2.HeaderText = "Receive Date";
+            this.Day2.MinimumWidth = 6;
+            this.Day2.Name = "Day2";
+            this.Day2.ReadOnly = true;
+            this.Day2.Visible = false;
+            this.Day2.Width = 125;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.HeaderText = "Quantity";
+            this.Quantity.MinimumWidth = 6;
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            this.Quantity.Width = 125;
+            // 
+            // TotalPrice
+            // 
+            this.TotalPrice.DataPropertyName = "TotalPrice";
+            this.TotalPrice.HeaderText = "TotalPrice";
+            this.TotalPrice.MinimumWidth = 6;
+            this.TotalPrice.Name = "TotalPrice";
+            this.TotalPrice.ReadOnly = true;
+            this.TotalPrice.Width = 125;
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Description";
+            this.Description.MinimumWidth = 6;
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            this.Description.Width = 125;
+            // 
+            // Status
+            // 
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Status";
+            this.Status.MinimumWidth = 6;
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            this.Status.Width = 125;
+            // 
             // pageDetail
             // 
             this.pageDetail.Controls.Add(this.splitContainer2);
             this.pageDetail.Location = new System.Drawing.Point(4, 24);
             this.pageDetail.Name = "pageDetail";
-            this.pageDetail.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.pageDetail.Padding = new System.Windows.Forms.Padding(3);
             this.pageDetail.Size = new System.Drawing.Size(940, 437);
             this.pageDetail.TabIndex = 1;
             this.pageDetail.Text = "Detail";
@@ -602,103 +692,13 @@
             this.ProductID.Visible = false;
             this.ProductID.Width = 125;
             // 
-            // DeletedBy
-            // 
-            this.DeletedBy.DataPropertyName = "DeletedBy";
-            this.DeletedBy.HeaderText = "Deleted_By";
-            this.DeletedBy.MinimumWidth = 6;
-            this.DeletedBy.Name = "DeletedBy";
-            this.DeletedBy.ReadOnly = true;
-            this.DeletedBy.Width = 125;
-            // 
-            // InvoiceID
-            // 
-            this.InvoiceID.DataPropertyName = "InvoiceID";
-            this.InvoiceID.HeaderText = "InvoiceID";
-            this.InvoiceID.MinimumWidth = 6;
-            this.InvoiceID.Name = "InvoiceID";
-            this.InvoiceID.ReadOnly = true;
-            this.InvoiceID.Visible = false;
-            this.InvoiceID.Width = 125;
-            // 
-            // InvoiceNo2
-            // 
-            this.InvoiceNo2.DataPropertyName = "Invoice2";
-            this.InvoiceNo2.HeaderText = "Receive Invoice No";
-            this.InvoiceNo2.MinimumWidth = 6;
-            this.InvoiceNo2.Name = "InvoiceNo2";
-            this.InvoiceNo2.ReadOnly = true;
-            this.InvoiceNo2.Width = 125;
-            // 
-            // InvoiceNo
-            // 
-            this.InvoiceNo.DataPropertyName = "Invoice";
-            this.InvoiceNo.HeaderText = "InvoiceNo";
-            this.InvoiceNo.Name = "InvoiceNo";
-            this.InvoiceNo.ReadOnly = true;
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Day2";
-            this.Date.HeaderText = "Date";
-            this.Date.MinimumWidth = 6;
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Width = 125;
-            // 
-            // Day2
-            // 
-            this.Day2.DataPropertyName = "Day2";
-            this.Day2.HeaderText = "Receive Date";
-            this.Day2.MinimumWidth = 6;
-            this.Day2.Name = "Day2";
-            this.Day2.ReadOnly = true;
-            this.Day2.Visible = false;
-            this.Day2.Width = 125;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.HeaderText = "Quantity";
-            this.Quantity.MinimumWidth = 6;
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            this.Quantity.Width = 125;
-            // 
-            // TotalPrice
-            // 
-            this.TotalPrice.DataPropertyName = "TotalPrice";
-            this.TotalPrice.HeaderText = "TotalPrice";
-            this.TotalPrice.MinimumWidth = 6;
-            this.TotalPrice.Name = "TotalPrice";
-            this.TotalPrice.ReadOnly = true;
-            this.TotalPrice.Width = 125;
-            // 
-            // Description
-            // 
-            this.Description.DataPropertyName = "Description";
-            this.Description.HeaderText = "Description";
-            this.Description.MinimumWidth = 6;
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            this.Description.Width = 125;
-            // 
-            // Status
-            // 
-            this.Status.DataPropertyName = "Status";
-            this.Status.HeaderText = "Status";
-            this.Status.MinimumWidth = 6;
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            this.Status.Width = 125;
-            // 
             // InternalReceipt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabInvoice);
             this.Controls.Add(this.kryptonToolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "InternalReceipt";
             this.Size = new System.Drawing.Size(948, 500);
             this.Load += new System.EventHandler(this.InternalReceipt_Load);
