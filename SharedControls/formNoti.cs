@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace POS
+namespace SharedControls
 {
-    public partial class Form1: Form
+    public partial class formNoti : Form
     {
-        public Form1()
+        public formNoti()
         {
             InitializeComponent();
         }

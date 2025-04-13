@@ -12,7 +12,7 @@ namespace BusinessLayer.DataModels
         Entities db;
         public CUSTOMER()
         {
-            db = new Entities();
+            db = Entities.CreateEntities();
         }
         public List<tb_Customer> getList()
         {

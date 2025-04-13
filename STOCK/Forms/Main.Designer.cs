@@ -36,6 +36,7 @@
             this.imgListMenu = new System.Windows.Forms.ImageList(this.components);
             this.btnCountStock = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnBarcode = new System.Windows.Forms.Button();
             this.pnlSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -50,7 +51,7 @@
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Size = new System.Drawing.Size(283, 648);
+            this.pnlSidebar.Size = new System.Drawing.Size(300, 648);
             this.pnlSidebar.TabIndex = 0;
             // 
             // flpMenu
@@ -60,7 +61,7 @@
             this.flpMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpMenu.Location = new System.Drawing.Point(0, 0);
             this.flpMenu.Name = "flpMenu";
-            this.flpMenu.Size = new System.Drawing.Size(283, 648);
+            this.flpMenu.Size = new System.Drawing.Size(300, 648);
             this.flpMenu.TabIndex = 0;
             this.flpMenu.WrapContents = false;
             // 
@@ -70,7 +71,7 @@
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1073, 648);
+            this.pnlMain.Size = new System.Drawing.Size(1140, 648);
             this.pnlMain.TabIndex = 1;
             // 
             // imgListMenu
@@ -83,12 +84,13 @@
             // 
             // btnCountStock
             // 
+            this.btnCountStock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCountStock.BackColor = System.Drawing.Color.Transparent;
             this.btnCountStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCountStock.Image = ((System.Drawing.Image)(resources.GetObject("btnCountStock.Image")));
-            this.btnCountStock.Location = new System.Drawing.Point(1312, 28);
+            this.btnCountStock.Location = new System.Drawing.Point(1391, 28);
             this.btnCountStock.Name = "btnCountStock";
-            this.btnCountStock.Size = new System.Drawing.Size(48, 30);
+            this.btnCountStock.Size = new System.Drawing.Size(53, 30);
             this.btnCountStock.TabIndex = 2;
             this.btnCountStock.UseVisualStyleBackColor = false;
             this.btnCountStock.Click += new System.EventHandler(this.btnCountStock_Click);
@@ -106,21 +108,36 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pnlMain);
-            this.splitContainer1.Size = new System.Drawing.Size(1360, 648);
-            this.splitContainer1.SplitterDistance = 283;
+            this.splitContainer1.Size = new System.Drawing.Size(1444, 648);
+            this.splitContainer1.SplitterDistance = 300;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // btnBarcode
+            // 
+            this.btnBarcode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBarcode.BackColor = System.Drawing.Color.Transparent;
+            this.btnBarcode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBarcode.Image = ((System.Drawing.Image)(resources.GetObject("btnBarcode.Image")));
+            this.btnBarcode.Location = new System.Drawing.Point(1332, 28);
+            this.btnBarcode.Name = "btnBarcode";
+            this.btnBarcode.Size = new System.Drawing.Size(53, 30);
+            this.btnBarcode.TabIndex = 3;
+            this.btnBarcode.UseVisualStyleBackColor = false;
+            this.btnBarcode.Click += new System.EventHandler(this.btnBarcode_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(1366, 715);
+            this.ClientSize = new System.Drawing.Size(1450, 715);
+            this.Controls.Add(this.btnBarcode);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.btnCountStock);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventory Management";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Main_Load);
             this.pnlSidebar.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -139,5 +156,6 @@
         private System.Windows.Forms.ImageList imgListMenu;
         private System.Windows.Forms.Button btnCountStock;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button btnBarcode;
     }
 }

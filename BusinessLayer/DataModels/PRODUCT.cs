@@ -205,5 +205,22 @@ namespace BusinessLayer.DataModels
                 }
             }
         }
+        public List<obj_PRINTBARCODE> getCateBarcode(int idcate)
+        {
+            var lstDM = db.tb_Product.Where(x => x.CategoryID == idcate).ToList();
+            List<obj_PRINTBARCODE> lstPrintBarcode = new List<obj_PRINTBARCODE>();
+            obj_PRINTBARCODE obj;
+            foreach (var item in lstDM)
+            {
+                obj = new obj_PRINTBARCODE();
+                obj.BARCODE = item.BARCODE;
+                obj.ProductName = item.ProductName;
+                obj.ShortName = item.ShortName;
+                obj.Price = item.Price;
+                obj.StampNumber = null;
+                lstPrintBarcode.Add(obj);
+            }
+            return lstPrintBarcode;
+        }
     }
 }

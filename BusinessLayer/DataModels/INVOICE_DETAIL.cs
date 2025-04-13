@@ -52,9 +52,9 @@ namespace BusinessLayer.DataModels
                     obj.ProductName = h.ProductName;
                     obj.Unit = h.Unit;
                 }
-                obj.QRCODE = item.QRCODE;
                 obj.Quantity = item.Quantity;
                 obj.Price = item.Price;
+                obj.DiscountAmount = item.DiscountAmount;
                 obj.SubTotal = item.SubTotal;
                 obj.Day = item.Day;
                 obj.STT = item.STT;

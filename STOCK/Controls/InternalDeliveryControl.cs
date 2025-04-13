@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +15,9 @@ using MATERIAL.MyFunctions;
 using STOCK.StockHelpers;
 using STOCK.PopUpForm;
 using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Reporting.WinForms;
+using STOCK.Forms;
+using System.IO;
 
 namespace STOCK.Controls
 {
@@ -1163,8 +1166,113 @@ namespace STOCK.Controls
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-
+            // Call the exportReport method to show the preview
+            exportReport("INTERNAL_DELIVERY_REPORT", "Internal Delivery Report");
         }
+
+        private void exportReport(string _reportName, string _tieude)
+        {
+            // Ensure an invoice is selected
+            if (_bsInvoice.Current == null)
+            {
+                MessageBox.Show("Please select an invoice to preview.", "No Invoice Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            tb_Invoice currentInvoice = (tb_Invoice)_bsInvoice.Current;
+            List<obj_INVOICE_DETAIL> details = _bsInvoiceDT.DataSource as List<obj_INVOICE_DETAIL>;
+
+            // Attempt to reload details if empty or null
+            if (details == null || details.Count == 0)
+            {
+                 details = _invoiceDetail.getListbyIDFull(currentInvoice.InvoiceID);
+                 if (details == null || details.Count == 0)
+                 {
+                    MessageBox.Show("No details found for the selected invoice.", "No Details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                 }
+            }
+
+            // Fetch related data
+            tb_Company company = _company.getItem(currentInvoice.CompanyID);
+            tb_Department exportDepartment = _department.getItem(currentInvoice.DepartmentID); // Exporting Dept
+            tb_Department receiveDepartment = _department.getItem(currentInvoice.ReceivingDepartmentID); // Receiving Dept
+
+            // Create DataTable matching the RDLC DataSet structure (dsInvoiceNB, DataTable1)
+            DataTable dtReportData = new DataTable("DataTable1"); // Match table name in dsInvoiceNB.xsd
+
+            // Add columns based on RDLC Fields used in OutInnerInvoice.rdlc (ensure names match exactly)
+            // Referencing dsInvoiceNB.xsd and OutInnerInvoice.rdlc for required fields
+            dtReportData.Columns.Add("Invoice", typeof(string));
+            dtReportData.Columns.Add("Day", typeof(string)); // Format as string
+            dtReportData.Columns.Add("Description", typeof(string));
+            dtReportData.Columns.Add("TotalPrice", typeof(double)); // Detail TotalPrice (Sum in report footer)
+            dtReportData.Columns.Add("CompanyName", typeof(string));
+            dtReportData.Columns.Add("DepartmentName", typeof(string)); // Exporting Department Name
+            dtReportData.Columns.Add("DepartmentAddress", typeof(string)); // Exporting Department Address
+            dtReportData.Columns.Add("DepartmentPhone", typeof(string)); // Exporting Department Phone
+            dtReportData.Columns.Add("DepartmentName1", typeof(string)); // Receiving Department Name
+            dtReportData.Columns.Add("DepartmentAddress1", typeof(string)); // Receiving Department Address
+            dtReportData.Columns.Add("DepartmentPhone1", typeof(string)); // Receiving Department Phone
+            dtReportData.Columns.Add("BARCODE", typeof(string));
+            dtReportData.Columns.Add("ProductName", typeof(string));
+            dtReportData.Columns.Add("Unit", typeof(string));
+            dtReportData.Columns.Add("Quantity", typeof(int)); // Detail Quantity (Sum in report footer)
+            dtReportData.Columns.Add("Price", typeof(double)); // Detail Price
+
+            // Populate DataTable
+            foreach (var detail in details)
+            {
+                DataRow dr = dtReportData.NewRow();
+                dr["Invoice"] = currentInvoice.Invoice;
+                dr["Day"] = (currentInvoice.Day ?? DateTime.Now).ToString("dd/MM/yyyy");
+                dr["Description"] = currentInvoice.Description;
+                dr["TotalPrice"] = detail.SubTotal ?? 0; // Use detail's SubTotal for row-level data
+                dr["CompanyName"] = company?.CompanyName;
+                dr["DepartmentName"] = exportDepartment?.DepartmentName;
+                dr["DepartmentAddress"] = exportDepartment?.DepartmentAddress;
+                dr["DepartmentPhone"] = exportDepartment?.DepartmentPhone;
+                dr["DepartmentName1"] = receiveDepartment?.DepartmentName;
+                dr["DepartmentAddress1"] = receiveDepartment?.DepartmentAddress;
+                dr["DepartmentPhone1"] = receiveDepartment?.DepartmentPhone;
+                dr["BARCODE"] = detail.BARCODE;
+                dr["ProductName"] = detail.ProductName;
+                dr["Unit"] = detail.Unit;
+                dr["Quantity"] = detail.Quantity ?? 0;
+                dr["Price"] = detail.Price ?? 0;
+                // Note: SubTotal column exists in XSD but seems unused directly in RDLC row, TotalPrice is used instead.
+                // If SubTotal *is* needed per row, add: dr["SubTotal"] = detail.SubTotal ?? 0;
+                dtReportData.Rows.Add(dr);
+            }
+
+            // Configure ReportViewer
+            LocalReport report = new LocalReport();
+            // Ensure the path matches the embedded resource name.
+            // Check project properties -> Build Action for the rdlc file should be "Embedded Resource"
+            // The name is typically Namespace.FolderName.FileName.rdlc
+            report.ReportEmbeddedResource = "STOCK.RDLCReport.OutInnerInvoice.rdlc"; // Updated path
+
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "dsInvoiceNB"; // This MUST match the DataSet Name in the RDLC file
+            rds.Value = dtReportData;
+            report.DataSources.Clear();
+            report.DataSources.Add(rds);
+
+            report.Refresh(); // Refresh the report definition and data
+
+            // Create and show the report viewer form
+            try
+            {
+                formReportViewer frmViewer = new formReportViewer(report);
+                frmViewer.Text = string.IsNullOrEmpty(_tieude) ? "Internal Delivery Report" : _tieude; // Set form title
+                frmViewer.ShowDialog(); // Show the form modally
+            }
+            catch (Exception ex)
+            {
+                 MessageBox.Show($"Error opening report preview: {ex.Message}", "Preview Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void EnsureOneEmptyRowAtBottom()
         {
             try

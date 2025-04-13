@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductControl));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonToolStrip2 = new Krypton.Toolkit.KryptonToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -58,10 +60,7 @@
             this.txtBarcode = new Krypton.Toolkit.KryptonTextBox();
             this.chkDisable = new System.Windows.Forms.CheckBox();
             this.gvList = new System.Windows.Forms.DataGridView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.IsDisabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BARCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,6 +71,13 @@
             this.CategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OriginID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.customPanel1 = new SharedControls.CustomPanel();
+            this.progressBarExport = new System.Windows.Forms.ProgressBar();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.kryptonToolStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
@@ -80,6 +86,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.customPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // kryptonToolStrip2
@@ -91,9 +98,13 @@
             this.kryptonToolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.kryptonToolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
+            this.toolStripSeparator2,
             this.btnEdit,
+            this.toolStripSeparator3,
             this.btnDelete,
+            this.toolStripSeparator4,
             this.btnSave,
+            this.toolStripSeparator5,
             this.btnCancel,
             this.toolStripSeparator1,
             this.toolStripLabel1,
@@ -374,11 +385,23 @@
             // 
             this.gvList.AllowUserToAddRows = false;
             this.gvList.AllowUserToDeleteRows = false;
+            this.gvList.AllowUserToResizeColumns = false;
+            this.gvList.AllowUserToResizeRows = false;
             this.gvList.BackgroundColor = System.Drawing.Color.White;
-            this.gvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gvList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.gvList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.gvList.ColumnHeadersHeight = 35;
             this.gvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IsDisabled,
-            this.Quantity,
             this.BARCODE,
             this.ProductID,
             this.ProductName,
@@ -389,46 +412,26 @@
             this.CategoryID,
             this.OriginID,
             this.ShortName});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvList.DefaultCellStyle = dataGridViewCellStyle2;
             this.gvList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gvList.Location = new System.Drawing.Point(0, 0);
+            this.gvList.EnableHeadersVisualStyles = false;
+            this.gvList.Location = new System.Drawing.Point(4, 0);
             this.gvList.Name = "gvList";
             this.gvList.ReadOnly = true;
             this.gvList.RowHeadersVisible = false;
             this.gvList.RowHeadersWidth = 51;
             this.gvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvList.Size = new System.Drawing.Size(597, 465);
+            this.gvList.Size = new System.Drawing.Size(589, 450);
             this.gvList.TabIndex = 50;
             this.gvList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gvList_CellFormatting);
             this.gvList.Click += new System.EventHandler(this.gvList_Click);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 35);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.progressBarExport);
-            this.splitContainer1.Panel1.Controls.Add(this.gvList);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(948, 465);
-            this.splitContainer1.SplitterDistance = 597;
-            this.splitContainer1.SplitterWidth = 3;
-            this.splitContainer1.TabIndex = 11;
-            // 
-            // progressBarExport
-            // 
-            this.progressBarExport.Location = new System.Drawing.Point(451, 220);
-            this.progressBarExport.Name = "progressBarExport";
-            this.progressBarExport.Size = new System.Drawing.Size(100, 23);
-            this.progressBarExport.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBarExport.TabIndex = 51;
-            this.progressBarExport.Visible = false;
             // 
             // IsDisabled
             // 
@@ -440,13 +443,6 @@
             this.IsDisabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.IsDisabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.IsDisabled.Width = 50;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.HeaderText = "Quantity";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
             // 
             // BARCODE
             // 
@@ -469,12 +465,12 @@
             // 
             // ProductName
             // 
+            this.ProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ProductName.DataPropertyName = "ProductName";
             this.ProductName.HeaderText = "Product Name";
             this.ProductName.MinimumWidth = 6;
             this.ProductName.Name = "ProductName";
             this.ProductName.ReadOnly = true;
-            this.ProductName.Width = 150;
             // 
             // Unit
             // 
@@ -483,7 +479,7 @@
             this.Unit.MinimumWidth = 6;
             this.Unit.Name = "Unit";
             this.Unit.ReadOnly = true;
-            this.Unit.Width = 50;
+            this.Unit.Width = 30;
             // 
             // Price
             // 
@@ -496,12 +492,13 @@
             // 
             // Description
             // 
-            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Description.DataPropertyName = "Description";
             this.Description.HeaderText = "Description";
             this.Description.MinimumWidth = 6;
             this.Description.Name = "Description";
             this.Description.ReadOnly = true;
+            this.Description.Visible = false;
+            this.Description.Width = 29;
             // 
             // SupplierID
             // 
@@ -543,6 +540,71 @@
             this.ShortName.Visible = false;
             this.ShortName.Width = 125;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 35);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.customPanel1);
+            this.splitContainer1.Panel1.Controls.Add(this.progressBarExport);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Size = new System.Drawing.Size(948, 465);
+            this.splitContainer1.SplitterDistance = 597;
+            this.splitContainer1.SplitterWidth = 3;
+            this.splitContainer1.TabIndex = 11;
+            // 
+            // customPanel1
+            // 
+            this.customPanel1.BackColor = System.Drawing.Color.White;
+            this.customPanel1.BorderRadius = 30;
+            this.customPanel1.Controls.Add(this.gvList);
+            this.customPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customPanel1.ForeColor = System.Drawing.Color.Black;
+            this.customPanel1.GradientAngle = 90F;
+            this.customPanel1.GradientBottomColor = System.Drawing.Color.CadetBlue;
+            this.customPanel1.GradientTopColor = System.Drawing.Color.DodgerBlue;
+            this.customPanel1.Location = new System.Drawing.Point(0, 0);
+            this.customPanel1.Name = "customPanel1";
+            this.customPanel1.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
+            this.customPanel1.Size = new System.Drawing.Size(597, 465);
+            this.customPanel1.TabIndex = 52;
+            // 
+            // progressBarExport
+            // 
+            this.progressBarExport.Location = new System.Drawing.Point(451, 220);
+            this.progressBarExport.Name = "progressBarExport";
+            this.progressBarExport.Size = new System.Drawing.Size(100, 23);
+            this.progressBarExport.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBarExport.TabIndex = 51;
+            this.progressBarExport.Visible = false;
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 35);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 35);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 35);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 35);
+            // 
             // ProductControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -563,6 +625,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.customPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -600,8 +663,8 @@
         private System.Windows.Forms.ComboBox cboUnit;
         private System.Windows.Forms.NumericUpDown nudPrice;
         private System.Windows.Forms.ProgressBar progressBarExport;
+        private SharedControls.CustomPanel customPanel1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsDisabled;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
@@ -612,5 +675,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn OriginID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ShortName;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }

@@ -13,6 +13,10 @@ using BusinessLayer;
 using DataLayer;
 using MATERIAL.MyFunctions;
 using STOCK.PopUpForm;
+// Add necessary using statements for reporting
+using Microsoft.Reporting.WinForms;
+using System.Data;
+using STOCK.Forms; // For formReportViewer
 
 namespace STOCK.Controls
 {
@@ -334,8 +338,171 @@ namespace STOCK.Controls
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-
+            // Call the exportReport method
+            exportReport("INTERNAL_RECEIVE_INVOICE", "Internal Receive Invoice"); // Pass report name and title
         }
+
+        private void exportReport(string _reportName, string _tieude)
+        {
+            // Ensure an invoice is selected
+            if (_bsInvoice.Current == null)
+            {
+                MessageBox.Show("Please select an invoice to export.", "No Invoice Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            tb_Invoice currentInvoice = (tb_Invoice)_bsInvoice.Current;
+            List<obj_INVOICE_DETAIL> details = _bsInvoiceDT.DataSource as List<obj_INVOICE_DETAIL>;
+
+            if (details == null || details.Count == 0)
+            {
+                // Attempt to reload details if empty
+                details = _invoiceDetail.getListbyIDFull(currentInvoice.InvoiceID);
+                if (details == null || details.Count == 0)
+                {
+                    MessageBox.Show("No details found for the selected invoice.", "No Details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
+            // Fetch related data
+            tb_Company company = _company.getItem(currentInvoice.CompanyID);
+            // DepartmentID is the Exporting Department in this context
+            tb_Department exportingDepartment = _department.getItem(currentInvoice.DepartmentID);
+            // ReceivingDepartmentID is the Receiving Department in this context
+            tb_Department receivingDepartment = _department.getItem(currentInvoice.ReceivingDepartmentID);
+
+
+            // Create DataTable matching the RDLC DataSet structure (dsInvoiceNB.xsd -> DataTable1)
+            DataTable dtReportData = new DataTable("DataTable1"); // Match table name in dsInvoiceNB.xsd
+
+            // Add columns based on dsInvoiceNB.xsd DataTable1 (ensure names match EXACTLY)
+            // Invoice Info
+            dtReportData.Columns.Add("InvoiceID", typeof(Guid));
+            dtReportData.Columns.Add("Invoice", typeof(string)); // Export Invoice No
+            dtReportData.Columns.Add("Invoice2", typeof(string)); // Receive Invoice No
+            dtReportData.Columns.Add("Day", typeof(string)); // Export Date (Formatted)
+            dtReportData.Columns.Add("Day2", typeof(string)); // Receive Date (Formatted)
+            dtReportData.Columns.Add("Description", typeof(string));
+            dtReportData.Columns.Add("TotalPrice", typeof(double)); // Invoice Total
+            dtReportData.Columns.Add("Quantity", typeof(int)); // Invoice Total Quantity
+
+            // Company Info
+            dtReportData.Columns.Add("CompanyName", typeof(string));
+            dtReportData.Columns.Add("CompanyAddress", typeof(string));
+            dtReportData.Columns.Add("CompanyPhone", typeof(string));
+            dtReportData.Columns.Add("CompanyFax", typeof(string)); // Added based on XSD
+            dtReportData.Columns.Add("CompanyEmail", typeof(string)); // Added based on XSD
+
+            // Exporting Department Info (Maps to tb_Department in XSD)
+            dtReportData.Columns.Add("DepartmentID", typeof(string)); // Exporting Dept ID
+            dtReportData.Columns.Add("DepartmentName", typeof(string)); // Exporting Dept Name
+            dtReportData.Columns.Add("DepartmentAddress", typeof(string)); // Exporting Dept Address
+            dtReportData.Columns.Add("DepartmentPhone", typeof(string)); // Exporting Dept Phone
+            dtReportData.Columns.Add("DepartmentFax", typeof(string)); // Exporting Dept Fax
+            dtReportData.Columns.Add("DepartmentEmail", typeof(string)); // Exporting Dept Email
+            dtReportData.Columns.Add("Symbol", typeof(string)); // Exporting Dept Symbol
+
+            // Receiving Department Info (Maps to tb_Department_1 in XSD)
+            dtReportData.Columns.Add("DepartmentID1", typeof(string)); // Receiving Dept ID
+            dtReportData.Columns.Add("DepartmentName1", typeof(string)); // Receiving Dept Name
+            dtReportData.Columns.Add("DepartmentAddress1", typeof(string)); // Receiving Dept Address
+            dtReportData.Columns.Add("DepartmentPhone1", typeof(string)); // Receiving Dept Phone
+            dtReportData.Columns.Add("DepartmentFax1", typeof(string)); // Receiving Dept Fax
+            dtReportData.Columns.Add("DepartmentEmail1", typeof(string)); // Receiving Dept Email
+            dtReportData.Columns.Add("Symbol1", typeof(string)); // Receiving Dept Symbol
+
+            // Detail Info
+            dtReportData.Columns.Add("STT", typeof(int));
+            dtReportData.Columns.Add("BARCODE", typeof(string));
+            dtReportData.Columns.Add("ProductName", typeof(string));
+            dtReportData.Columns.Add("Unit", typeof(string));
+            dtReportData.Columns.Add("Quantity1", typeof(int)); // Detail Quantity (Mapped to Quantity1 in XSD) - Renaming for clarity
+            dtReportData.Columns.Add("Price", typeof(double)); // Detail Price
+            dtReportData.Columns.Add("SubTotal", typeof(double)); // Detail SubTotal
+            dtReportData.Columns.Add("ProductID", typeof(int)); // Added based on XSD
+
+            // Populate DataTable
+            foreach (var detail in details)
+            {
+                DataRow dr = dtReportData.NewRow();
+                // Invoice Info
+                dr["InvoiceID"] = currentInvoice.InvoiceID;
+                dr["Invoice"] = currentInvoice.Invoice; // Export Invoice No
+                dr["Invoice2"] = currentInvoice.Invoice2; // Receive Invoice No
+                dr["Day"] = (currentInvoice.Day ?? DateTime.Now).ToString("dd/MM/yyyy"); // Export Date
+                dr["Day2"] = (currentInvoice.Day2 ?? DateTime.MinValue) == DateTime.MinValue ? "" : (currentInvoice.Day2.Value).ToString("dd/MM/yyyy"); // Receive Date (handle null)
+                dr["Description"] = currentInvoice.Description;
+                dr["TotalPrice"] = currentInvoice.TotalPrice ?? 0;
+                dr["Quantity"] = currentInvoice.Quantity ?? 0; // Invoice Total Quantity
+
+                // Company Info
+                dr["CompanyName"] = company?.CompanyName;
+                dr["CompanyAddress"] = company?.CompanyAddress;
+                dr["CompanyPhone"] = company?.CompanyPhone;
+                dr["CompanyFax"] = company?.CompanyFax;
+                dr["CompanyEmail"] = company?.CompanyEmail;
+
+                // Exporting Department Info
+                dr["DepartmentID"] = exportingDepartment?.DepartmentID;
+                dr["DepartmentName"] = exportingDepartment?.DepartmentName;
+                dr["DepartmentAddress"] = exportingDepartment?.DepartmentAddress;
+                dr["DepartmentPhone"] = exportingDepartment?.DepartmentPhone;
+                dr["DepartmentFax"] = exportingDepartment?.DepartmentFax;
+                dr["DepartmentEmail"] = exportingDepartment?.DepartmentEmail;
+                dr["Symbol"] = exportingDepartment?.Symbol;
+
+                // Receiving Department Info
+                dr["DepartmentID1"] = receivingDepartment?.DepartmentID; // Map to DepartmentID1
+                dr["DepartmentName1"] = receivingDepartment?.DepartmentName; // Map to DepartmentName1
+                dr["DepartmentAddress1"] = receivingDepartment?.DepartmentAddress; // Map to DepartmentAddress1
+                dr["DepartmentPhone1"] = receivingDepartment?.DepartmentPhone; // Map to DepartmentPhone1
+                dr["DepartmentFax1"] = receivingDepartment?.DepartmentFax; // Map to DepartmentFax1
+                dr["DepartmentEmail1"] = receivingDepartment?.DepartmentEmail; // Map to DepartmentEmail1
+                dr["Symbol1"] = receivingDepartment?.Symbol; // Map to Symbol1
+
+                // Detail Info
+                dr["STT"] = detail.STT ?? 0;
+                dr["BARCODE"] = detail.BARCODE;
+                dr["ProductName"] = detail.ProductName;
+                dr["Unit"] = detail.Unit;
+                dr["Quantity1"] = detail.Quantity ?? 0; // Map to Quantity1
+                dr["Price"] = detail.Price ?? 0;
+                dr["SubTotal"] = detail.SubTotal ?? 0;
+                // Directly assign the non-nullable int
+                dr["ProductID"] = detail.ProductID; 
+
+                dtReportData.Rows.Add(dr);
+            }
+
+            // Configure ReportViewer
+            LocalReport report = new LocalReport();
+            // Make sure the path matches the embedded resource name.
+            // Check project properties -> Build Action for the rdlc file should be "Embedded Resource"
+            // The name is typically Namespace.FolderName.FileName.rdlc
+            report.ReportEmbeddedResource = "STOCK.RDLCReport.RecInnerInvoice.rdlc"; // Use the correct report file
+
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "dsInvoiceNB"; // This MUST match the DataSet Name in the RDLC file
+            rds.Value = dtReportData;
+            report.DataSources.Clear();
+            report.DataSources.Add(rds);
+
+            report.Refresh(); // Refresh the report definition and data
+
+            // Create and show the report viewer form
+            try
+            {
+                formReportViewer frmViewer = new formReportViewer(report);
+                frmViewer.Text = string.IsNullOrEmpty(_tieude) ? "Internal Receive Invoice Report" : _tieude; // Set form title
+                frmViewer.ShowDialog(); // Show the form modally
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening report preview: {ex.Message}\n{ex.StackTrace}", "Preview Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         void exportInfor()
         {
             tb_Invoice current = (tb_Invoice)_bsInvoice.Current;

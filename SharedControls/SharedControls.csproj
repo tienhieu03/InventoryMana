@@ -46,7 +46,18 @@
     <Compile Include="CustomPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="formNoti.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formNoti.Designer.cs">
+      <DependentUpon>formNoti.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="formNoti.resx">
+      <DependentUpon>formNoti.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

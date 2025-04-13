@@ -124,6 +124,12 @@
     <Compile Include="Controls\OriginControl.Designer.cs">
       <DependentUpon>OriginControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PermissionManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PermissionManager.Designer.cs">
+      <DependentUpon>PermissionManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ProductControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -141,6 +147,12 @@
     </Compile>
     <Compile Include="Controls\PurchaseInvoiceControl.Designer.cs">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RetailInvoice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\RetailInvoice.Designer.cs">
+      <DependentUpon>RetailInvoice.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\RoundedButton.cs">
       <SubType>Component</SubType>
@@ -165,6 +177,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInvoice.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSet\dsInvoiceNB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsInvoiceNB.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Forms\formConnect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,6 +193,12 @@
     </Compile>
     <Compile Include="Forms\formLogin.Designer.cs">
       <DependentUpon>formLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formPrintBarcode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formPrintBarcode.Designer.cs">
+      <DependentUpon>formPrintBarcode.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\formReportViewer.cs">
       <SubType>Form</SubType>
@@ -208,6 +231,12 @@
     <Compile Include="PopUpForm\popErrImport.Designer.cs">
       <DependentUpon>popErrImport.cs</DependentUpon>
     </Compile>
+    <Compile Include="PosControls\WholeSale.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PosControls\WholeSale.Designer.cs">
+      <DependentUpon>WholeSale.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StockHelpers\DataGridViewHelper.cs" />
@@ -231,6 +260,9 @@
     <EmbeddedResource Include="Controls\OriginControl.resx">
       <DependentUpon>OriginControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PermissionManager.resx">
+      <DependentUpon>PermissionManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProductControl.resx">
       <DependentUpon>ProductControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PurchaseInvoiceControl.resx">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RetailInvoice.resx">
+      <DependentUpon>RetailInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SupplierControl.resx">
       <DependentUpon>SupplierControl.cs</DependentUpon>
@@ -252,6 +287,9 @@
     <EmbeddedResource Include="Forms\formLogin.resx">
       <DependentUpon>formLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formPrintBarcode.resx">
+      <DependentUpon>formPrintBarcode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\formReportViewer.resx">
       <DependentUpon>formReportViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +299,10 @@
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PosControls\WholeSale.resx">
+      <DependentUpon>WholeSale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDLCReport\OutInnerInvoice.rdlc" />
     <EmbeddedResource Include="PopUpForm\formList.resx">
       <DependentUpon>formList.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,7 +318,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="PurchaseInvoice.rdlc" />
+    <EmbeddedResource Include="RDLCReport\PurchaseInvoice.rdlc" />
+    <EmbeddedResource Include="RDLCReport\RecInnerInvoice.rdlc" />
     <None Include="DataSet\dsInvoice.xsc">
       <DependentUpon>dsInvoice.xsd</DependentUpon>
     </None>
@@ -287,6 +330,17 @@
     </None>
     <None Include="DataSet\dsInvoice.xss">
       <DependentUpon>dsInvoice.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsInvoiceNB.xsc">
+      <DependentUpon>dsInvoiceNB.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsInvoiceNB.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsInvoiceNB.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsInvoiceNB.xss">
+      <DependentUpon>dsInvoiceNB.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -315,7 +369,12 @@
       <Project>{3b8a04cd-40cf-4ea7-ba36-55b83c2889da}</Project>
       <Name>SharedControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UserManagement\UserManagement.csproj">
+      <Project>{8dd9833c-2f78-4962-907a-2a0131657625}</Project>
+      <Name>UserManagement</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

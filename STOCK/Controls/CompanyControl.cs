@@ -17,7 +17,7 @@ namespace STOCK.Controls
         public CompanyControl()
         {
             InitializeComponent();
-            _right = 2; // Mặc định là full quyền nếu không truyền vào
+            _right = 2;
         }
         
         public CompanyControl(tb_SYS_USER user, int right)
