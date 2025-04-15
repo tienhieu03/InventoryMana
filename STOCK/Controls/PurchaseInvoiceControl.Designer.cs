@@ -1,4 +1,4 @@
-﻿namespace STOCK.Controls
+﻿﻿﻿﻿﻿namespace STOCK.Controls
 {
     partial class PurchaseInvoiceControl
     {
@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PurchaseInvoiceControl));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonToolStrip1 = new Krypton.Toolkit.KryptonToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -82,6 +84,8 @@
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.gvDetail = new System.Windows.Forms.DataGridView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.customPanel2 = new SharedControls.CustomPanel();
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BARCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,12 +95,6 @@
             this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.kryptonToolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -113,6 +111,7 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).BeginInit();
+            this.customPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // kryptonToolStrip1
@@ -124,15 +123,10 @@
             this.kryptonToolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.kryptonToolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
-            this.toolStripSeparator1,
             this.btnEdit,
-            this.toolStripSeparator2,
             this.btnDelete,
-            this.toolStripSeparator3,
             this.btnSave,
-            this.toolStripSeparator4,
             this.btnCancel,
-            this.toolStripSeparator5,
             this.btnPrint});
             this.kryptonToolStrip1.Location = new System.Drawing.Point(0, 0);
             this.kryptonToolStrip1.Name = "kryptonToolStrip1";
@@ -331,7 +325,7 @@
             this.gvList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -352,7 +346,7 @@
             this.gvList.ContextMenuStrip = this.contextMenuDetail;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
@@ -446,6 +440,7 @@
             this.TotalPrice.MinimumWidth = 6;
             this.TotalPrice.Name = "TotalPrice";
             this.TotalPrice.ReadOnly = true;
+            this.TotalPrice.DefaultCellStyle.Format = "#,0 ₫";
             this.TotalPrice.Width = 170;
             // 
             // Description
@@ -516,7 +511,7 @@
             this.pageList.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pageList.Location = new System.Drawing.Point(4, 24);
             this.pageList.Name = "pageList";
-            this.pageList.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.pageList.Padding = new System.Windows.Forms.Padding(3);
             this.pageList.Size = new System.Drawing.Size(940, 437);
             this.pageList.TabIndex = 0;
             this.pageList.Text = "List";
@@ -527,7 +522,7 @@
             this.pageDetail.Controls.Add(this.splitContainer2);
             this.pageDetail.Location = new System.Drawing.Point(4, 24);
             this.pageDetail.Name = "pageDetail";
-            this.pageDetail.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.pageDetail.Padding = new System.Windows.Forms.Padding(3);
             this.pageDetail.Size = new System.Drawing.Size(940, 437);
             this.pageDetail.TabIndex = 1;
             this.pageDetail.Text = "Detail";
@@ -558,7 +553,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.gvDetail);
+            this.splitContainer2.Panel2.Controls.Add(this.customPanel2);
             this.splitContainer2.Size = new System.Drawing.Size(934, 431);
             this.splitContainer2.SplitterDistance = 119;
             this.splitContainer2.TabIndex = 0;
@@ -692,7 +687,21 @@
             // 
             this.gvDetail.AllowUserToAddRows = false;
             this.gvDetail.AllowUserToDeleteRows = false;
-            this.gvDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDetail.AllowUserToResizeColumns = false;
+            this.gvDetail.AllowUserToResizeRows = false;
+            this.gvDetail.BackgroundColor = System.Drawing.Color.White;
+            this.gvDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gvDetail.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.gvDetail.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvDetail.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.gvDetail.ColumnHeadersHeight = 35;
             this.gvDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.STT,
             this.BARCODE,
@@ -703,18 +712,49 @@
             this.SubTotal,
             this.QRCODE,
             this.ProductID});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvDetail.DefaultCellStyle = dataGridViewCellStyle4;
             this.gvDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gvDetail.Location = new System.Drawing.Point(0, 0);
+            this.gvDetail.EnableHeadersVisualStyles = false;
+            this.gvDetail.Location = new System.Drawing.Point(4, 0);
             this.gvDetail.Name = "gvDetail";
             this.gvDetail.ReadOnly = true;
             this.gvDetail.RowHeadersVisible = false;
             this.gvDetail.RowHeadersWidth = 51;
             this.gvDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvDetail.Size = new System.Drawing.Size(934, 308);
+            this.gvDetail.Size = new System.Drawing.Size(926, 293);
             this.gvDetail.TabIndex = 0;
             this.gvDetail.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvDetail_CellMouseDown);
             this.gvDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvDetail_CellValueChanged);
             this.gvDetail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gvDetail_KeyDown);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "delete");
+            // 
+            // customPanel2
+            // 
+            this.customPanel2.BackColor = System.Drawing.Color.White;
+            this.customPanel2.BorderRadius = 30;
+            this.customPanel2.Controls.Add(this.gvDetail);
+            this.customPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customPanel2.ForeColor = System.Drawing.Color.Black;
+            this.customPanel2.GradientAngle = 90F;
+            this.customPanel2.GradientBottomColor = System.Drawing.Color.CadetBlue;
+            this.customPanel2.GradientTopColor = System.Drawing.Color.DodgerBlue;
+            this.customPanel2.Location = new System.Drawing.Point(0, 0);
+            this.customPanel2.Name = "customPanel2";
+            this.customPanel2.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
+            this.customPanel2.Size = new System.Drawing.Size(934, 308);
+            this.customPanel2.TabIndex = 8;
             // 
             // STT
             // 
@@ -723,7 +763,7 @@
             this.STT.MinimumWidth = 6;
             this.STT.Name = "STT";
             this.STT.ReadOnly = true;
-            this.STT.Width = 125;
+            this.STT.Width = 50;
             // 
             // BARCODE
             // 
@@ -736,12 +776,12 @@
             // 
             // ProductName
             // 
+            this.ProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ProductName.DataPropertyName = "ProductName";
             this.ProductName.HeaderText = "Product Name";
             this.ProductName.MinimumWidth = 6;
             this.ProductName.Name = "ProductName";
             this.ProductName.ReadOnly = true;
-            this.ProductName.Width = 150;
             // 
             // Unit
             // 
@@ -750,7 +790,7 @@
             this.Unit.MinimumWidth = 6;
             this.Unit.Name = "Unit";
             this.Unit.ReadOnly = true;
-            this.Unit.Width = 125;
+            this.Unit.Width = 50;
             // 
             // QuantityDetail
             // 
@@ -759,7 +799,7 @@
             this.QuantityDetail.MinimumWidth = 6;
             this.QuantityDetail.Name = "QuantityDetail";
             this.QuantityDetail.ReadOnly = true;
-            this.QuantityDetail.Width = 125;
+            this.QuantityDetail.Width = 80;
             // 
             // Price
             // 
@@ -768,6 +808,7 @@
             this.Price.MinimumWidth = 6;
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
+            this.Price.DefaultCellStyle.Format = "#,0 ₫";
             this.Price.Width = 125;
             // 
             // SubTotal
@@ -777,6 +818,7 @@
             this.SubTotal.MinimumWidth = 6;
             this.SubTotal.Name = "SubTotal";
             this.SubTotal.ReadOnly = true;
+            this.SubTotal.DefaultCellStyle.Format = "#,0 ₫";
             this.SubTotal.Width = 125;
             // 
             // QRCODE
@@ -798,37 +840,6 @@
             this.ProductID.ReadOnly = true;
             this.ProductID.Visible = false;
             this.ProductID.Width = 125;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "delete");
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 35);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 35);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 35);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 35);
             // 
             // PurchaseInvoiceControl
             // 
@@ -858,6 +869,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).EndInit();
+            this.customPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -902,15 +914,6 @@
         private System.Windows.Forms.ToolStripMenuItem cmdDeleteRow;
         private System.Windows.Forms.ToolStripMenuItem cmdDeleteDetail;
         private System.Windows.Forms.ToolStripMenuItem cmdImport;
-        private System.Windows.Forms.DataGridViewTextBoxColumn STT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QuantityDetail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripButton btnPrint;
         private SharedControls.CustomPanel customPanel1;
@@ -924,10 +927,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private SharedControls.CustomPanel customPanel2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn STT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuantityDetail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
     }
 }

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -134,6 +134,7 @@ namespace POS.PosControls
             // Subscribe to discount leave event
             // IMPORTANT: Ensure txtDiscount TextBox exists on your form!
             txtDiscount.Leave += txtDiscount_Leave;
+            txtDiscount.KeyDown += txtDiscount_KeyDown; // Add KeyDown event handler
 
             // Set fixed row header width (optional)
             gvList.RowHeadersWidth = 25;
@@ -1290,57 +1291,51 @@ namespace POS.PosControls
                         else
                             detail.Quantity = 1; // Default quantity if parsing fails
 
-                        // === Corrected Price, SubTotal, and DiscountAmount Saving Logic ===
-                        double discountedPrice = 0;
+                        // === Saving Logic for Percentage Discount ===
+                        double price = 0;
                         double subTotal = 0;
-                        double discountPercentage = 0;
-                        double originalPrice = 0;
-                        double monetaryDiscount = 0;
+                        double discountPercent = 0; // Changed from int discountAmount to double discountPercent
 
-                        // 1. Get Discounted Price from grid - Added Replace(",", ".") for correct parsing
+                        // 1. Get Price (Original Price) from grid
                         if (columnIndices.TryGetValue("Price", out int priceIdx) && row.Cells[priceIdx].Value != null)
                         {
-                            double.TryParse(row.Cells[priceIdx].Value.ToString().Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out discountedPrice);
-                        }
-
-                        // 2. Get SubTotal from grid (should be DiscountedPrice * Quantity) - Added Replace(",", ".")
-                        if (columnIndices.TryGetValue("SubTotal", out int subTotalIdx) && row.Cells[subTotalIdx].Value != null)
-                        {
-                            double.TryParse(row.Cells[subTotalIdx].Value.ToString().Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out subTotal);
-                            // Optional: Recalculate here to be sure: subTotal = discountedPrice * (detail.Quantity ?? 1);
-                        }
-                        else // Recalculate if SubTotal column is missing or empty
-                        {
-                             subTotal = discountedPrice * (detail.Quantity ?? 1);
-                        }
-
-
-                        // 3. Get Discount Percentage string stored temporarily in DiscountAmount cell by ApplyDiscountToGrid - Added Replace(",", ".")
-                        if (columnIndices.TryGetValue("DiscountAmount", out int discountAmtIdx) && row.Cells[discountAmtIdx].Value != null)
-                        {
-                            // The value stored might be like "3.000" from ToString("N3")
-                            double.TryParse(row.Cells[discountAmtIdx].Value.ToString().Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out discountPercentage);
-                        }
-
-                        // 4. Calculate Original Price (handle potential division by zero if discount is 100%)
-                        if (discountPercentage < 100)
-                        {
-                            originalPrice = discountedPrice / (1 - (discountPercentage / 100));
+                            // Use InvariantCulture for parsing potentially formatted numbers
+                            double.TryParse(row.Cells[priceIdx].Value.ToString().Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out price);
                         }
                         else
                         {
-                            originalPrice = _product.getItemBarcode(detail.BARCODE)?.Price ?? 0; // Or fetch from DB: _product.getItemBarcode(detail.BARCODE)?.Price ?? 0;
+                            // Fallback: Get original price from DB if grid price is missing (shouldn't happen ideally)
+                            var product = _product.getItemBarcode(detail.BARCODE);
+                            price = product?.Price ?? 0;
+                            Console.WriteLine($"Warning: Row {i} Price missing from grid, fetched from DB: {price}");
                         }
 
-                        // 5. Calculate Monetary Discount Amount
-                        monetaryDiscount = (originalPrice - discountedPrice) * (detail.Quantity ?? 1);
+                        // 2. Get Discount Percentage from grid
+                        if (columnIndices.TryGetValue("DiscountAmount", out int discountAmtIdx) && row.Cells[discountAmtIdx].Value != null)
+                        {
+                            // Use InvariantCulture for parsing potentially formatted numbers (treat as percentage)
+                            double.TryParse(row.Cells[discountAmtIdx].Value.ToString().Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out discountPercent);
+                        }
 
-                        // 6. Assign values for saving
-                        detail.Price = originalPrice;   // Save the ORIGINAL price (Bug 2 Fix)
-                        detail.SubTotal = subTotal;     // Save the subtotal (based on discounted price)
-                        detail.DiscountAmount = (int?)Math.Round(monetaryDiscount, 0); // Save the calculated total monetary discount for the line
+                        // 3. Calculate SubTotal based on Price, Quantity, and Discount Percentage
+                        // SubTotal = Price * Quantity * (1 - DiscountAmount / 100)
+                        double quantity = detail.Quantity ?? 1; // Use quantity already parsed
+                        subTotal = price * quantity * (1 - (discountPercent / 100.0));
 
-                        // ===================================================================
+                        // --- DEBUG ---
+                        Console.WriteLine($"--- Row {i} Calculation ---");
+                        Console.WriteLine($"  Price          : {price}");
+                        Console.WriteLine($"  Quantity       : {quantity}");
+                        Console.WriteLine($"  Discount %     : {discountPercent}");
+                        Console.WriteLine($"  Calculated SubTotal: {subTotal} = {price} * {quantity} * (1 - ({discountPercent} / 100.0))");
+                        // -------------
+
+                        // 4. Assign values for saving
+                        detail.Price = price;                   // Save the ORIGINAL price read from grid/DB
+                        detail.SubTotal = subTotal;             // Save the calculated subtotal
+                        detail.DiscountAmount = (int?)discountPercent; // Cast double to int? to save percentage discount
+
+                        // =======================================================
 
                         // Get ProductID (using original logic, but after price/subtotal/discount are set from grid)
                         if (columnIndices.TryGetValue("ProductID", out int productIdIdx) && row.Cells[productIdIdx].Value != null)
@@ -1363,10 +1358,10 @@ namespace POS.PosControls
                                 detail.ProductID = product.ProductID;
                         }
 
-                        // Debug the values being saved
-                        Console.WriteLine($"Row {i} detail: BARCODE={detail.BARCODE}, Qty={detail.Quantity}, " +
-                                          $"Price={detail.Price}, SubTotal={detail.SubTotal}, DiscountAmt={(detail.DiscountAmount.HasValue ? detail.DiscountAmount.Value.ToString() : "NULL")}, ProductID={detail.ProductID}");
-
+                        // Debug the values being saved (DiscountAmt is now DiscountPercent)
+                        Console.WriteLine($"Row {i} SAVING detail: BARCODE={detail.BARCODE}, Qty={detail.Quantity}, " +
+                                          $"Price={detail.Price}, SubTotal={detail.SubTotal}, DiscountPercent={(detail.DiscountAmount.HasValue ? detail.DiscountAmount.Value.ToString() : "NULL")}, ProductID={detail.ProductID}");
+                        Console.WriteLine($"--- End Row {i} ---");
                         detailsToAdd.Add(detail);
                     }
                 }
@@ -1576,6 +1571,8 @@ namespace POS.PosControls
             dtReportData.Columns.Add("Unit", typeof(string));
             dtReportData.Columns.Add("Quantity", typeof(int)); // Detail Quantity (Sum in report footer)
             dtReportData.Columns.Add("Price", typeof(double)); // Detail Price
+            dtReportData.Columns.Add("SubTotal", typeof(double)); // Detail SubTotal (Sum in report footer)
+            dtReportData.Columns.Add("DiscountAmount", typeof(double)); // Detail Discount Amount (Sum in report footer)
 
             // Populate DataTable
             foreach (var detail in details)
@@ -1597,6 +1594,8 @@ namespace POS.PosControls
                 dr["Unit"] = detail.Unit;
                 dr["Quantity"] = detail.Quantity ?? 0;
                 dr["Price"] = detail.Price ?? 0;
+                dr["SubTotal"] = detail.SubTotal ?? 0; // Use detail's SubTotal for row-level data
+                dr["DiscountAmount"] = detail.DiscountAmount ?? 0; // Use detail's DiscountAmount for row-level data
                 // Note: SubTotal column exists in XSD but seems unused directly in RDLC row, TotalPrice is used instead.
                 // If SubTotal *is* needed per row, add: dr["SubTotal"] = detail.SubTotal ?? 0;
                 dtReportData.Rows.Add(dr);
@@ -1607,10 +1606,10 @@ namespace POS.PosControls
             // Ensure the path matches the embedded resource name.
             // Check project properties -> Build Action for the rdlc file should be "Embedded Resource"
             // The name is typically Namespace.FolderName.FileName.rdlc
-            report.ReportEmbeddedResource = "STOCK.RDLCReport.OutInnerInvoice.rdlc"; // Updated path
+            report.ReportEmbeddedResource = "STOCK.RDLCReport.WholeSale.rdlc"; // Updated path
 
             ReportDataSource rds = new ReportDataSource();
-            rds.Name = "dsInvoiceNB"; // This MUST match the DataSet Name in the RDLC file
+            rds.Name = "dsInvoiceWholeSale"; // This MUST match the DataSet Name in the RDLC file
             rds.Value = dtReportData;
             report.DataSources.Clear();
             report.DataSources.Add(rds);
@@ -1621,7 +1620,7 @@ namespace POS.PosControls
             try
             {
                 formReportViewer frmViewer = new formReportViewer(report);
-                frmViewer.Text = string.IsNullOrEmpty(_tieude) ? "Internal Delivery Report" : _tieude; // Set form title
+                frmViewer.Text = string.IsNullOrEmpty(_tieude) ? "Whole Sale Report" : _tieude; // Set form title
                 frmViewer.ShowDialog(); // Show the form modally
             }
             catch (Exception ex)
@@ -1631,7 +1630,7 @@ namespace POS.PosControls
         }
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            exportReport("INTERNAL_DELIVERY_REPORT", "Internal Delivery Report");
+            exportReport("WHOLE_SALE_REPORT", "Whole Sale Report");
         }
 
         private void CmdDeleteDetail_Click(object sender, EventArgs e)
@@ -1875,7 +1874,8 @@ namespace POS.PosControls
         // Event handler for when the user leaves the discount textbox
 
 
-        // Helper method to apply discount to the grid
+        // Helper method to apply discount to the grid - COMMENTED OUT as percentage discount is now applied per row via ApplyPercentageDiscountToSelectedRow
+        /*
         private void ApplyDiscountToGrid(double discountPercent)
         {
             try
@@ -1905,14 +1905,14 @@ namespace POS.PosControls
                     }
 
                     // Update both Price and SubTotal cells in the grid
-                    gvDetail.Rows[i].Cells["Price"].Value = discountedPrice; 
+                    gvDetail.Rows[i].Cells["Price"].Value = discountedPrice;
                     gvDetail.Rows[i].Cells["SubTotal"].Value = discountedPrice * quantity;
 
-                    
-                    if (gvDetail.Columns.Contains("DiscountAmount")) 
+
+                    if (gvDetail.Columns.Contains("DiscountAmount"))
                     {
-                        
-                        gvDetail.Rows[i].Cells["DiscountAmount"].Value = discountPercent.ToString("N3"); 
+
+                        gvDetail.Rows[i].Cells["DiscountAmount"].Value = discountPercent.ToString("N3");
                     }
                 }
                 gvDetail.Refresh(); // Refresh grid to show updated values
@@ -1924,7 +1924,7 @@ namespace POS.PosControls
                 Console.WriteLine($"Error in ApplyDiscountToGrid: {ex.Message}");
             }
         }
-
+        */
 
         private void CmdDeleteRow_Click(object sender, EventArgs e)
         {
@@ -1978,27 +1978,113 @@ namespace POS.PosControls
             }
         }
 
-        private void txtDiscount_Leave(object sender, EventArgs e)
+        // Applies percentage discount from txtDiscount to all selected rows in gvDetail
+        private void ApplyPercentageDiscountToSelectedRow()
         {
-            if (!(_add || _edit)) return; // Only apply discount when adding or editing
-
-            if (double.TryParse(txtDiscount.Text, out double discountPercent))
+            if (!(_add || _edit)) return; // Only apply when adding or editing
+            if (gvDetail.SelectedRows.Count == 0)
             {
+                // Optional: Show message if no rows are selected
+                // MessageBox.Show("Please select one or more product rows to apply the discount.", "No Rows Selected", MessageBoxButtons.OK, Information);
+                return;
+            }
+
+            // Parse discount percentage from the textbox
+            if (double.TryParse(txtDiscount.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture, out double discountPercent))
+            {
+                // Validate discount percentage (e.g., 0 to 100)
                 if (discountPercent < 0 || discountPercent > 100)
                 {
                     MessageBox.Show("Discount percentage must be between 0 and 100.", "Invalid Discount", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtDiscount.Focus(); // Keep focus on the textbox
+                    txtDiscount.Focus();
                     txtDiscount.SelectAll();
                     return;
                 }
-                ApplyDiscountToGrid(discountPercent);
+
+                // Loop through all selected rows
+                foreach (DataGridViewRow selectedRow in gvDetail.SelectedRows)
+                {
+                    if (selectedRow.IsNewRow) continue; // Skip the 'new row' placeholder if selected
+
+                    // Get Price and Quantity for the current selected row
+                    object priceValue = selectedRow.Cells["Price"].Value;
+                    object quantityValue = selectedRow.Cells["QuantityDetail"].Value;
+
+                    if (priceValue != null && quantityValue != null &&
+                        double.TryParse(priceValue.ToString().Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double price) && // Use invariant culture for parsing price
+                        double.TryParse(quantityValue.ToString(), out double quantity))
+                    {
+                        // Calculate new SubTotal using the percentage
+                        double newSubTotal = price * quantity * (1 - (discountPercent / 100.0));
+
+                        // Apply discount percentage and new subtotal to the row
+                        selectedRow.Cells["DiscountAmount"].Value = discountPercent; // Store the percentage
+                        selectedRow.Cells["SubTotal"].Value = newSubTotal;
+
+                        Console.WriteLine($"Applied percentage discount: Row {selectedRow.Index}, Discount %: {discountPercent}, New SubTotal: {newSubTotal}");
+                    }
+                    else
+                    {
+                        // Log or inform about rows where price/quantity couldn't be read
+                        Console.WriteLine($"Warning: Could not read Price or Quantity for selected row {selectedRow.Index}. Discount not applied.");
+                        // Optionally show a single message after the loop if any rows failed
+                    }
+                }
+                gvDetail.Refresh(); // Refresh the entire grid to show changes in all selected rows
             }
             else
             {
-                MessageBox.Show("Invalid discount value. Please enter a number.", "Invalid Discount", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDiscount.Focus();
-                txtDiscount.SelectAll();
+                // Allow clearing the discount by entering 0 or empty string for all selected rows
+                if (string.IsNullOrWhiteSpace(txtDiscount.Text) || txtDiscount.Text == "0") // Check against txtDiscount.Text directly
+                {
+                    foreach (DataGridViewRow selectedRow in gvDetail.SelectedRows)
+                    {
+                         if (selectedRow.IsNewRow) continue;
+
+                         object priceValue = selectedRow.Cells["Price"].Value;
+                         object quantityValue = selectedRow.Cells["QuantityDetail"].Value;
+
+                         if (priceValue != null && quantityValue != null &&
+                             double.TryParse(priceValue.ToString().Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double price) &&
+                             double.TryParse(quantityValue.ToString(), out double quantity))
+                         {
+                             selectedRow.Cells["DiscountAmount"].Value = 0.0; // Clear percentage
+                             selectedRow.Cells["SubTotal"].Value = price * quantity; // Reset subtotal
+                             Console.WriteLine($"Cleared percentage discount: Row {selectedRow.Index}, New SubTotal: {selectedRow.Cells["SubTotal"].Value}");
+                         }
+                         else
+                         {
+                              Console.WriteLine($"Warning: Could not read Price or Quantity for selected row {selectedRow.Index} while clearing discount.");
+                         }
+                    }
+                    gvDetail.Refresh(); // Refresh grid after clearing
+                }
+                else // Parsing failed for non-zero/non-empty input
+                {
+                    MessageBox.Show("Invalid discount percentage. Please enter a number between 0 and 100.", "Invalid Discount", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtDiscount.Focus();
+                    txtDiscount.SelectAll();
+                }
             }
+        }
+
+
+        private void txtDiscount_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ApplyPercentageDiscountToSelectedRow(); // Call renamed method
+                e.SuppressKeyPress = true; // Prevent the 'ding' sound on Enter
+                // Optionally move focus to the next control or back to the grid
+                // gvDetail.Focus();
+            }
+        }
+
+
+        private void txtDiscount_Leave(object sender, EventArgs e)
+        {
+             ApplyPercentageDiscountToSelectedRow(); // Call renamed method
+             // Note: The ApplyDiscountToGrid(discountPercent) logic is commented out.
         }
 
         // Event handler for formatting cells in gvDetail
@@ -2009,34 +2095,30 @@ namespace POS.PosControls
             {
                 if (double.TryParse(e.Value.ToString(), out double value))
                 {
-            // Format as number with thousands separators and no decimal places (VND style)
-            e.Value = value.ToString("N0");
-            e.FormattingApplied = true; // Indicate that formatting is handled
-        }
-    }
-    // Format Price column with 2 decimal places
-    else if (gvDetail.Columns[e.ColumnIndex].Name == "Price" && e.Value != null)
-    {
-         if (double.TryParse(e.Value.ToString(), out double value))
-        {
-            // Format as number with thousands separators and 2 decimal places
-            e.Value = value.ToString("N2"); // Changed format to N2
-            e.FormattingApplied = true; // Indicate that formatting is handled
-        }
-    }
-             // Optionally format DiscountAmount column if it contains monetary value (not percentage)
+                    // Format as number with thousands separators and no decimal places (VND style)
+                    e.Value = value.ToString("N0");
+                    e.FormattingApplied = true; // Indicate that formatting is handled
+                }
+            }
+            // Format Price column with 2 decimal places
+            else if (gvDetail.Columns[e.ColumnIndex].Name == "Price" && e.Value != null)
+            {
+                 if (double.TryParse(e.Value.ToString(), out double value))
+                {
+                    // Format as number with thousands separators and 2 decimal places
+                    e.Value = value.ToString("N0"); // Changed format to N2
+                    e.FormattingApplied = true; // Indicate that formatting is handled
+                 }
+            }
+             // Format DiscountAmount column (percentage) - Display as plain number
             else if (gvDetail.Columns[e.ColumnIndex].Name == "DiscountAmount" && e.Value != null)
             {
-                 // Check if it's the percentage string or a potential monetary value during load
-                 if (double.TryParse(e.Value.ToString(), out double value)) 
+                 if (double.TryParse(e.Value.ToString(), out double value)) // Use double for TryParse flexibility
                  {
-                    // Format as number with thousands separators and no decimal places (VND style)
-                    // This assumes DiscountAmount might sometimes hold a number before being set to percentage string
-                    e.Value = value.ToString("N2"); // Keep 2 decimals for percentage display
-                    e.FormattingApplied = true; 
+                    // Display as plain number (e.g., 10 for 10%)
+                    e.Value = value.ToString(); // Display the number directly
+                    e.FormattingApplied = true;
                  }
-                 // If it's already the percentage string like "10.00", leave it as is.
-                 // The TryParse check handles this implicitly.
             }
         }
     }

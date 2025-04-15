@@ -1219,6 +1219,7 @@ namespace STOCK.Controls
             dtReportData.Columns.Add("Unit", typeof(string));
             dtReportData.Columns.Add("Quantity", typeof(int)); // Detail Quantity (Sum in report footer)
             dtReportData.Columns.Add("Price", typeof(double)); // Detail Price
+            dtReportData.Columns.Add("SubTotal", typeof(double)); // Detail SubTotal
 
             // Populate DataTable
             foreach (var detail in details)
@@ -1240,8 +1241,7 @@ namespace STOCK.Controls
                 dr["Unit"] = detail.Unit;
                 dr["Quantity"] = detail.Quantity ?? 0;
                 dr["Price"] = detail.Price ?? 0;
-                // Note: SubTotal column exists in XSD but seems unused directly in RDLC row, TotalPrice is used instead.
-                // If SubTotal *is* needed per row, add: dr["SubTotal"] = detail.SubTotal ?? 0;
+                dr["SubTotal"] = detail.SubTotal ?? 0;
                 dtReportData.Rows.Add(dr);
             }
 
@@ -1253,7 +1253,7 @@ namespace STOCK.Controls
             report.ReportEmbeddedResource = "STOCK.RDLCReport.OutInnerInvoice.rdlc"; // Updated path
 
             ReportDataSource rds = new ReportDataSource();
-            rds.Name = "dsInvoiceNB"; // This MUST match the DataSet Name in the RDLC file
+            rds.Name = "dsInvoiceENB"; // This MUST match the DataSet Name in the RDLC file
             rds.Value = dtReportData;
             report.DataSources.Clear();
             report.DataSources.Add(rds);

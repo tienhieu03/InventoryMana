@@ -445,21 +445,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Quantity">
+                    <Textbox Name="Quantity1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Quantity.Value</Value>
+                              <Value>=Fields!Quantity1.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Quantity</rd:DefaultName>
+                      <rd:DefaultName>Quantity1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -483,7 +483,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Price.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0'₫';(#,0'₫')</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -505,21 +507,23 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="TotalPrice">
+                    <Textbox Name="SubTotal">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!TotalPrice.Value</Value>
-                              <Style />
+                              <Value>=Fields!SubTotal.Value</Value>
+                              <Style>
+                                <Format>#,0'₫';(#,0'₫')</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>TotalPrice</rd:DefaultName>
+                      <rd:DefaultName>SubTotal</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -583,7 +587,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!Quantity.Value)</Value>
+                              <Value>=Sum(Fields!Quantity1.Value)</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -602,6 +606,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -613,8 +618,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!Price.Value)</Value>
-                              <Style />
+                              <Value />
+                              <Style>
+                                <Format>#,0'₫';(#,0'₫')</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -643,8 +650,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!TotalPrice.Value)</Value>
-                              <Style />
+                              <Value>=Sum(Fields!SubTotal.Value)</Value>
+                              <Style>
+                                <Format>#,0'₫';(#,0'₫')</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />

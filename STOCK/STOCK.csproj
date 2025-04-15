@@ -177,10 +177,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInvoice.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSet\dsInvoiceENB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsInvoiceENB.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSet\dsInvoiceNB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInvoiceNB.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\dsInvoiceWholeSale.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsInvoiceWholeSale.xsd</DependentUpon>
     </Compile>
     <Compile Include="Forms\formConnect.cs">
       <SubType>Form</SubType>
@@ -320,6 +330,7 @@
     </Compile>
     <EmbeddedResource Include="RDLCReport\PurchaseInvoice.rdlc" />
     <EmbeddedResource Include="RDLCReport\RecInnerInvoice.rdlc" />
+    <EmbeddedResource Include="RDLCReport\WholeSale.rdlc" />
     <None Include="DataSet\dsInvoice.xsc">
       <DependentUpon>dsInvoice.xsd</DependentUpon>
     </None>
@@ -331,6 +342,17 @@
     <None Include="DataSet\dsInvoice.xss">
       <DependentUpon>dsInvoice.xsd</DependentUpon>
     </None>
+    <None Include="DataSet\dsInvoiceENB.xsc">
+      <DependentUpon>dsInvoiceENB.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsInvoiceENB.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsInvoiceENB.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsInvoiceENB.xss">
+      <DependentUpon>dsInvoiceENB.xsd</DependentUpon>
+    </None>
     <None Include="DataSet\dsInvoiceNB.xsc">
       <DependentUpon>dsInvoiceNB.xsd</DependentUpon>
     </None>
@@ -341,6 +363,17 @@
     </None>
     <None Include="DataSet\dsInvoiceNB.xss">
       <DependentUpon>dsInvoiceNB.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsInvoiceWholeSale.xsc">
+      <DependentUpon>dsInvoiceWholeSale.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsInvoiceWholeSale.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsInvoiceWholeSale.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsInvoiceWholeSale.xss">
+      <DependentUpon>dsInvoiceWholeSale.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

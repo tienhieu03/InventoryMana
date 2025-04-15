@@ -547,7 +547,7 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTIN_GROUP' does not 
           <EntitySet Name="V_REP_SYS_RIGHT_REP" EntityType="InventoryManagerModel.V_REP_SYS_RIGHT_REP" />
           <EntitySet Name="V_USER_IN_GROUP" EntityType="InventoryManagerModel.V_USER_IN_GROUP" />
           <EntitySet Name="V_USER_NOTIN_GROUP" EntityType="InventoryManagerModel.V_USER_NOTIN_GROUP" />
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="tb_Company">
           <Key>
             <PropertyRef Name="CompanyID" />
@@ -1329,7 +1329,7 @@ warning 6002: The table/view 'InventoryManager.dbo.V_USER_NOTIN_GROUP' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

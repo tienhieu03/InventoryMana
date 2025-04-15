@@ -1,4 +1,4 @@
-﻿namespace STOCK.Controls
+﻿﻿﻿﻿﻿namespace STOCK.Controls
 {
     partial class InternalReceipt
     {
@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InternalReceipt));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonToolStrip1 = new Krypton.Toolkit.KryptonToolStrip();
             this.btnCreateCode = new System.Windows.Forms.ToolStripButton();
             this.btnPrint = new System.Windows.Forms.ToolStripButton();
@@ -47,16 +49,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.customPanel1 = new SharedControls.CustomPanel();
             this.gvList = new System.Windows.Forms.DataGridView();
-            this.DeletedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvoiceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvoiceNo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvoiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Day2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageDetail = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.txtReceiveInvoiceNo = new System.Windows.Forms.MaskedTextBox();
@@ -76,6 +68,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
+            this.customPanel2 = new SharedControls.CustomPanel();
             this.gvDetail = new System.Windows.Forms.DataGridView();
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BARCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,7 +79,16 @@
             this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.DeletedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceNo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Day2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonToolStrip1.SuspendLayout();
             this.tabInvoice.SuspendLayout();
             this.pageList.SuspendLayout();
@@ -101,6 +103,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.customPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,7 +116,6 @@
             this.kryptonToolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.kryptonToolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnCreateCode,
-            this.toolStripSeparator1,
             this.btnPrint});
             this.kryptonToolStrip1.Location = new System.Drawing.Point(0, 0);
             this.kryptonToolStrip1.Name = "kryptonToolStrip1";
@@ -158,7 +160,7 @@
             this.pageList.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pageList.Location = new System.Drawing.Point(4, 24);
             this.pageList.Name = "pageList";
-            this.pageList.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.pageList.Padding = new System.Windows.Forms.Padding(3);
             this.pageList.Size = new System.Drawing.Size(940, 437);
             this.pageList.TabIndex = 0;
             this.pageList.Text = "List";
@@ -295,7 +297,7 @@
             this.gvList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -334,104 +336,12 @@
             this.gvList.TabIndex = 0;
             this.gvList.DoubleClick += new System.EventHandler(this.gvList_DoubleClick_1);
             // 
-            // DeletedBy
-            // 
-            this.DeletedBy.DataPropertyName = "DeletedBy";
-            this.DeletedBy.HeaderText = "DEL";
-            this.DeletedBy.MinimumWidth = 6;
-            this.DeletedBy.Name = "DeletedBy";
-            this.DeletedBy.ReadOnly = true;
-            this.DeletedBy.Width = 30;
-            // 
-            // InvoiceID
-            // 
-            this.InvoiceID.DataPropertyName = "InvoiceID";
-            this.InvoiceID.HeaderText = "InvoiceID";
-            this.InvoiceID.MinimumWidth = 6;
-            this.InvoiceID.Name = "InvoiceID";
-            this.InvoiceID.ReadOnly = true;
-            this.InvoiceID.Visible = false;
-            this.InvoiceID.Width = 125;
-            // 
-            // InvoiceNo2
-            // 
-            this.InvoiceNo2.DataPropertyName = "Invoice2";
-            this.InvoiceNo2.HeaderText = "Rec Invoice No";
-            this.InvoiceNo2.MinimumWidth = 6;
-            this.InvoiceNo2.Name = "InvoiceNo2";
-            this.InvoiceNo2.ReadOnly = true;
-            this.InvoiceNo2.Width = 160;
-            // 
-            // InvoiceNo
-            // 
-            this.InvoiceNo.DataPropertyName = "Invoice";
-            this.InvoiceNo.HeaderText = "Invoice No";
-            this.InvoiceNo.MinimumWidth = 6;
-            this.InvoiceNo.Name = "InvoiceNo";
-            this.InvoiceNo.ReadOnly = true;
-            this.InvoiceNo.Width = 160;
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Day2";
-            this.Date.HeaderText = "Date";
-            this.Date.MinimumWidth = 6;
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Width = 125;
-            // 
-            // Day2
-            // 
-            this.Day2.DataPropertyName = "Day2";
-            this.Day2.HeaderText = "Receive Date";
-            this.Day2.MinimumWidth = 6;
-            this.Day2.Name = "Day2";
-            this.Day2.ReadOnly = true;
-            this.Day2.Visible = false;
-            this.Day2.Width = 125;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.HeaderText = "Quantity";
-            this.Quantity.MinimumWidth = 6;
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            this.Quantity.Width = 70;
-            // 
-            // TotalPrice
-            // 
-            this.TotalPrice.DataPropertyName = "TotalPrice";
-            this.TotalPrice.HeaderText = "TotalPrice";
-            this.TotalPrice.MinimumWidth = 6;
-            this.TotalPrice.Name = "TotalPrice";
-            this.TotalPrice.ReadOnly = true;
-            this.TotalPrice.Width = 150;
-            // 
-            // Description
-            // 
-            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Description.DataPropertyName = "Description";
-            this.Description.HeaderText = "Description";
-            this.Description.MinimumWidth = 6;
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // Status
-            // 
-            this.Status.DataPropertyName = "Status";
-            this.Status.HeaderText = "Status";
-            this.Status.MinimumWidth = 6;
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            this.Status.Width = 125;
-            // 
             // pageDetail
             // 
             this.pageDetail.Controls.Add(this.splitContainer2);
             this.pageDetail.Location = new System.Drawing.Point(4, 24);
             this.pageDetail.Name = "pageDetail";
-            this.pageDetail.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.pageDetail.Padding = new System.Windows.Forms.Padding(3);
             this.pageDetail.Size = new System.Drawing.Size(940, 437);
             this.pageDetail.TabIndex = 1;
             this.pageDetail.Text = "Detail";
@@ -466,7 +376,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.gvDetail);
+            this.splitContainer2.Panel2.Controls.Add(this.customPanel2);
             this.splitContainer2.Size = new System.Drawing.Size(934, 431);
             this.splitContainer2.SplitterDistance = 135;
             this.splitContainer2.TabIndex = 0;
@@ -632,11 +542,41 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Date";
             // 
+            // customPanel2
+            // 
+            this.customPanel2.BackColor = System.Drawing.Color.White;
+            this.customPanel2.BorderRadius = 30;
+            this.customPanel2.Controls.Add(this.gvDetail);
+            this.customPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customPanel2.ForeColor = System.Drawing.Color.Black;
+            this.customPanel2.GradientAngle = 90F;
+            this.customPanel2.GradientBottomColor = System.Drawing.Color.CadetBlue;
+            this.customPanel2.GradientTopColor = System.Drawing.Color.DodgerBlue;
+            this.customPanel2.Location = new System.Drawing.Point(0, 0);
+            this.customPanel2.Name = "customPanel2";
+            this.customPanel2.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
+            this.customPanel2.Size = new System.Drawing.Size(934, 292);
+            this.customPanel2.TabIndex = 7;
+            // 
             // gvDetail
             // 
             this.gvDetail.AllowUserToAddRows = false;
             this.gvDetail.AllowUserToDeleteRows = false;
-            this.gvDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDetail.AllowUserToResizeColumns = false;
+            this.gvDetail.AllowUserToResizeRows = false;
+            this.gvDetail.BackgroundColor = System.Drawing.Color.White;
+            this.gvDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gvDetail.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.gvDetail.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvDetail.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.gvDetail.ColumnHeadersHeight = 35;
             this.gvDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.STT,
             this.BARCODE,
@@ -647,14 +587,23 @@
             this.SubTotal,
             this.QRCODE,
             this.ProductID});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvDetail.DefaultCellStyle = dataGridViewCellStyle4;
             this.gvDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gvDetail.Location = new System.Drawing.Point(0, 0);
+            this.gvDetail.EnableHeadersVisualStyles = false;
+            this.gvDetail.Location = new System.Drawing.Point(4, 0);
             this.gvDetail.Name = "gvDetail";
             this.gvDetail.ReadOnly = true;
             this.gvDetail.RowHeadersVisible = false;
             this.gvDetail.RowHeadersWidth = 51;
             this.gvDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvDetail.Size = new System.Drawing.Size(934, 292);
+            this.gvDetail.Size = new System.Drawing.Size(926, 277);
             this.gvDetail.TabIndex = 0;
             // 
             // STT
@@ -664,7 +613,7 @@
             this.STT.MinimumWidth = 6;
             this.STT.Name = "STT";
             this.STT.ReadOnly = true;
-            this.STT.Width = 125;
+            this.STT.Width = 50;
             // 
             // BARCODE
             // 
@@ -677,12 +626,12 @@
             // 
             // ProductName
             // 
+            this.ProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ProductName.DataPropertyName = "ProductName";
             this.ProductName.HeaderText = "Product Name";
             this.ProductName.MinimumWidth = 6;
             this.ProductName.Name = "ProductName";
             this.ProductName.ReadOnly = true;
-            this.ProductName.Width = 150;
             // 
             // Unit
             // 
@@ -691,7 +640,7 @@
             this.Unit.MinimumWidth = 6;
             this.Unit.Name = "Unit";
             this.Unit.ReadOnly = true;
-            this.Unit.Width = 125;
+            this.Unit.Width = 50;
             // 
             // QuantityDetail
             // 
@@ -700,7 +649,7 @@
             this.QuantityDetail.MinimumWidth = 6;
             this.QuantityDetail.Name = "QuantityDetail";
             this.QuantityDetail.ReadOnly = true;
-            this.QuantityDetail.Width = 125;
+            this.QuantityDetail.Width = 80;
             // 
             // Price
             // 
@@ -709,6 +658,7 @@
             this.Price.MinimumWidth = 6;
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
+            this.Price.DefaultCellStyle.Format = "#,0 ₫";
             this.Price.Width = 125;
             // 
             // SubTotal
@@ -718,6 +668,7 @@
             this.SubTotal.MinimumWidth = 6;
             this.SubTotal.Name = "SubTotal";
             this.SubTotal.ReadOnly = true;
+            this.SubTotal.DefaultCellStyle.Format = "#,0 ₫";
             this.SubTotal.Width = 125;
             // 
             // QRCODE
@@ -740,10 +691,98 @@
             this.ProductID.Visible = false;
             this.ProductID.Width = 125;
             // 
-            // toolStripSeparator1
+            // DeletedBy
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
+            this.DeletedBy.DataPropertyName = "DeletedBy";
+            this.DeletedBy.HeaderText = "DEL";
+            this.DeletedBy.MinimumWidth = 6;
+            this.DeletedBy.Name = "DeletedBy";
+            this.DeletedBy.ReadOnly = true;
+            this.DeletedBy.Width = 30;
+            // 
+            // InvoiceID
+            // 
+            this.InvoiceID.DataPropertyName = "InvoiceID";
+            this.InvoiceID.HeaderText = "InvoiceID";
+            this.InvoiceID.MinimumWidth = 6;
+            this.InvoiceID.Name = "InvoiceID";
+            this.InvoiceID.ReadOnly = true;
+            this.InvoiceID.Visible = false;
+            this.InvoiceID.Width = 125;
+            // 
+            // InvoiceNo2
+            // 
+            this.InvoiceNo2.DataPropertyName = "Invoice2";
+            this.InvoiceNo2.HeaderText = "Rec Invoice No";
+            this.InvoiceNo2.MinimumWidth = 6;
+            this.InvoiceNo2.Name = "InvoiceNo2";
+            this.InvoiceNo2.ReadOnly = true;
+            this.InvoiceNo2.Width = 160;
+            // 
+            // InvoiceNo
+            // 
+            this.InvoiceNo.DataPropertyName = "Invoice";
+            this.InvoiceNo.HeaderText = "Invoice No";
+            this.InvoiceNo.MinimumWidth = 6;
+            this.InvoiceNo.Name = "InvoiceNo";
+            this.InvoiceNo.ReadOnly = true;
+            this.InvoiceNo.Width = 160;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Day2";
+            this.Date.HeaderText = "Date";
+            this.Date.MinimumWidth = 6;
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Width = 125;
+            // 
+            // Day2
+            // 
+            this.Day2.DataPropertyName = "Day2";
+            this.Day2.HeaderText = "Receive Date";
+            this.Day2.MinimumWidth = 6;
+            this.Day2.Name = "Day2";
+            this.Day2.ReadOnly = true;
+            this.Day2.Visible = false;
+            this.Day2.Width = 125;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.HeaderText = "Quantity";
+            this.Quantity.MinimumWidth = 6;
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            this.Quantity.Width = 70;
+            // 
+            // TotalPrice
+            // 
+            this.TotalPrice.DataPropertyName = "TotalPrice";
+            this.TotalPrice.HeaderText = "Total Price";
+            this.TotalPrice.MinimumWidth = 6;
+            this.TotalPrice.Name = "TotalPrice";
+            this.TotalPrice.ReadOnly = true;
+            this.TotalPrice.DefaultCellStyle.Format = "#,0 ₫";
+            this.TotalPrice.Width = 150;
+            // 
+            // Description
+            // 
+            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Description";
+            this.Description.MinimumWidth = 6;
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Status";
+            this.Status.MinimumWidth = 6;
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            this.Status.Width = 125;
             // 
             // InternalReceipt
             // 
@@ -751,7 +790,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabInvoice);
             this.Controls.Add(this.kryptonToolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "InternalReceipt";
             this.Size = new System.Drawing.Size(948, 500);
             this.Load += new System.EventHandler(this.InternalReceipt_Load);
@@ -772,6 +811,7 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.customPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).EndInit();
             this.ResumeLayout(false);
 
@@ -810,6 +850,12 @@
         private System.Windows.Forms.DateTimePicker dtDate;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView gvDetail;
+        private System.Windows.Forms.MaskedTextBox txtReceiveInvoiceNo;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DateTimePicker dtReceiveDate;
+        private System.Windows.Forms.Label label12;
+        private SharedControls.CustomPanel customPanel1;
+        private SharedControls.CustomPanel customPanel2;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
         private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
@@ -819,11 +865,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
-        private System.Windows.Forms.MaskedTextBox txtReceiveInvoiceNo;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.DateTimePicker dtReceiveDate;
-        private System.Windows.Forms.Label label12;
-        private SharedControls.CustomPanel customPanel1;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeletedBy;
         private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceID;
         private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNo2;
@@ -834,6 +875,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

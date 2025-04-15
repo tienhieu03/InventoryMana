@@ -52,10 +52,6 @@
             this.txtName = new Krypton.Toolkit.KryptonTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.customPanel1 = new SharedControls.CustomPanel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.kryptonToolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvList)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -75,13 +71,9 @@
             this.kryptonToolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.kryptonToolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
-            this.toolStripSeparator1,
             this.btnEdit,
-            this.toolStripSeparator2,
             this.btnDelete,
-            this.toolStripSeparator3,
             this.btnSave,
-            this.toolStripSeparator4,
             this.btnCancel});
             this.kryptonToolStrip1.Location = new System.Drawing.Point(0, 0);
             this.kryptonToolStrip1.Name = "kryptonToolStrip1";
@@ -337,26 +329,6 @@
             this.customPanel1.Size = new System.Drawing.Size(948, 285);
             this.customPanel1.TabIndex = 8;
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 35);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 35);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 35);
-            // 
             // Product_CategoryControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -403,9 +375,5 @@
         private Krypton.Toolkit.KryptonRichTextBox txtNote;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private SharedControls.CustomPanel customPanel1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }

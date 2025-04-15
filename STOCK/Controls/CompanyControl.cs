@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLayer;
 using DataLayer;
+using SharedControls;
 
 namespace STOCK.Controls
 {
@@ -133,6 +134,12 @@ namespace STOCK.Controls
             ShowHideControls(false);
         }
 
+        public void Alert(string msg, formNoti.enmType type)
+        {
+            formNoti frm = new formNoti();
+            frm.showAlert(msg, type);
+        }
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (_right < 2) // Nếu không có quyền Full Function
@@ -147,19 +154,19 @@ namespace STOCK.Controls
 
                 if (string.IsNullOrEmpty(companyID))
                 {
-                    MessageBox.Show("Can not find company!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    this.Alert("Nothing Found", formNoti.enmType.error);
                 }
 
                 if (MessageBox.Show("Do you want to delete this record?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     _company.delete(companyID);
                     loadData();
+                    this.Alert("Deleted successfully", formNoti.enmType.success);
                 }
             }
             else
             {
-                MessageBox.Show("Please select a record to delete!", "NOTIFICATION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Alert("Select a record", formNoti.enmType.error);
             }
         }
 

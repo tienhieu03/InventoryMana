@@ -1,4 +1,4 @@
-﻿namespace STOCK.Controls
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace STOCK.Controls
 {
     partial class InternalDeliveryControl
     {
@@ -31,8 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InternalDeliveryControl));
-            this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabInvoice = new System.Windows.Forms.TabControl();
             this.pageList = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -72,14 +73,6 @@
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.gvDetail = new System.Windows.Forms.DataGridView();
-            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BARCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuantityDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonToolStrip1 = new Krypton.Toolkit.KryptonToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -91,11 +84,16 @@
             this.CmdDeleteRow = new System.Windows.Forms.ToolStripMenuItem();
             this.CmdDeleteDetail = new System.Windows.Forms.ToolStripMenuItem();
             this.CmdImport = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.customPanel2 = new SharedControls.CustomPanel();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BARCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuantityDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QRCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabInvoice.SuspendLayout();
             this.pageList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -112,17 +110,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).BeginInit();
             this.kryptonToolStrip1.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
+            this.customPanel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // QRCODE
-            // 
-            this.QRCODE.DataPropertyName = "QRCODE";
-            this.QRCODE.HeaderText = "QRCODE";
-            this.QRCODE.MinimumWidth = 6;
-            this.QRCODE.Name = "QRCODE";
-            this.QRCODE.ReadOnly = true;
-            this.QRCODE.Visible = false;
-            this.QRCODE.Width = 125;
             // 
             // tabInvoice
             // 
@@ -284,7 +273,7 @@
             this.gvList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -395,6 +384,7 @@
             this.TotalPrice.MinimumWidth = 6;
             this.TotalPrice.Name = "TotalPrice";
             this.TotalPrice.ReadOnly = true;
+            this.TotalPrice.DefaultCellStyle.Format = "#,0 ₫";
             this.TotalPrice.Width = 125;
             // 
             // Description
@@ -451,7 +441,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.gvDetail);
+            this.splitContainer2.Panel2.Controls.Add(this.customPanel2);
             this.splitContainer2.Size = new System.Drawing.Size(934, 431);
             this.splitContainer2.SplitterDistance = 120;
             this.splitContainer2.TabIndex = 0;
@@ -584,7 +574,21 @@
             // 
             this.gvDetail.AllowUserToAddRows = false;
             this.gvDetail.AllowUserToDeleteRows = false;
-            this.gvDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDetail.AllowUserToResizeColumns = false;
+            this.gvDetail.AllowUserToResizeRows = false;
+            this.gvDetail.BackgroundColor = System.Drawing.Color.White;
+            this.gvDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gvDetail.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.gvDetail.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvDetail.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.gvDetail.ColumnHeadersHeight = 35;
             this.gvDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.STT,
             this.BARCODE,
@@ -595,89 +599,25 @@
             this.SubTotal,
             this.QRCODE,
             this.ProductID});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvDetail.DefaultCellStyle = dataGridViewCellStyle4;
             this.gvDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gvDetail.Location = new System.Drawing.Point(0, 0);
+            this.gvDetail.EnableHeadersVisualStyles = false;
+            this.gvDetail.Location = new System.Drawing.Point(4, 0);
             this.gvDetail.Name = "gvDetail";
             this.gvDetail.ReadOnly = true;
             this.gvDetail.RowHeadersVisible = false;
             this.gvDetail.RowHeadersWidth = 51;
             this.gvDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvDetail.Size = new System.Drawing.Size(934, 307);
+            this.gvDetail.Size = new System.Drawing.Size(926, 292);
             this.gvDetail.TabIndex = 0;
             this.gvDetail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gvDetail_KeyDown);
-            // 
-            // STT
-            // 
-            this.STT.DataPropertyName = "STT";
-            this.STT.HeaderText = "STT";
-            this.STT.MinimumWidth = 6;
-            this.STT.Name = "STT";
-            this.STT.ReadOnly = true;
-            this.STT.Width = 125;
-            // 
-            // BARCODE
-            // 
-            this.BARCODE.DataPropertyName = "BARCODE";
-            this.BARCODE.HeaderText = "BARCODE";
-            this.BARCODE.MinimumWidth = 6;
-            this.BARCODE.Name = "BARCODE";
-            this.BARCODE.ReadOnly = true;
-            this.BARCODE.Width = 125;
-            // 
-            // ProductName
-            // 
-            this.ProductName.DataPropertyName = "ProductName";
-            this.ProductName.HeaderText = "Product Name";
-            this.ProductName.MinimumWidth = 6;
-            this.ProductName.Name = "ProductName";
-            this.ProductName.ReadOnly = true;
-            this.ProductName.Width = 150;
-            // 
-            // Unit
-            // 
-            this.Unit.DataPropertyName = "Unit";
-            this.Unit.HeaderText = "Unit";
-            this.Unit.MinimumWidth = 6;
-            this.Unit.Name = "Unit";
-            this.Unit.ReadOnly = true;
-            this.Unit.Width = 125;
-            // 
-            // QuantityDetail
-            // 
-            this.QuantityDetail.DataPropertyName = "QuantityDetail";
-            this.QuantityDetail.HeaderText = "Quantity";
-            this.QuantityDetail.MinimumWidth = 6;
-            this.QuantityDetail.Name = "QuantityDetail";
-            this.QuantityDetail.ReadOnly = true;
-            this.QuantityDetail.Width = 125;
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            this.Price.HeaderText = "Price";
-            this.Price.MinimumWidth = 6;
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            this.Price.Width = 125;
-            // 
-            // SubTotal
-            // 
-            this.SubTotal.DataPropertyName = "SubTotal";
-            this.SubTotal.HeaderText = "Total Price";
-            this.SubTotal.MinimumWidth = 6;
-            this.SubTotal.Name = "SubTotal";
-            this.SubTotal.ReadOnly = true;
-            this.SubTotal.Width = 125;
-            // 
-            // ProductID
-            // 
-            this.ProductID.DataPropertyName = "ProductID";
-            this.ProductID.HeaderText = "ProductID";
-            this.ProductID.MinimumWidth = 6;
-            this.ProductID.Name = "ProductID";
-            this.ProductID.ReadOnly = true;
-            this.ProductID.Visible = false;
-            this.ProductID.Width = 125;
             // 
             // kryptonToolStrip1
             // 
@@ -688,15 +628,10 @@
             this.kryptonToolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.kryptonToolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
-            this.toolStripSeparator1,
             this.btnEdit,
-            this.toolStripSeparator2,
             this.btnDelete,
-            this.toolStripSeparator3,
             this.btnSave,
-            this.toolStripSeparator4,
             this.btnCancel,
-            this.toolStripSeparator5,
             this.btnPrint});
             this.kryptonToolStrip1.Location = new System.Drawing.Point(0, 0);
             this.kryptonToolStrip1.Name = "kryptonToolStrip1";
@@ -791,30 +726,106 @@
             this.CmdImport.Text = "Import Excel";
             this.CmdImport.Click += new System.EventHandler(this.CmdImport_Click);
             // 
-            // toolStripSeparator1
+            // customPanel2
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
+            this.customPanel2.BackColor = System.Drawing.Color.White;
+            this.customPanel2.BorderRadius = 30;
+            this.customPanel2.Controls.Add(this.gvDetail);
+            this.customPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customPanel2.ForeColor = System.Drawing.Color.Black;
+            this.customPanel2.GradientAngle = 90F;
+            this.customPanel2.GradientBottomColor = System.Drawing.Color.CadetBlue;
+            this.customPanel2.GradientTopColor = System.Drawing.Color.DodgerBlue;
+            this.customPanel2.Location = new System.Drawing.Point(0, 0);
+            this.customPanel2.Name = "customPanel2";
+            this.customPanel2.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
+            this.customPanel2.Size = new System.Drawing.Size(934, 307);
+            this.customPanel2.TabIndex = 7;
             // 
-            // toolStripSeparator2
+            // STT
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 35);
+            this.STT.DataPropertyName = "STT";
+            this.STT.HeaderText = "STT";
+            this.STT.MinimumWidth = 6;
+            this.STT.Name = "STT";
+            this.STT.ReadOnly = true;
+            this.STT.Width = 50;
             // 
-            // toolStripSeparator3
+            // BARCODE
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 35);
+            this.BARCODE.DataPropertyName = "BARCODE";
+            this.BARCODE.HeaderText = "BARCODE";
+            this.BARCODE.MinimumWidth = 6;
+            this.BARCODE.Name = "BARCODE";
+            this.BARCODE.ReadOnly = true;
+            this.BARCODE.Width = 125;
             // 
-            // toolStripSeparator4
+            // ProductName
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 35);
+            this.ProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ProductName.DataPropertyName = "ProductName";
+            this.ProductName.HeaderText = "Product Name";
+            this.ProductName.MinimumWidth = 6;
+            this.ProductName.Name = "ProductName";
+            this.ProductName.ReadOnly = true;
             // 
-            // toolStripSeparator5
+            // Unit
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 35);
+            this.Unit.DataPropertyName = "Unit";
+            this.Unit.HeaderText = "Unit";
+            this.Unit.MinimumWidth = 6;
+            this.Unit.Name = "Unit";
+            this.Unit.ReadOnly = true;
+            this.Unit.Width = 50;
+            // 
+            // QuantityDetail
+            // 
+            this.QuantityDetail.DataPropertyName = "QuantityDetail";
+            this.QuantityDetail.HeaderText = "Quantity";
+            this.QuantityDetail.MinimumWidth = 6;
+            this.QuantityDetail.Name = "QuantityDetail";
+            this.QuantityDetail.ReadOnly = true;
+            this.QuantityDetail.Width = 80;
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.HeaderText = "Price";
+            this.Price.MinimumWidth = 6;
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            this.Price.DefaultCellStyle.Format = "#,0 ₫";
+            this.Price.Width = 125;
+            // 
+            // SubTotal
+            // 
+            this.SubTotal.DataPropertyName = "SubTotal";
+            this.SubTotal.HeaderText = "Total Price";
+            this.SubTotal.MinimumWidth = 6;
+            this.SubTotal.Name = "SubTotal";
+            this.SubTotal.ReadOnly = true;
+            this.SubTotal.DefaultCellStyle.Format = "#,0 ₫";
+            this.SubTotal.Width = 125;
+            // 
+            // QRCODE
+            // 
+            this.QRCODE.DataPropertyName = "QRCODE";
+            this.QRCODE.HeaderText = "QRCODE";
+            this.QRCODE.MinimumWidth = 6;
+            this.QRCODE.Name = "QRCODE";
+            this.QRCODE.ReadOnly = true;
+            this.QRCODE.Visible = false;
+            this.QRCODE.Width = 125;
+            // 
+            // ProductID
+            // 
+            this.ProductID.DataPropertyName = "ProductID";
+            this.ProductID.HeaderText = "ProductID";
+            this.ProductID.MinimumWidth = 6;
+            this.ProductID.Name = "ProductID";
+            this.ProductID.ReadOnly = true;
+            this.ProductID.Visible = false;
+            this.ProductID.Width = 125;
             // 
             // InternalDeliveryControl
             // 
@@ -844,13 +855,12 @@
             this.kryptonToolStrip1.ResumeLayout(false);
             this.kryptonToolStrip1.PerformLayout();
             this.contextMenuStrip.ResumeLayout(false);
+            this.customPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
         private System.Windows.Forms.TabControl tabInvoice;
         private System.Windows.Forms.TabPage pageList;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -878,14 +888,6 @@
         private System.Windows.Forms.DateTimePicker dtDate;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView gvDetail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn STT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QuantityDetail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
         private Krypton.Toolkit.KryptonToolStrip kryptonToolStrip1;
         private System.Windows.Forms.ToolStripButton btnAdd;
         private System.Windows.Forms.ToolStripButton btnEdit;
@@ -909,10 +911,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private SharedControls.CustomPanel customPanel2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn STT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuantityDetail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QRCODE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
     }
 }

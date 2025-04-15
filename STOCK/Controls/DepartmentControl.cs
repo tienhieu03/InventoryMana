@@ -6,6 +6,7 @@ using BusinessLayer;
 using DataLayer;
 using STOCK.Forms;
 using STOCK.Controls;
+using SharedControls;
 
 namespace STOCK.Controls
 {
@@ -76,6 +77,7 @@ namespace STOCK.Controls
             btnDelete.Visible = t;
             btnSave.Visible = !t;
             btnCancel.Visible = !t;
+
         }
         void _enable(bool t)
         {
@@ -138,6 +140,12 @@ namespace STOCK.Controls
             txtId.Enabled = true;
         }
 
+        public void Alert(string msg, formNoti.enmType type)
+        {
+            formNoti frm = new formNoti();
+            frm.showAlert(msg, type);
+        }
+
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (_right < 2) // Nếu không có quyền Full Function
@@ -148,7 +156,7 @@ namespace STOCK.Controls
             
             if (gvList.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Please select a department before editing!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Alert("Select a record!", formNoti.enmType.error);
                 return;
             }
 
@@ -173,7 +181,7 @@ namespace STOCK.Controls
 
                 if (string.IsNullOrEmpty(departmentID))
                 {
-                    MessageBox.Show("Can not find Department ID!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Alert("Can not find Department", formNoti.enmType.error);
                     return;
                 }
 
@@ -181,11 +189,12 @@ namespace STOCK.Controls
                 {
                     _department.delete(departmentID);
                     LoadDpByCp();
+                    this.Alert("Successfully", formNoti.enmType.success);
                 }
             }
             else
             {
-                MessageBox.Show("Please select a record to delete!", "NOTIFICATION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Alert("Select a record!", formNoti.enmType.error);
             }
         }
 

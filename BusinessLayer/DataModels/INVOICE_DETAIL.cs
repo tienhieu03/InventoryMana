@@ -118,7 +118,6 @@ namespace BusinessLayer.DataModels
             if (_detail != null)
             {
                 _detail.BARCODE = invoicedetail.BARCODE;
-                _detail.QRCODE = invoicedetail.QRCODE;
                 _detail.Quantity = invoicedetail.Quantity;
                 _detail.Price = invoicedetail.Price;
                 _detail.SubTotal = invoicedetail.SubTotal;

@@ -456,6 +456,10 @@ namespace STOCK.Forms
                             {
                                 ShowUserControl(new WholeSale(_currentUser, currentUserRight));
                             }
+                            else if (_ch.FUNC_CODE == "RETAIL ORDER")
+                            {
+                                ShowUserControl(new RetailInvoice(_currentUser, currentUserRight));
+                            }
                             else if (_ch.FUNC_CODE == "PERMISSION")
                             {
                                 UserManagement.formMain frmUserManagement = new UserManagement.formMain();
