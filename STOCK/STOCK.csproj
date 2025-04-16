@@ -148,10 +148,22 @@
     <Compile Include="Controls\PurchaseInvoiceControl.Designer.cs">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RetailInvoice.cs">
+    <Compile Include="PosControls\frmDiscount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PosControls\frmDiscount.Designer.cs">
+      <DependentUpon>frmDiscount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PosControls\frmReturn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PosControls\frmReturn.Designer.cs">
+      <DependentUpon>frmReturn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PosControls\RetailInvoice.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\RetailInvoice.Designer.cs">
+    <Compile Include="PosControls\RetailInvoice.Designer.cs">
       <DependentUpon>RetailInvoice.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\RoundedButton.cs">
@@ -282,7 +294,13 @@
     <EmbeddedResource Include="Controls\PurchaseInvoiceControl.resx">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\RetailInvoice.resx">
+    <EmbeddedResource Include="PosControls\frmDiscount.resx">
+      <DependentUpon>frmDiscount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PosControls\frmReturn.resx">
+      <DependentUpon>frmReturn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PosControls\RetailInvoice.resx">
       <DependentUpon>RetailInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SupplierControl.resx">

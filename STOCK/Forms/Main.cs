@@ -27,6 +27,7 @@ namespace STOCK.Forms
         private bool isSidebarExpanded = false;
         private FlowLayoutPanel currentExpandedPanel = null; // Track currently expanded panel
         private RoundedButton currentExpandedButton = null; // Track currently expanded button
+        private FormWindowState _previousWindowState = FormWindowState.Normal; // Track previous state
 
         public Main()
         {
@@ -58,8 +59,6 @@ namespace STOCK.Forms
             LeftMenu();
             btnCountStock.BackColor = Color.FromArgb(21, 101, 192); // tương đương #3f51b5
             btnCountStock.ForeColor = Color.White;
-
-
         }
 
         private int GetUserRight(string funcCode)
@@ -135,25 +134,7 @@ namespace STOCK.Forms
                     resizeTimer.Stop();
                     resizeTimer.Dispose();
 
-                    // Update all buttons width after resize is complete
-                    foreach (Control ctrl in flpMenu.Controls)
-                    {
-                        if (ctrl is RoundedButton)
-                        {
-                            ctrl.Width = flpMenu.Width - 20;
-                        }
-                        else if (ctrl is FlowLayoutPanel subPanel)
-                        {
-                            subPanel.Width = flpMenu.Width - 20;
-                            foreach (Control subCtrl in subPanel.Controls)
-                            {
-                                if (subCtrl is RoundedButton)
-                                {
-                                    subCtrl.Width = subPanel.Width - 15;
-                                }
-                            }
-                        }
-                    }
+                    // No longer update widths here; let Main_Resize handle it via UpdateSidebarControlWidths
                 }
                 else
                 {
@@ -174,51 +155,51 @@ namespace STOCK.Forms
                 return;
             }
 
-            int availableWidth = flpMenu.ClientSize.Width - flpMenu.Padding.Horizontal; // Use ClientSize for accurate inner width
-
-            foreach (Control ctrl in flpMenu.Controls)
+            // Suspend layout updates while resizing controls
+            flpMenu.SuspendLayout();
+            try
             {
-                int controlMarginHorizontal = ctrl.Margin.Horizontal;
-                int targetControlWidth = Math.Max(10, availableWidth - controlMarginHorizontal); // Ensure minimum width
+                int availableWidth = flpMenu.ClientSize.Width - flpMenu.Padding.Horizontal; // Use ClientSize for accurate inner width
 
-                if (ctrl is RoundedButton btn) // Handles Dashboard and Parent buttons
+                foreach (Control ctrl in flpMenu.Controls)
                 {
-                    btn.Width = targetControlWidth;
-                }
-                else if (ctrl is FlowLayoutPanel subPanel) // Handles sub-menu panels
-                {
-                    // Adjust subPanel width considering its own margin within flpMenu
-                    subPanel.Width = targetControlWidth;
+                    int controlMarginHorizontal = ctrl.Margin.Horizontal;
+                    int targetControlWidth = Math.Max(10, availableWidth - controlMarginHorizontal); // Ensure minimum width
 
-                    int subPanelAvailableWidth = subPanel.ClientSize.Width - subPanel.Padding.Horizontal;
-
-                    foreach (Control subCtrl in subPanel.Controls)
+                    if (ctrl is RoundedButton btn) // Handles Dashboard and Parent buttons
                     {
-                        if (subCtrl is RoundedButton subBtn) // Handles child buttons
+                        btn.Width = targetControlWidth;
+                    }
+                    else if (ctrl is FlowLayoutPanel subPanel) // Handles sub-menu panels
+                    {
+                        // Calculate the available width within the subPanel *based on its target width*
+                        int subPanelTargetWidth = targetControlWidth;
+                        int subPanelAvailableWidth = subPanelTargetWidth - subPanel.Padding.Horizontal; // Estimate based on target
+
+                        foreach (Control subCtrl in subPanel.Controls)
                         {
-                            int subControlMarginHorizontal = subCtrl.Margin.Horizontal;
-                            int targetSubControlWidth = Math.Max(10, subPanelAvailableWidth - subControlMarginHorizontal);
-
-                            // Set max width first if needed, then width
-                            subBtn.MaximumSize = new Size(targetSubControlWidth, 0);
-                            subBtn.Width = targetSubControlWidth;
-
-                            // Recalculate height based on new width if AutoSize is true for height
-                            if (subBtn.AutoSize)
+                            if (subCtrl is RoundedButton subBtn) // Handles child buttons
                             {
-                                // Ensure text is not empty before measuring
-                                string buttonText = subBtn.Text?.TrimStart() ?? string.Empty;
-                                if (!string.IsNullOrEmpty(buttonText))
-                                {
-                                    subBtn.Height = Math.Max(35, CalculateButtonHeight(subBtn, buttonText, subBtn.Font, subBtn.Width - subBtn.Padding.Horizontal - (subBtn.Image != null ? subBtn.Image.Width + 5 : 0))); // Adjust for padding and image
-                                }
-                                else {
-                                    subBtn.Height = 35; // Default height if no text
-                                }
+                                int subControlMarginHorizontal = subCtrl.Margin.Horizontal;
+                                int targetSubControlWidth = Math.Max(10, subPanelAvailableWidth - subControlMarginHorizontal);
+
+                                // Set max width first if needed, then width
+                                subBtn.MaximumSize = new Size(targetSubControlWidth, 0);
+                                // Temporarily disable AutoSize and set fixed height during resize update
+                                subBtn.AutoSize = false;
+                                subBtn.Width = targetSubControlWidth;
+                                subBtn.Height = 35; // Use a fixed height (adjust if needed)
                             }
                         }
+                        // Now set the subPanel's width *after* children have been adjusted
+                        subPanel.Width = subPanelTargetWidth;
                     }
                 }
+            }
+            finally
+            {
+                // Resume layout and force an immediate update
+                flpMenu.ResumeLayout(true);
             }
         }
 
@@ -601,12 +582,21 @@ namespace STOCK.Forms
 
         // Event handler for the main form's Resize event
         private void Main_Resize(object sender, EventArgs e)
-        {
-            // Avoid adjustments during minimization or maximization transitions if causing issues,
-            // but generally, updating on Normal state is key.
-            if (this.WindowState == FormWindowState.Normal || this.WindowState == FormWindowState.Maximized) // Update in both states
-            {
-                // Determine the target width based on the current state
+         {
+             // Check if restoring from Maximized to Normal and a submenu is open
+             if (_previousWindowState == FormWindowState.Maximized && this.WindowState == FormWindowState.Normal && currentExpandedPanel != null)
+             {
+                 // Force rebuild of the menu as a workaround for layout issues
+                 LeftMenu();
+                 // Ensure the previously open menu is re-opened (optional, might cause flicker)
+                 // If currentExpandedButton is not null, simulate a click? Or find the panel and set Visible = true?
+                 // This part might need refinement based on desired behavior after rebuild.
+                 // For now, just rebuilding might be sufficient, user might need to reopen menu.
+             }
+             // Original resize logic for general width adjustments
+             else if (this.WindowState == FormWindowState.Normal || this.WindowState == FormWindowState.Maximized) // Update in both states
+             {
+                 // Determine the target width based on the current state
                 int targetWidth = isSidebarExpanded ? expandedSidebarWidth : collapsedSidebarWidth;
 
                 // Check if the form is fully loaded and widths are calculated
@@ -616,12 +606,19 @@ namespace STOCK.Forms
                      if (flpMenu.Width != targetWidth)
                      {
                          flpMenu.Width = targetWidth;
-                     }
+                      }
 
-                     // Update the widths of controls inside the sidebar immediately
-                     UpdateSidebarControlWidths();
-                }
-            }
-        }
+                      // Update the widths of controls inside the sidebar using BeginInvoke
+                      // This defers the update slightly, allowing the resize event to complete first.
+                      this.BeginInvoke(new MethodInvoker(() => {
+                          UpdateSidebarControlWidths();
+                          // Also force layout on the main menu panel after children are updated
+                          flpMenu.PerformLayout();
+                      }));
+                  }
+              }
+              // Update previous window state for next resize event
+              _previousWindowState = this.WindowState;
+          }
     }
 }

@@ -180,6 +180,28 @@ namespace BusinessLayer.DataModels
             return false;
         }
 
+        public void deleteAll(Guid khoact)
+        {
+            int index = db.tb_InvoiceDetail.Count(x => x.InvoiceID == khoact);
+            for (int i = 0; i < index; i++)
+            {
+                tb_InvoiceDetail chungtuct = db.tb_InvoiceDetail.FirstOrDefault(x => x.InvoiceID == khoact);
+                if (chungtuct != null)
+                {
+                    try
+                    {
+                        db.tb_InvoiceDetail.Remove(chungtuct); // Xóa bản ghi khỏi cơ sở dữ liệu
+                        db.SaveChanges(); // Lưu thay đổi
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Có lỗi xảy ra trong quá trình xử lý dữ liệu." + ex.Message);
+                    }
+                }
+            }
+
+        }
+
         // Cập nhật số thứ tự cho tất cả chi tiết hóa đơn
         public void updateSTT(Guid invoiceId)
         {
