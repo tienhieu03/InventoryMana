@@ -148,6 +148,11 @@
     <Compile Include="Controls\PurchaseInvoiceControl.Designer.cs">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataSet\dsRetailInvoice.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsRetailInvoice.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PosControls\frmDiscount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -348,6 +353,7 @@
     </Compile>
     <EmbeddedResource Include="RDLCReport\PurchaseInvoice.rdlc" />
     <EmbeddedResource Include="RDLCReport\RecInnerInvoice.rdlc" />
+    <EmbeddedResource Include="RDLCReport\Retail.rdlc" />
     <EmbeddedResource Include="RDLCReport\WholeSale.rdlc" />
     <None Include="DataSet\dsInvoice.xsc">
       <DependentUpon>dsInvoice.xsd</DependentUpon>
@@ -392,6 +398,17 @@
     </None>
     <None Include="DataSet\dsInvoiceWholeSale.xss">
       <DependentUpon>dsInvoiceWholeSale.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsRetailInvoice.xsc">
+      <DependentUpon>dsRetailInvoice.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsRetailInvoice.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsRetailInvoice.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsRetailInvoice.xss">
+      <DependentUpon>dsRetailInvoice.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

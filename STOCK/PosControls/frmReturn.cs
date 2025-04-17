@@ -48,6 +48,7 @@ namespace STOCK.PosControls
                 if (item.Quantity < int.Parse(txtQuantity.Text))
                 {
                     MessageBox.Show("Số lượng trả không được lớn hơn số lượng mua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return; // Exit the method if quantity is invalid
                 }
                 _lstInvoiceDetail.Add(obj);
                 _dgvRetail.DataSource = _lstInvoiceDetail.ToList();
