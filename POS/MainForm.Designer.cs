@@ -1,13 +1,13 @@
-﻿﻿﻿﻿namespace STOCK.Controls
+﻿namespace POS
 {
-    partial class RetailInvoice
+    partial class MainForm
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,10 +20,10 @@
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
+        #region Windows Form Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -32,7 +32,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RetailInvoice));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.customPanel1 = new SharedControls.CustomPanel();
             this.dgvRetail = new System.Windows.Forms.DataGridView();
             this.BARCODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,24 +44,63 @@
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DiscountAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.customPanel1 = new SharedControls.CustomPanel();
-            this.txtTotalPrice = new MaterialSkin.Controls.MaterialMaskedTextBox();
-            this.txtTotalQuantity = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            this.txtTotalQuantity = new System.Windows.Forms.MaskedTextBox();
+            this.txtTotalPrice = new System.Windows.Forms.MaskedTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnDiscount = new System.Windows.Forms.Button();
             this.btnReturn = new System.Windows.Forms.Button();
+            this.btnDiscount = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.txtBarcode = new System.Windows.Forms.MaskedTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.customPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.customPanel1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.txtTotalQuantity);
+            this.splitContainer1.Panel2.Controls.Add(this.txtTotalPrice);
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.btnReturn);
+            this.splitContainer1.Panel2.Controls.Add(this.btnDiscount);
+            this.splitContainer1.Panel2.Controls.Add(this.btnSave);
+            this.splitContainer1.Panel2.Controls.Add(this.btnPrint);
+            this.splitContainer1.Panel2.Controls.Add(this.txtBarcode);
+            this.splitContainer1.Size = new System.Drawing.Size(1181, 635);
+            this.splitContainer1.SplitterDistance = 479;
+            this.splitContainer1.TabIndex = 2;
+            // 
+            // customPanel1
+            // 
+            this.customPanel1.BackColor = System.Drawing.Color.White;
+            this.customPanel1.BorderRadius = 30;
+            this.customPanel1.Controls.Add(this.dgvRetail);
+            this.customPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customPanel1.ForeColor = System.Drawing.Color.Black;
+            this.customPanel1.GradientAngle = 90F;
+            this.customPanel1.GradientBottomColor = System.Drawing.Color.CadetBlue;
+            this.customPanel1.GradientTopColor = System.Drawing.Color.DodgerBlue;
+            this.customPanel1.Location = new System.Drawing.Point(0, 0);
+            this.customPanel1.Name = "customPanel1";
+            this.customPanel1.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
+            this.customPanel1.Size = new System.Drawing.Size(1181, 479);
+            this.customPanel1.TabIndex = 7;
             // 
             // dgvRetail
             // 
@@ -102,7 +143,7 @@
             this.dgvRetail.Location = new System.Drawing.Point(4, 0);
             this.dgvRetail.Name = "dgvRetail";
             this.dgvRetail.ReadOnly = true;
-            this.dgvRetail.Size = new System.Drawing.Size(940, 277);
+            this.dgvRetail.Size = new System.Drawing.Size(1173, 464);
             this.dgvRetail.TabIndex = 0;
             // 
             // BARCODE
@@ -170,225 +211,117 @@
             this.SubTotal.Name = "SubTotal";
             this.SubTotal.ReadOnly = true;
             // 
-            // splitContainer1
+            // txtTotalQuantity
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.customPanel1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.txtTotalPrice);
-            this.splitContainer1.Panel2.Controls.Add(this.txtTotalQuantity);
-            this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.btnDiscount);
-            this.splitContainer1.Panel2.Controls.Add(this.btnReturn);
-            this.splitContainer1.Panel2.Controls.Add(this.btnSave);
-            this.splitContainer1.Panel2.Controls.Add(this.btnPrint);
-            this.splitContainer1.Panel2.Controls.Add(this.txtBarcode);
-            this.splitContainer1.Size = new System.Drawing.Size(948, 500);
-            this.splitContainer1.SplitterDistance = 292;
-            this.splitContainer1.TabIndex = 1;
-            // 
-            // customPanel1
-            // 
-            this.customPanel1.BackColor = System.Drawing.Color.White;
-            this.customPanel1.BorderRadius = 30;
-            this.customPanel1.Controls.Add(this.dgvRetail);
-            this.customPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customPanel1.ForeColor = System.Drawing.Color.Black;
-            this.customPanel1.GradientAngle = 90F;
-            this.customPanel1.GradientBottomColor = System.Drawing.Color.CadetBlue;
-            this.customPanel1.GradientTopColor = System.Drawing.Color.DodgerBlue;
-            this.customPanel1.Location = new System.Drawing.Point(0, 0);
-            this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
-            this.customPanel1.Size = new System.Drawing.Size(948, 292);
-            this.customPanel1.TabIndex = 7;
+            this.txtTotalQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTotalQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalQuantity.Location = new System.Drawing.Point(879, 2);
+            this.txtTotalQuantity.Name = "txtTotalQuantity";
+            this.txtTotalQuantity.Size = new System.Drawing.Size(125, 49);
+            this.txtTotalQuantity.TabIndex = 25;
             // 
             // txtTotalPrice
             // 
-            this.txtTotalPrice.AllowPromptAsInput = true;
-            this.txtTotalPrice.AnimateReadOnly = false;
-            this.txtTotalPrice.AsciiOnly = false;
-            this.txtTotalPrice.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.txtTotalPrice.BeepOnError = false;
-            this.txtTotalPrice.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
-            this.txtTotalPrice.Depth = 0;
-            this.txtTotalPrice.Enabled = false;
-            this.txtTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.txtTotalPrice.HidePromptOnLeave = false;
-            this.txtTotalPrice.HideSelection = true;
-            this.txtTotalPrice.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
-            this.txtTotalPrice.LeadingIcon = null;
-            this.txtTotalPrice.Location = new System.Drawing.Point(792, 11);
-            this.txtTotalPrice.Mask = "";
-            this.txtTotalPrice.MaxLength = 32767;
-            this.txtTotalPrice.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtTotalPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalPrice.Location = new System.Drawing.Point(1044, 2);
             this.txtTotalPrice.Name = "txtTotalPrice";
-            this.txtTotalPrice.PasswordChar = '\0';
-            this.txtTotalPrice.PrefixSuffixText = null;
-            this.txtTotalPrice.PromptChar = '_';
-            this.txtTotalPrice.ReadOnly = false;
-            this.txtTotalPrice.RejectInputOnFirstFailure = false;
-            this.txtTotalPrice.ResetOnPrompt = true;
-            this.txtTotalPrice.ResetOnSpace = true;
-            this.txtTotalPrice.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtTotalPrice.SelectedText = "";
-            this.txtTotalPrice.SelectionLength = 0;
-            this.txtTotalPrice.SelectionStart = 0;
-            this.txtTotalPrice.ShortcutsEnabled = true;
-            this.txtTotalPrice.Size = new System.Drawing.Size(126, 48);
-            this.txtTotalPrice.SkipLiterals = true;
-            this.txtTotalPrice.TabIndex = 9;
-            this.txtTotalPrice.TabStop = false;
-            this.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtTotalPrice.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
-            this.txtTotalPrice.TrailingIcon = null;
-            this.txtTotalPrice.UseSystemPasswordChar = false;
-            this.txtTotalPrice.ValidatingType = null;
-            // 
-            // txtTotalQuantity
-            // 
-            this.txtTotalQuantity.AllowPromptAsInput = true;
-            this.txtTotalQuantity.AnimateReadOnly = false;
-            this.txtTotalQuantity.AsciiOnly = false;
-            this.txtTotalQuantity.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.txtTotalQuantity.BeepOnError = false;
-            this.txtTotalQuantity.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
-            this.txtTotalQuantity.Depth = 0;
-            this.txtTotalQuantity.Enabled = false;
-            this.txtTotalQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.txtTotalQuantity.HidePromptOnLeave = false;
-            this.txtTotalQuantity.HideSelection = true;
-            this.txtTotalQuantity.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
-            this.txtTotalQuantity.LeadingIcon = null;
-            this.txtTotalQuantity.Location = new System.Drawing.Point(674, 11);
-            this.txtTotalQuantity.Mask = "";
-            this.txtTotalQuantity.MaxLength = 32767;
-            this.txtTotalQuantity.MouseState = MaterialSkin.MouseState.OUT;
-            this.txtTotalQuantity.Name = "txtTotalQuantity";
-            this.txtTotalQuantity.PasswordChar = '\0';
-            this.txtTotalQuantity.PrefixSuffixText = null;
-            this.txtTotalQuantity.PromptChar = '_';
-            this.txtTotalQuantity.ReadOnly = false;
-            this.txtTotalQuantity.RejectInputOnFirstFailure = false;
-            this.txtTotalQuantity.ResetOnPrompt = true;
-            this.txtTotalQuantity.ResetOnSpace = true;
-            this.txtTotalQuantity.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtTotalQuantity.SelectedText = "";
-            this.txtTotalQuantity.SelectionLength = 0;
-            this.txtTotalQuantity.SelectionStart = 0;
-            this.txtTotalQuantity.ShortcutsEnabled = true;
-            this.txtTotalQuantity.Size = new System.Drawing.Size(112, 48);
-            this.txtTotalQuantity.SkipLiterals = true;
-            this.txtTotalQuantity.TabIndex = 8;
-            this.txtTotalQuantity.TabStop = false;
-            this.txtTotalQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtTotalQuantity.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
-            this.txtTotalQuantity.TrailingIcon = null;
-            this.txtTotalQuantity.UseSystemPasswordChar = false;
-            this.txtTotalQuantity.ValidatingType = null;
+            this.txtTotalPrice.Size = new System.Drawing.Size(125, 49);
+            this.txtTotalPrice.TabIndex = 24;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(21, 93);
+            this.pictureBox1.Location = new System.Drawing.Point(4, 67);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(77, 53);
+            this.pictureBox1.Size = new System.Drawing.Size(76, 58);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabIndex = 23;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnDiscount
-            // 
-            this.btnDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDiscount.Location = new System.Drawing.Point(674, 93);
-            this.btnDiscount.Name = "btnDiscount";
-            this.btnDiscount.Size = new System.Drawing.Size(112, 53);
-            this.btnDiscount.TabIndex = 4;
-            this.btnDiscount.Text = "Discount";
-            this.btnDiscount.UseVisualStyleBackColor = true;
-            this.btnDiscount.Click += new System.EventHandler(this.btnDiscount_Click);
             // 
             // btnReturn
             // 
+            this.btnReturn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReturn.Location = new System.Drawing.Point(792, 93);
+            this.btnReturn.Location = new System.Drawing.Point(1044, 72);
             this.btnReturn.Name = "btnReturn";
             this.btnReturn.Size = new System.Drawing.Size(126, 53);
-            this.btnReturn.TabIndex = 3;
+            this.btnReturn.TabIndex = 21;
             this.btnReturn.Text = "Return Product";
             this.btnReturn.UseVisualStyleBackColor = true;
             this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
             // 
+            // btnDiscount
+            // 
+            this.btnDiscount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDiscount.Location = new System.Drawing.Point(549, 72);
+            this.btnDiscount.Name = "btnDiscount";
+            this.btnDiscount.Size = new System.Drawing.Size(126, 53);
+            this.btnDiscount.TabIndex = 22;
+            this.btnDiscount.Text = "Discount";
+            this.btnDiscount.UseVisualStyleBackColor = true;
+            this.btnDiscount.Click += new System.EventHandler(this.btnDiscount_Click);
+            // 
             // btnSave
             // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(556, 93);
+            this.btnSave.Location = new System.Drawing.Point(879, 72);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(112, 53);
-            this.btnSave.TabIndex = 2;
+            this.btnSave.Size = new System.Drawing.Size(126, 53);
+            this.btnSave.TabIndex = 20;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnPrint
             // 
+            this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrint.Location = new System.Drawing.Point(436, 93);
+            this.btnPrint.Location = new System.Drawing.Point(715, 72);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(114, 53);
-            this.btnPrint.TabIndex = 1;
+            this.btnPrint.Size = new System.Drawing.Size(126, 53);
+            this.btnPrint.TabIndex = 19;
             this.btnPrint.Text = "Print Bill";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // txtBarcode
             // 
+            this.txtBarcode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBarcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBarcode.Location = new System.Drawing.Point(104, 96);
+            this.txtBarcode.Location = new System.Drawing.Point(86, 72);
             this.txtBarcode.Name = "txtBarcode";
-            this.txtBarcode.Size = new System.Drawing.Size(294, 53);
-            this.txtBarcode.TabIndex = 0;
+            this.txtBarcode.Size = new System.Drawing.Size(369, 53);
+            this.txtBarcode.TabIndex = 18;
             this.txtBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcode_KeyDown);
             // 
-            // RetailInvoice
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1181, 635);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "RetailInvoice";
-            this.Size = new System.Drawing.Size(948, 500);
-            this.Load += new System.EventHandler(this.RetailInvoice_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRetail)).EndInit();
+            this.Name = "MainForm";
+            this.Text = "MainForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.customPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private SharedControls.CustomPanel customPanel1;
-        private System.Windows.Forms.MaskedTextBox txtBarcode;
-        private System.Windows.Forms.Button btnDiscount;
-        private System.Windows.Forms.Button btnReturn;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtTotalPrice;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtTotalQuantity;
         public System.Windows.Forms.DataGridView dgvRetail;
         private System.Windows.Forms.DataGridViewTextBoxColumn BARCODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
@@ -398,5 +331,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn DiscountAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnReturn;
+        private System.Windows.Forms.Button btnDiscount;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.MaskedTextBox txtBarcode;
+        private System.Windows.Forms.MaskedTextBox txtTotalQuantity;
+        private System.Windows.Forms.MaskedTextBox txtTotalPrice;
     }
 }

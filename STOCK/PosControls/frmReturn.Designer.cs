@@ -74,6 +74,7 @@
             this.MinimizeBox = false;
             this.Name = "frmReturn";
             this.Padding = new System.Windows.Forms.Padding(3, 24, 3, 3);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmReturn";
             this.Load += new System.EventHandler(this.frmReturn_Load);
             this.ResumeLayout(false);

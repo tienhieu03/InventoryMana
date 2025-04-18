@@ -7,38 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BusinessLayer;
 using BusinessLayer.DataModels;
 using BusinessLayer.Utils;
-using BusinessLayer;
 using DataLayer;
 using MATERIAL.MyFunctions;
-using System.Collections;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using STOCK.DataSet;
-using STOCK.StockHelpers;
-using STOCK.PosControls;
 using Microsoft.Reporting.WinForms;
 using STOCK.Forms;
+using STOCK.PosControls;
 
-namespace STOCK.Controls
+namespace POS
 {
-    public partial class RetailInvoice : UserControl
+    public partial class MainForm : Form
     {
-        public RetailInvoice()
+        public MainForm()
         {
             InitializeComponent();
         }
-        public RetailInvoice(tb_SYS_USER user, int right) // Renamed parameters for clarity
+
+        public MainForm(tb_SYS_USER user)
         {
             InitializeComponent();
-            this._user = user; // Assign the passed user object to the class field
-            this._right = right; // Assign the passed right value to the class field
+            this._user = user;
         }
         tb_SYS_USER _user;
         int _right;
-        // List<tb_Invoice> _lstInvoice; // Replaced by _fullInvoiceListForPeriod
-        List<tb_Invoice> _fullInvoiceListForPeriod; // Stores the full list for filtering
-        // Dictionary<int, tb_Customer> _allCustomersDict; // Removed as CustomerID is not in tb_Invoice for filtering
+
+        List<tb_Invoice> _fullInvoiceListForPeriod;
 
         string err = "";
         string discount;
@@ -58,9 +53,10 @@ namespace STOCK.Controls
 
         List<obj_INVOICE_DETAIL> lstInvoiceDetail;
 
-        // Thêm biến điều khiển cho phép chuyển tab hay không
         bool _allowTabChange = false;
-        private void RetailInvoice_Load(object sender, EventArgs e)
+
+
+        private void MainForm_Load(object sender, EventArgs e)
         {
             dgvRetail.AutoGenerateColumns = false;
 
@@ -75,6 +71,13 @@ namespace STOCK.Controls
             // Initialize BindingSources
             _bsInvoice = new BindingSource();
             _bsInvoiceDT = new BindingSource();
+        }
+
+        private void btnDiscount_Click(object sender, EventArgs e)
+        {
+            frmDiscount frm = new frmDiscount(dgvRetail);
+            frm.ShowDialog();
+            discount = frm.txtDiscount.Text;
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -110,7 +113,6 @@ namespace STOCK.Controls
             UpdateTotals(); // Update totals after clearing
         }
 
-        // Modified exportReport to accept invoice and details directly
         private void exportReport(string _reportName, string _tieude, tb_Invoice currentInvoice, List<obj_INVOICE_DETAIL> details)
         {
             // Parameter validation
@@ -121,13 +123,13 @@ namespace STOCK.Controls
             }
             if (details == null || details.Count == 0)
             {
-                 // Optionally try to reload details if needed as a fallback
-                 details = _invoiceDetail.getListbyIDFull(currentInvoice.InvoiceID);
-                 if (details == null || details.Count == 0)
-                 {
+                // Optionally try to reload details if needed as a fallback
+                details = _invoiceDetail.getListbyIDFull(currentInvoice.InvoiceID);
+                if (details == null || details.Count == 0)
+                {
                     MessageBox.Show("Invoice details are missing or empty for the report.", "Report Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                 }
+                }
             }
 
             // Fetch related data using the passed currentInvoice
@@ -220,71 +222,12 @@ namespace STOCK.Controls
             dgvRetail.DataSource = lstInvoiceDetail;
         }
 
-        private void btnDiscount_Click(object sender, EventArgs e)
-        {
-            frmDiscount frm = new frmDiscount(dgvRetail);
-            frm.ShowDialog();
-            discount = frm.txtDiscount.Text;
-        }
-
         private void btnReturn_Click(object sender, EventArgs e)
         {
             frmReturn frm = new frmReturn(lstInvoiceDetail, dgvRetail);
             frm.ShowDialog();
             UpdateTotals();
         }
-
-        private void txtBarcode_KeyDown(object sender, KeyEventArgs e)
-        {
-            int index = 0;
-            if(e.KeyCode == Keys.Enter)
-            {
-                if (!myFunctions.sIsNumber(txtBarcode.Text))
-                {
-                    MessageBox.Show("Mã hàng không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                var hh = _product.getItemBarcode(txtBarcode.Text);
-                if (hh == null)
-                {
-                    MessageBox.Show("Mã hàng không có trong danh mục.","Thông báo",MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                obj_INVOICE_DETAIL invoiceDetail = new obj_INVOICE_DETAIL();
-                obj_PRODUCT _pd = new obj_PRODUCT();
-
-                _pd = _product.getItemFull(txtBarcode.Text);
-                invoiceDetail.ProductID = _pd.ProductID;
-                invoiceDetail.BARCODE = _pd.BARCODE;
-                invoiceDetail.ProductName = _pd.ProductName;
-                invoiceDetail.Unit = _pd.Unit;
-                invoiceDetail.Quantity = 1;
-                invoiceDetail.Price = _pd.Price;
-                invoiceDetail.SubTotal = invoiceDetail.Quantity * invoiceDetail.Price;
-                if(lstInvoiceDetail.Count > 0)
-                {
-                    var existingItem = lstInvoiceDetail.FirstOrDefault(x => x.BARCODE == txtBarcode.Text);
-                    if (existingItem != null)
-                    {
-                        index = lstInvoiceDetail.IndexOf(existingItem);
-                        lstInvoiceDetail[index].Quantity = existingItem.Quantity + 1;
-                        lstInvoiceDetail[index].SubTotal = lstInvoiceDetail[index].Quantity * existingItem.Price;
-                    }
-                    else
-                    {
-                        lstInvoiceDetail.Add(invoiceDetail);
-                    }
-                }
-                else
-                    lstInvoiceDetail.Add(invoiceDetail);
-
-                dgvRetail.DataSource = lstInvoiceDetail.ToList();
-                UpdateTotals(); // Add this line to update totals
-                txtBarcode.Clear();
-            }
-        }
-
         private void UpdateTotals()
         {
             double totalQuantity = 0;
@@ -303,10 +246,9 @@ namespace STOCK.Controls
             txtTotalQuantity.Text = totalQuantity.ToString();
             txtTotalPrice.Text = totalPrice.ToString("N0"); // Format as number with thousand separators, no decimals
         }
-
         private void saveData()
         {
-            tb_Invoice invoice  = new tb_Invoice();
+            tb_Invoice invoice = new tb_Invoice();
             Invoice_Infor(invoice);
             var result = _invoice.add(invoice);
             _pinvoiceID = result.InvoiceID;
@@ -387,8 +329,8 @@ namespace STOCK.Controls
             {
                 invoice.DiscountAmount = 0; // Default discount if not provided
             }
-            
-            invoice.CompanyID = myFunctions._compid; 
+
+            invoice.CompanyID = myFunctions._compid;
             invoice.DepartmentID = departmentid;
             invoice.ReceivingDepartmentID = "1";
             invoice.Status = 2; // Consider if this should be dynamic
@@ -409,6 +351,57 @@ namespace STOCK.Controls
 
             invoice.UpdatedBy = _user.UserID; // Ensure _user is assigned
             invoice.UpdatedDate = DateTime.Now;
+        }
+
+        private void txtBarcode_KeyDown(object sender, KeyEventArgs e)
+        {
+            int index = 0;
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!myFunctions.sIsNumber(txtBarcode.Text))
+                {
+                    MessageBox.Show("Mã hàng không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                var hh = _product.getItemBarcode(txtBarcode.Text);
+                if (hh == null)
+                {
+                    MessageBox.Show("Mã hàng không có trong danh mục.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                obj_INVOICE_DETAIL invoiceDetail = new obj_INVOICE_DETAIL();
+                obj_PRODUCT _pd = new obj_PRODUCT();
+
+                _pd = _product.getItemFull(txtBarcode.Text);
+                invoiceDetail.ProductID = _pd.ProductID;
+                invoiceDetail.BARCODE = _pd.BARCODE;
+                invoiceDetail.ProductName = _pd.ProductName;
+                invoiceDetail.Unit = _pd.Unit;
+                invoiceDetail.Quantity = 1;
+                invoiceDetail.Price = _pd.Price;
+                invoiceDetail.SubTotal = invoiceDetail.Quantity * invoiceDetail.Price;
+                if (lstInvoiceDetail.Count > 0)
+                {
+                    var existingItem = lstInvoiceDetail.FirstOrDefault(x => x.BARCODE == txtBarcode.Text);
+                    if (existingItem != null)
+                    {
+                        index = lstInvoiceDetail.IndexOf(existingItem);
+                        lstInvoiceDetail[index].Quantity = existingItem.Quantity + 1;
+                        lstInvoiceDetail[index].SubTotal = lstInvoiceDetail[index].Quantity * existingItem.Price;
+                    }
+                    else
+                    {
+                        lstInvoiceDetail.Add(invoiceDetail);
+                    }
+                }
+                else
+                    lstInvoiceDetail.Add(invoiceDetail);
+
+                dgvRetail.DataSource = lstInvoiceDetail.ToList();
+                UpdateTotals(); // Add this line to update totals
+                txtBarcode.Clear();
+            }
         }
     }
 }
