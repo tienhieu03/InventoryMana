@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonToolStrip1 = new Krypton.Toolkit.KryptonToolStrip();
             this.btnPrintBarcode = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.cboCategory = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,7 +45,6 @@
             this.ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StampNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.kryptonToolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -79,13 +79,19 @@
             this.btnPrintBarcode.Name = "btnPrintBarcode";
             this.btnPrintBarcode.Size = new System.Drawing.Size(102, 32);
             this.btnPrintBarcode.Text = "Print Barcode";
+            this.btnPrintBarcode.Click += new System.EventHandler(this.btnPrintBarcode_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
             // 
             // toolStripButton2
             // 
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(50, 32);
+            this.toolStripButton2.Size = new System.Drawing.Size(49, 32);
             this.toolStripButton2.Text = "Exit";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -157,7 +163,7 @@
             this.dgvList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -172,7 +178,7 @@
             this.StampNumber});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
@@ -182,8 +188,9 @@
             this.dgvList.EnableHeadersVisualStyles = false;
             this.dgvList.Location = new System.Drawing.Point(4, 0);
             this.dgvList.Name = "dgvList";
-            this.dgvList.ReadOnly = true;
+            this.dgvList.RowHeadersVisible = false;
             this.dgvList.RowHeadersWidth = 51;
+            this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvList.Size = new System.Drawing.Size(787, 354);
             this.dgvList.TabIndex = 0;
             // 
@@ -193,7 +200,6 @@
             this.BARCODE.HeaderText = "BARCODE";
             this.BARCODE.MinimumWidth = 6;
             this.BARCODE.Name = "BARCODE";
-            this.BARCODE.ReadOnly = true;
             this.BARCODE.Width = 130;
             // 
             // ProductName
@@ -203,7 +209,6 @@
             this.ProductName.HeaderText = "ProductName";
             this.ProductName.MinimumWidth = 6;
             this.ProductName.Name = "ProductName";
-            this.ProductName.ReadOnly = true;
             // 
             // ShortName
             // 
@@ -211,7 +216,6 @@
             this.ShortName.HeaderText = "ShortName";
             this.ShortName.MinimumWidth = 6;
             this.ShortName.Name = "ShortName";
-            this.ShortName.ReadOnly = true;
             this.ShortName.Width = 125;
             // 
             // Price
@@ -220,7 +224,6 @@
             this.Price.HeaderText = "Price";
             this.Price.MinimumWidth = 6;
             this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
             this.Price.Width = 125;
             // 
             // StampNumber
@@ -228,13 +231,7 @@
             this.StampNumber.HeaderText = "Stamp Number";
             this.StampNumber.MinimumWidth = 6;
             this.StampNumber.Name = "StampNumber";
-            this.StampNumber.ReadOnly = true;
             this.StampNumber.Width = 150;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
             // 
             // formPrintBarcode
             // 

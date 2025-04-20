@@ -441,6 +441,10 @@ namespace STOCK.Forms
                             {
                                 ShowUserControl(new RetailInvoice(_currentUser, currentUserRight));
                             }
+                            else if (_ch.FUNC_CODE == "COMPANY STOCK")
+                            {
+                                ShowUserControl(new CompanyStock(_currentUser, currentUserRight));
+                            }
                             else if (_ch.FUNC_CODE == "PERMISSION")
                             {
                                 UserManagement.formMain frmUserManagement = new UserManagement.formMain();

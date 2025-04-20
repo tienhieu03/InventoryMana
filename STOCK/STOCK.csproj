@@ -86,6 +86,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="zxing, Version=0.16.10.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.10\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.10.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.10\lib\net47\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\CompanyControl.cs">
@@ -93,6 +99,12 @@
     </Compile>
     <Compile Include="Controls\CompanyControl.Designer.cs">
       <DependentUpon>CompanyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CompanyStock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CompanyStock.Designer.cs">
+      <DependentUpon>CompanyStock.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\DashBoard.cs">
       <SubType>UserControl</SubType>
@@ -148,10 +160,21 @@
     <Compile Include="Controls\PurchaseInvoiceControl.Designer.cs">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataSet\dsBarcode.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsBarcode.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSet\dsRetailInvoice.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsRetailInvoice.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PopUpForm\FormBarcodeRDLC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUpForm\FormBarcodeRDLC.Designer.cs">
+      <DependentUpon>FormBarcodeRDLC.cs</DependentUpon>
     </Compile>
     <Compile Include="PosControls\frmDiscount.cs">
       <SubType>Form</SubType>
@@ -272,6 +295,9 @@
     <EmbeddedResource Include="Controls\CompanyControl.resx">
       <DependentUpon>CompanyControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CompanyStock.resx">
+      <DependentUpon>CompanyStock.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\DashBoard.resx">
       <DependentUpon>DashBoard.cs</DependentUpon>
     </EmbeddedResource>
@@ -298,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PurchaseInvoiceControl.resx">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUpForm\FormBarcodeRDLC.resx">
+      <DependentUpon>FormBarcodeRDLC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PosControls\frmDiscount.resx">
       <DependentUpon>frmDiscount.cs</DependentUpon>
@@ -351,10 +380,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="RDLCReport\PrintBarcode.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RDLCReport\PurchaseInvoice.rdlc" />
     <EmbeddedResource Include="RDLCReport\RecInnerInvoice.rdlc" />
     <EmbeddedResource Include="RDLCReport\Retail.rdlc" />
     <EmbeddedResource Include="RDLCReport\WholeSale.rdlc" />
+    <None Include="DataSet\dsBarcode.xsc">
+      <DependentUpon>dsBarcode.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsBarcode.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBarcode.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsBarcode.xss">
+      <DependentUpon>dsBarcode.xsd</DependentUpon>
+    </None>
     <None Include="DataSet\dsInvoice.xsc">
       <DependentUpon>dsInvoice.xsd</DependentUpon>
     </None>

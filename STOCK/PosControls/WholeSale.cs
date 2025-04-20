@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -90,8 +90,55 @@ namespace POS.PosControls
 
             _bsInvoice.PositionChanged += _bsInvoice_PositionChanged; ;
             LoadCompany();
-            cboCompany.SelectedValue = myFunctions._compid;
-            cboCompany.SelectedIndexChanged += CboCompany_SelectedIndexChanged; ;
+            // Attach handler BEFORE setting value
+            cboCompany.SelectedIndexChanged += CboCompany_SelectedIndexChanged;
+
+            // Check if _compid is valid before trying to set the selection
+            if (!string.IsNullOrWhiteSpace(myFunctions._compid))
+            {
+                int selectedIndex = -1;
+                // Find the index of the item matching _compid in the DataSource
+                if (cboCompany.DataSource is List<tb_Company> companyList)
+                {
+                    for (int i = 0; i < companyList.Count; i++)
+                    {
+                        // Ensure case-insensitive comparison if CompanyID might have case variations
+                        if (string.Equals(companyList[i].CompanyID, myFunctions._compid, StringComparison.OrdinalIgnoreCase))
+                        {
+                            selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+                // Add checks for other potential DataSource types if necessary (e.g., DataTable)
+
+                if (selectedIndex != -1)
+                {
+                    // Index found, safe to set SelectedIndex
+                    cboCompany.SelectedIndex = selectedIndex;
+                    Console.WriteLine($"Successfully set cboCompany.SelectedIndex to {selectedIndex} for CompanyID: {myFunctions._compid}");
+                }
+                else
+                {
+                    // Value does not exist in the DataSource
+                    Console.WriteLine($"Warning: myFunctions._compid ('{myFunctions._compid}') not found in cboCompany DataSource. Cannot set selection by index.");
+                    // Optionally select the first item as a fallback
+                    if (cboCompany.Items.Count > 0 && cboCompany.SelectedIndex == -1)
+                    {
+                        // cboCompany.SelectedIndex = 0; // Uncomment to select the first item
+                        Console.WriteLine("Selecting first available company as fallback (index 0).");
+                    }
+                }
+            }
+            else
+            {
+                 Console.WriteLine("Warning: myFunctions._compid is null or empty. Skipping cboCompany selection assignment.");
+                 // Optionally select the first item if available and no default is set
+                 if (cboCompany.Items.Count > 0 && cboCompany.SelectedIndex == -1)
+                 {
+                    // cboCompany.SelectedIndex = 0; // Uncomment to select the first item if none is pre-selected
+                 }
+            }
 
             _status = _STATUS.getList();
             cboStatus.DataSource = _status;
@@ -260,6 +307,16 @@ namespace POS.PosControls
         }
         void LoadDepartment()
         {
+            // Add null check before accessing SelectedValue
+            if (cboCompany.SelectedValue == null)
+            {
+                Console.WriteLine("LoadDepartment: cboCompany.SelectedValue is null. Clearing cboDepartment.");
+                cboDepartment.DataSource = null;
+                // Optionally clear DisplayMember/ValueMember if needed
+                // cboDepartment.DisplayMember = "";
+                // cboDepartment.ValueMember = "";
+                return;
+            }
             cboDepartment.DataSource = _department.getAll(cboCompany.SelectedValue.ToString());
             cboDepartment.DisplayMember = "DepartmentName";
             cboDepartment.ValueMember = "DepartmentID";
@@ -268,6 +325,16 @@ namespace POS.PosControls
 
         void LoadExport()
         {
+            // Add null check before accessing SelectedValue
+            if (cboCompany.SelectedValue == null)
+            {
+                Console.WriteLine("LoadExport: cboCompany.SelectedValue is null. Clearing cboExportUnit.");
+                cboExportUnit.DataSource = null;
+                // Optionally clear DisplayMember/ValueMember if needed
+                // cboExportUnit.DisplayMember = "";
+                // cboExportUnit.ValueMember = "";
+                return;
+            }
             cboExportUnit.DataSource = _department.getAll(cboCompany.SelectedValue.ToString());
             cboExportUnit.DisplayMember = "DepartmentName";
             cboExportUnit.ValueMember = "DepartmentID";
@@ -712,8 +779,22 @@ namespace POS.PosControls
 
         private void CboCompany_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadDepartment(); 
-            LoadExport(); 
+            // Add null check here
+            if (cboCompany.SelectedValue == null)
+            {
+                // Handle the case where no company is selected
+                // Option 1: Clear dependent controls
+                cboDepartment.DataSource = null;
+                cboExportUnit.DataSource = null;
+                _fullInvoiceListForPeriod = new List<tb_Invoice>();
+                FilterInvoices(); // Clear the invoice list
+                Console.WriteLine("Company selection cleared or invalid. Cleared dependent controls.");
+                return; // Exit the handler
+            }
+
+            // Proceed only if SelectedValue is not null
+            LoadDepartment();
+            LoadExport();
             if (cboDepartment.Items.Count > 0)
             {
                  cboDepartment.SelectedIndex = 0;
