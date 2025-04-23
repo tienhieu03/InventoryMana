@@ -13,6 +13,7 @@ using BusinessLayer.DataModels;
 using ZXing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Drawing.Printing; // Added for PrintDocument
 using STOCK.PopUpForm;
 using SharedControls;
 
@@ -127,9 +128,8 @@ namespace STOCK.Forms
 
                     if (!string.IsNullOrEmpty(barcode)) // Only process if barcode exists
                     {
-                         // Assuming BarcodeHelper exists and works. If not, use the local GenerateBarcode method.
-                         // byte[] barcodeImage = GenerateBarcode(barcode); 
-                         byte[] barcodeImage = SharedControls.BarcodeHelper.GenerateBarcode(barcode); // Use SharedControls if BarcodeHelper is there
+                         // Use the local GenerateBarcode method since SharedControls.BarcodeHelper may not exist
+                         byte[] barcodeImage = GenerateBarcode(barcode);
 
                          // Add the row 'stampNumber' times
                          for (int i = 0; i < stampNumber; i++)
@@ -144,14 +144,11 @@ namespace STOCK.Forms
             {
                 MessageBox.Show("No valid barcodes selected or generated. Check selection and 'StampNumber' values.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-            }
+             }
 
-            // Gán vào RDLC
-            var rdlcForm = new FormBarcodeRDLC(dt);
-            rdlcForm.ShowDialog();
-        }
-
-        // Keep the local GenerateBarcode method in case BarcodeHelper is not accessible or intended
-        // public byte[] GenerateBarcode(string content) ... (existing method)
-    }
-}
+             // Show the updated FormBarcodeRDLC which now handles preview and printing
+             var barcodePreviewForm = new FormBarcodeRDLC(dt);
+             barcodePreviewForm.ShowDialog(); // Show the form modally
+         }
+     }
+ }

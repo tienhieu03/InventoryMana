@@ -1,13 +1,13 @@
-﻿namespace UserManagement.FuncForm
+﻿namespace UserManagement.UserControls
 {
-    partial class formFuncPermission
+    partial class UserPermissionControl
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,22 +20,19 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formFuncPermission));
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dgvUser = new System.Windows.Forms.DataGridView();
-            this.IsGroup = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserPermissionControl));
+            this.customPanel2 = new SharedControls.CustomPanel();
             this.dgvFunction = new System.Windows.Forms.DataGridView();
             this.FUNC_CODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fIsGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,105 +48,46 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnSelectAllChildren = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).BeginInit();
+            this.customPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFunction)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // customPanel2
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(4, 30);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.dgvUser);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.dgvFunction);
-            this.splitContainer1.Size = new System.Drawing.Size(1059, 520);
-            this.splitContainer1.SplitterDistance = 418;
-            this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // dgvUser
-            // 
-            this.dgvUser.AllowUserToAddRows = false;
-            this.dgvUser.AllowUserToDeleteRows = false;
-            this.dgvUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IsGroup,
-            this.UserName,
-            this.FullName,
-            this.UserID});
-            this.dgvUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvUser.Location = new System.Drawing.Point(0, 0);
-            this.dgvUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.dgvUser.Name = "dgvUser";
-            this.dgvUser.ReadOnly = true;
-            this.dgvUser.RowHeadersVisible = false;
-            this.dgvUser.RowHeadersWidth = 51;
-            this.dgvUser.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUser.Size = new System.Drawing.Size(418, 520);
-            this.dgvUser.TabIndex = 0;
-            this.dgvUser.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvUser_CellPainting);
-            this.dgvUser.Click += new System.EventHandler(this.dgvUser_Click);
-            // 
-            // IsGroup
-            // 
-            this.IsGroup.DataPropertyName = "IsGroup";
-            this.IsGroup.HeaderText = "IsGroup";
-            this.IsGroup.MinimumWidth = 6;
-            this.IsGroup.Name = "IsGroup";
-            this.IsGroup.ReadOnly = true;
-            this.IsGroup.Width = 125;
-            // 
-            // UserName
-            // 
-            this.UserName.DataPropertyName = "UserName";
-            this.UserName.HeaderText = "User Name";
-            this.UserName.MinimumWidth = 6;
-            this.UserName.Name = "UserName";
-            this.UserName.ReadOnly = true;
-            this.UserName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.UserName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.UserName.Width = 125;
-            // 
-            // FullName
-            // 
-            this.FullName.DataPropertyName = "FullName";
-            this.FullName.HeaderText = "Full Name";
-            this.FullName.MinimumWidth = 6;
-            this.FullName.Name = "FullName";
-            this.FullName.ReadOnly = true;
-            this.FullName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.FullName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.FullName.Width = 125;
-            // 
-            // UserID
-            // 
-            this.UserID.DataPropertyName = "UserID";
-            this.UserID.HeaderText = "UserID";
-            this.UserID.MinimumWidth = 6;
-            this.UserID.Name = "UserID";
-            this.UserID.ReadOnly = true;
-            this.UserID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.UserID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.UserID.Visible = false;
-            this.UserID.Width = 125;
+            this.customPanel2.BackColor = System.Drawing.Color.White;
+            this.customPanel2.BorderRadius = 30;
+            this.customPanel2.Controls.Add(this.dgvFunction);
+            this.customPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customPanel2.ForeColor = System.Drawing.Color.Black;
+            this.customPanel2.GradientAngle = 90F;
+            this.customPanel2.GradientBottomColor = System.Drawing.Color.CadetBlue;
+            this.customPanel2.GradientTopColor = System.Drawing.Color.DodgerBlue;
+            this.customPanel2.Location = new System.Drawing.Point(0, 0);
+            this.customPanel2.Name = "customPanel2";
+            this.customPanel2.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
+            this.customPanel2.Size = new System.Drawing.Size(525, 437);
+            this.customPanel2.TabIndex = 8;
             // 
             // dgvFunction
             // 
             this.dgvFunction.AllowUserToAddRows = false;
             this.dgvFunction.AllowUserToDeleteRows = false;
-            this.dgvFunction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFunction.AllowUserToResizeColumns = false;
+            this.dgvFunction.AllowUserToResizeRows = false;
+            this.dgvFunction.BackgroundColor = System.Drawing.Color.White;
+            this.dgvFunction.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvFunction.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvFunction.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(145)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvFunction.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvFunction.ColumnHeadersHeight = 35;
             this.dgvFunction.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.FUNC_CODE,
             this.fIsGroup,
@@ -157,17 +95,26 @@
             this.Permission,
             this.Parent});
             this.dgvFunction.ContextMenuStrip = this.contextMenuStrip1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFunction.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvFunction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvFunction.Location = new System.Drawing.Point(0, 0);
-            this.dgvFunction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvFunction.EnableHeadersVisualStyles = false;
+            this.dgvFunction.Location = new System.Drawing.Point(4, 0);
             this.dgvFunction.Name = "dgvFunction";
             this.dgvFunction.ReadOnly = true;
             this.dgvFunction.RowHeadersVisible = false;
             this.dgvFunction.RowHeadersWidth = 51;
             this.dgvFunction.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFunction.Size = new System.Drawing.Size(636, 520);
+            this.dgvFunction.Size = new System.Drawing.Size(517, 422);
             this.dgvFunction.TabIndex = 1;
             this.dgvFunction.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvFunction_CellFormatting);
+            this.dgvFunction.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFunction_CellMouseDown);
             // 
             // FUNC_CODE
             // 
@@ -196,16 +143,16 @@
             this.Description.MinimumWidth = 6;
             this.Description.Name = "Description";
             this.Description.ReadOnly = true;
-            this.Description.Width = 125;
+            this.Description.Width = 170;
             // 
             // Permission
             // 
+            this.Permission.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Permission.DataPropertyName = "Access";
             this.Permission.HeaderText = "Permission";
             this.Permission.MinimumWidth = 6;
             this.Permission.Name = "Permission";
             this.Permission.ReadOnly = true;
-            this.Permission.Width = 125;
             // 
             // Parent
             // 
@@ -230,48 +177,48 @@
             this.toolStripSeparator3,
             this.mnSelectAllChildren});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(248, 146);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(213, 110);
             // 
             // mnLockFunction
             // 
             this.mnLockFunction.Name = "mnLockFunction";
-            this.mnLockFunction.Size = new System.Drawing.Size(247, 24);
+            this.mnLockFunction.Size = new System.Drawing.Size(212, 22);
             this.mnLockFunction.Text = "Lock Function";
             this.mnLockFunction.Click += new System.EventHandler(this.mnLockFunction_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
             // 
             // mnViewOnly
             // 
             this.mnViewOnly.Name = "mnViewOnly";
-            this.mnViewOnly.Size = new System.Drawing.Size(247, 24);
+            this.mnViewOnly.Size = new System.Drawing.Size(212, 22);
             this.mnViewOnly.Text = "View Only";
             this.mnViewOnly.Click += new System.EventHandler(this.mnViewOnly_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(209, 6);
             // 
             // mnFullFunction
             // 
             this.mnFullFunction.Name = "mnFullFunction";
-            this.mnFullFunction.Size = new System.Drawing.Size(247, 24);
+            this.mnFullFunction.Size = new System.Drawing.Size(212, 22);
             this.mnFullFunction.Text = "Full Access";
             this.mnFullFunction.Click += new System.EventHandler(this.mnFullFunction_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(209, 6);
             // 
             // mnSelectAllChildren
             // 
             this.mnSelectAllChildren.Name = "mnSelectAllChildren";
-            this.mnSelectAllChildren.Size = new System.Drawing.Size(247, 24);
+            this.mnSelectAllChildren.Size = new System.Drawing.Size(212, 22);
             this.mnSelectAllChildren.Text = "Choose All Child Function";
             this.mnSelectAllChildren.Click += new System.EventHandler(this.mnSelectAllChildren_Click);
             // 
@@ -282,23 +229,15 @@
             this.imageList1.Images.SetKeyName(0, "groups");
             this.imageList1.Images.SetKeyName(1, "user");
             // 
-            // formFuncPermission
+            // UserPermissionControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.splitContainer1);
-            this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "formFuncPermission";
-            this.Padding = new System.Windows.Forms.Padding(4, 30, 4, 4);
-            this.Text = "formFuncPermission";
-            this.Load += new System.EventHandler(this.formFuncPermission_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).EndInit();
+            this.Controls.Add(this.customPanel2);
+            this.Name = "UserPermissionControl";
+            this.Size = new System.Drawing.Size(525, 437);
+            this.Load += new System.EventHandler(this.UserPermissionControl_Load);
+            this.customPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFunction)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -307,26 +246,21 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.DataGridView dgvUser;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsGroup;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserID;
+        private SharedControls.CustomPanel customPanel2;
         private System.Windows.Forms.DataGridView dgvFunction;
-        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FUNC_CODE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fIsGroup;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Permission;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Parent;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mnLockFunction;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem mnViewOnly;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem mnFullFunction;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FUNC_CODE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fIsGroup;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Permission;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Parent;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem mnSelectAllChildren;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

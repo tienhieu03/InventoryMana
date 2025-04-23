@@ -104,5 +104,10 @@ namespace STOCK.Forms
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void formConnect_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

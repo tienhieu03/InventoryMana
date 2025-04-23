@@ -57,8 +57,6 @@ namespace STOCK.Forms
         {
             _func = new SYS_FUNC();
             LeftMenu();
-            btnCountStock.BackColor = Color.FromArgb(21, 101, 192); // tương đương #3f51b5
-            btnCountStock.ForeColor = Color.White;
         }
 
         private int GetUserRight(string funcCode)
@@ -447,8 +445,17 @@ namespace STOCK.Forms
                             }
                             else if (_ch.FUNC_CODE == "PERMISSION")
                             {
-                                UserManagement.formMain frmUserManagement = new UserManagement.formMain();
-                                frmUserManagement.ShowDialog();
+                                ShowUserControl(new PermissionManager());
+                            }
+                            else if(_ch.FUNC_CODE == "BACKUP")
+                            {
+                                UserManagement.FuncForm.BackupData frm = new UserManagement.FuncForm.BackupData();
+                                frm.ShowDialog();
+                            }
+                            else if (_ch.FUNC_CODE == "RESTORE")
+                            {
+                                UserManagement.FuncForm.RestoreData frm = new UserManagement.FuncForm.RestoreData();
+                                frm.ShowDialog();
                             }
                             // *** END MODIFIED ***
                             else

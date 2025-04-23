@@ -44,8 +44,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Krypton.Toolkit, Version=90.25.2.55, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Krypton.Toolkit.90.25.2.55\lib\net472\Krypton.Toolkit.dll</HintPath>
+    <Reference Include="Krypton.Toolkit, Version=95.25.4.111, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Toolkit.95.25.4.111\lib\net472\Krypton.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net461\MaterialSkin.dll</HintPath>
@@ -136,12 +136,6 @@
     <Compile Include="Controls\OriginControl.Designer.cs">
       <DependentUpon>OriginControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PermissionManager.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\PermissionManager.Designer.cs">
-      <DependentUpon>PermissionManager.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ProductControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -160,21 +154,16 @@
     <Compile Include="Controls\PurchaseInvoiceControl.Designer.cs">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataSet\dsBarcode.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsBarcode.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DataSet\dsRetailInvoice.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsRetailInvoice.xsd</DependentUpon>
     </Compile>
-    <Compile Include="PopUpForm\FormBarcodeRDLC.cs">
+    <Compile Include="Forms\formPassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PopUpForm\FormBarcodeRDLC.Designer.cs">
-      <DependentUpon>FormBarcodeRDLC.cs</DependentUpon>
+    <Compile Include="Forms\formPassword.Designer.cs">
+      <DependentUpon>formPassword.cs</DependentUpon>
     </Compile>
     <Compile Include="PosControls\frmDiscount.cs">
       <SubType>Form</SubType>
@@ -313,9 +302,6 @@
     <EmbeddedResource Include="Controls\OriginControl.resx">
       <DependentUpon>OriginControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\PermissionManager.resx">
-      <DependentUpon>PermissionManager.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProductControl.resx">
       <DependentUpon>ProductControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -325,8 +311,8 @@
     <EmbeddedResource Include="Controls\PurchaseInvoiceControl.resx">
       <DependentUpon>PurchaseInvoiceControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PopUpForm\FormBarcodeRDLC.resx">
-      <DependentUpon>FormBarcodeRDLC.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\formPassword.resx">
+      <DependentUpon>formPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PosControls\frmDiscount.resx">
       <DependentUpon>frmDiscount.cs</DependentUpon>
@@ -380,24 +366,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Content Include="RDLCReport\PrintBarcode.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <EmbeddedResource Include="RDLCReport\PurchaseInvoice.rdlc" />
     <EmbeddedResource Include="RDLCReport\RecInnerInvoice.rdlc" />
     <EmbeddedResource Include="RDLCReport\Retail.rdlc" />
     <EmbeddedResource Include="RDLCReport\WholeSale.rdlc" />
-    <None Include="DataSet\dsBarcode.xsc">
-      <DependentUpon>dsBarcode.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsBarcode.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsBarcode.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSet\dsBarcode.xss">
-      <DependentUpon>dsBarcode.xsd</DependentUpon>
-    </None>
     <None Include="DataSet\dsInvoice.xsc">
       <DependentUpon>dsInvoice.xsd</DependentUpon>
     </None>

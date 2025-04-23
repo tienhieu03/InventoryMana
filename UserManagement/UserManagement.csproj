@@ -45,34 +45,34 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Krypton.Ribbon, Version=90.25.2.55, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Krypton.Ribbon.90.25.2.55\lib\net472\Krypton.Ribbon.dll</HintPath>
+    <Reference Include="Krypton.Ribbon, Version=95.25.4.111, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Ribbon.95.25.4.111\lib\net472\Krypton.Ribbon.dll</HintPath>
     </Reference>
-    <Reference Include="Krypton.Toolkit, Version=90.25.2.55, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Krypton.Toolkit.90.25.2.55\lib\net472\Krypton.Toolkit.dll</HintPath>
+    <Reference Include="Krypton.Toolkit, Version=95.25.4.111, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Toolkit.95.25.4.111\lib\net472\Krypton.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.77\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.135\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -96,11 +96,11 @@
     <Compile Include="formMain.Designer.cs">
       <DependentUpon>formMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FuncForm\formFuncPermission.cs">
+    <Compile Include="FuncForm\BackupData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FuncForm\formFuncPermission.Designer.cs">
-      <DependentUpon>formFuncPermission.cs</DependentUpon>
+    <Compile Include="FuncForm\BackupData.Designer.cs">
+      <DependentUpon>BackupData.cs</DependentUpon>
     </Compile>
     <Compile Include="FuncForm\formGroup.cs">
       <SubType>Form</SubType>
@@ -132,19 +132,37 @@
     <Compile Include="FuncForm\formUser.Designer.cs">
       <DependentUpon>formUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="FuncForm\RestoreData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncForm\RestoreData.Designer.cs">
+      <DependentUpon>RestoreData.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyComponent\TreeViewComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MyComponent\TreeViewComboBox.Designer.cs">
       <DependentUpon>TreeViewComboBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="PermissionManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PermissionManager.Designer.cs">
+      <DependentUpon>PermissionManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\UserPermissionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserPermissionControl.Designer.cs">
+      <DependentUpon>UserPermissionControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="formMain.resx">
       <DependentUpon>formMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FuncForm\formFuncPermission.resx">
-      <DependentUpon>formFuncPermission.cs</DependentUpon>
+    <EmbeddedResource Include="FuncForm\BackupData.resx">
+      <DependentUpon>BackupData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FuncForm\formGroup.resx">
       <DependentUpon>formGroup.cs</DependentUpon>
@@ -161,6 +179,12 @@
     <EmbeddedResource Include="FuncForm\formUser.resx">
       <DependentUpon>formUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FuncForm\RestoreData.resx">
+      <DependentUpon>RestoreData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PermissionManager.resx">
+      <DependentUpon>PermissionManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -170,6 +194,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\UserPermissionControl.resx">
+      <DependentUpon>UserPermissionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

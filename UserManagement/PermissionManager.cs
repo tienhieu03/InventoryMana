@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,18 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BusinessLayer;
 using BusinessLayer.Utils;
+using BusinessLayer;
 using MaterialSkin.Controls;
+using USERMANAGEMENT.MyComments;
 using UserManagement.FuncForm;
 using UserManagement.UserControls;
-using USERMANAGEMENT.MyComments;
 
-namespace UserManagement
+namespace STOCK.Controls
 {
-    public partial class formMain : MaterialForm
+    public partial class PermissionManager : UserControl
     {
-        public formMain()
+
+        public delegate void UserSelectedHandler(int userID);
+        public event UserSelectedHandler OnUserSelected;
+        public PermissionManager()
         {
             InitializeComponent();
         }
@@ -29,29 +32,40 @@ namespace UserManagement
         bool _isRoot;
         string _companyID;
         string _departmentID;
-        private void formMain_Load(object sender, EventArgs e)
+        private void PermissionManager_Load(object sender, EventArgs e)
         {
-            // Đảm bảo DataGridView không tự động tạo cột ngay từ khi form được tải
             gvUser.AutoGenerateColumns = false;
             
+            // Register the event handlers
+            gvUser.CellFormatting += gvUser_CellFormatting;
+            gvUser.Click += gvUser_Click;
+
             _company = new COMPANY();
             _department = new DEPARTMENT();
             _sysUser = new SYS_USER();
             _isRoot = true;
             LoadTreeView();
-            LoadUser(_companyID,"~");
+            LoadUser(_companyID, "~");
         }
         public void LoadUser(string cpid, string dpid)
         {
             _sysUser = new SYS_USER();
-            
+
             // Đảm bảo DataGridView không tự động tạo cột
             gvUser.AutoGenerateColumns = false;
-            
-            // Gán dữ liệu
-            gvUser.DataSource = _sysUser.getUserByDp(cpid, dpid);
+
+            // Sử dụng getUserByDpFunc thay vì getUserByDp để hiển thị người dùng theo nhóm
+            gvUser.DataSource = _sysUser.getUserByDpFunc(cpid, dpid);
             gvUser.ReadOnly = true;
         }
+
+        private void LoadControl(UserControl uc)
+        {
+            panelMain.Controls.Clear();
+            uc.Dock = DockStyle.Fill;
+            panelMain.Controls.Add(uc);
+        }
+
         void LoadTreeView()
         {
             try
@@ -59,13 +73,13 @@ namespace UserManagement
                 _treeView = new MyTreeViewCombo(pnlDepartment.Width, 300);
                 _treeView.Font = new Font("Arial", 10, FontStyle.Bold);
                 var lstCp = _company.getAll();
-                
+
                 if (lstCp == null || lstCp.Count == 0)
                 {
                     MessageBox.Show("Không tìm thấy dữ liệu công ty.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                
+
                 foreach (var item in lstCp)
                 {
                     TreeNode parentNode = new TreeNode();
@@ -73,7 +87,7 @@ namespace UserManagement
                     parentNode.Tag = item.CompanyID;
                     parentNode.Name = item.CompanyID;
                     _treeView.TreeView.Nodes.Add(parentNode);
-                    
+
                     var departmentList = _department.getAll(item.CompanyID);
                     if (departmentList != null && departmentList.Count > 0)
                     {
@@ -87,17 +101,17 @@ namespace UserManagement
                         }
                     }
                 }
-                
+
                 _treeView.TreeView.ExpandAll();
-                
+
                 pnlDepartment.Controls.Clear();
-                
+
                 pnlDepartment.Controls.Add(_treeView);
                 _treeView.Width = pnlDepartment.Width;
                 _treeView.Height = pnlDepartment.Height;
                 _treeView.TreeView.AfterSelect += TreeView_AfterSelect;
                 _treeView.TreeView.Click += TreeView_Click;
-                
+
                 Console.WriteLine($"Loaded {lstCp.Count} companies into TreeView");
             }
             catch (Exception ex)
@@ -169,7 +183,7 @@ namespace UserManagement
                 DataGridViewRow selectedRow = gvUser.SelectedRows[0];
                 bool isGroup = Convert.ToBoolean(selectedRow.Cells["IsGroup"].Value);
                 int userId = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
-                
+
                 if (isGroup)
                 {
                     formGroup frm = new formGroup();
@@ -191,10 +205,6 @@ namespace UserManagement
             }
         }
 
-        private void btnFuntion_Click(object sender, EventArgs e)
-        {
-        }
-
         private void btnReport_Click(object sender, EventArgs e)
         {
             if (gvUser.RowCount > 0 && gvUser.SelectedRows.Count > 0)
@@ -213,20 +223,15 @@ namespace UserManagement
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void gvUser_DoubleClick(object sender, EventArgs e)
         {
             if (gvUser.RowCount > 0 && gvUser.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = gvUser.SelectedRows[0];
-                
+
                 // Kiểm tra xem nếu là nhóm
                 bool isGroup = Convert.ToBoolean(selectedRow.Cells["IsGroup"].Value);
-                
+
                 if (isGroup)
                 {
                     formGroup frm = new formGroup();
@@ -241,6 +246,44 @@ namespace UserManagement
                     frm._userID = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
                     frm.ShowDialog();
                 }
+            }
+        }
+
+        private void gvUser_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Kiểm tra nếu là hàng hợp lệ (không phải header)
+            if (e.RowIndex >= 0)
+            {
+                // Lấy giá trị cột "IsGroup"
+                object cellValue = gvUser.Rows[e.RowIndex].Cells["IsGroup"].Value;
+
+                // Kiểm tra nếu giá trị là true (đây là nhóm)
+                if (cellValue != null && bool.TryParse(cellValue.ToString(), out bool isGroup) && isGroup)
+                {
+                    // Thay đổi màu nền, màu chữ và font cho hàng nhóm
+                    gvUser.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.SteelBlue;
+                    gvUser.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                    gvUser.Rows[e.RowIndex].DefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                }
+            }
+        }
+
+        private void gvUser_Click(object sender, EventArgs e)
+        {
+            if (gvUser.RowCount > 0 && gvUser.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = gvUser.SelectedRows[0];
+                int userId = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
+                
+                // Create a custom UserPermissionControl to display permissions
+                UserPermissionControl permissionControl = new UserPermissionControl();
+                permissionControl.LoadPermissions(userId, _companyID, _departmentID);
+                
+                // Display the permissions in the panelMain
+                LoadControl(permissionControl);
+                
+                // Trigger the event if someone is listening
+                OnUserSelected?.Invoke(userId);
             }
         }
     }

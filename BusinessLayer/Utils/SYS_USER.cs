@@ -32,7 +32,73 @@ namespace BusinessLayer.Utils
         }
         public List<tb_SYS_USER> getUserByDpFunc(string macty, string madvi)
         {
-            return db.tb_SYS_USER.Where(x => x.CompanyID == macty && x.DepartmentID == madvi && x.IsDisable == false).OrderByDescending(x => x.IsGroup).ToList();
+            // Get all non-disabled users from the specified company and department
+            var users = db.tb_SYS_USER.Where(x => x.CompanyID == macty && x.DepartmentID == madvi && x.IsDisable == false).ToList();
+            
+            // First get all the group accounts
+            var groupAccounts = users.Where(u => u.IsGroup == true).ToList();
+            
+            // Create a dictionary to store users by their group
+            var usersByGroup = new Dictionary<string, List<tb_SYS_USER>>();
+            
+            // Initialize SYS_GROUP to find group associations
+            var sysGroup = new SYS_GROUP();
+            
+            // For each regular user, determine their group and add them to the appropriate list
+            foreach (var user in users.Where(u => u.IsGroup != true))
+            {
+                // Get the group this user belongs to
+                var group = sysGroup.getGroupByMemBer(user.UserID);
+                
+                if (group != null)
+                {
+                    // Get the group account
+                    var groupAccount = users.FirstOrDefault(g => g.UserID == group.Groups);
+                    
+                    if (groupAccount != null)
+                    {
+                        // Use the group's name as key
+                        string groupName = groupAccount.UserName;
+                        
+                        // Create entry in dictionary if it doesn't exist
+                        if (!usersByGroup.ContainsKey(groupName))
+                        {
+                            usersByGroup[groupName] = new List<tb_SYS_USER>();
+                        }
+                        
+                        // Add this user to their group's list
+                        usersByGroup[groupName].Add(user);
+                    }
+                }
+            }
+            
+            // Now create the ordered list starting with each group followed by its members
+            var result = new List<tb_SYS_USER>();
+            
+            // Add groups and their members in order
+            foreach (var groupAccount in groupAccounts)
+            {
+                // First add the group account
+                result.Add(groupAccount);
+                
+                // Then add all users belonging to this group (if any)
+                if (usersByGroup.ContainsKey(groupAccount.UserName))
+                {
+                    result.AddRange(usersByGroup[groupAccount.UserName]);
+                }
+            }
+            
+            // Finally add any users who aren't associated with any group
+            foreach (var user in users.Where(u => u.IsGroup != true))
+            {
+                var group = sysGroup.getGroupByMemBer(user.UserID);
+                if (group == null)
+                {
+                    result.Add(user);
+                }
+            }
+            
+            return result;
         }
         public bool checkUserExist(string cpid, string dpid, string username)
         {
