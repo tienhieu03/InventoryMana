@@ -17,7 +17,6 @@ namespace DataLayer
         public System.Guid InvoiceDetail_ID { get; set; }
         public Nullable<System.Guid> InvoiceID { get; set; }
         public string BARCODE { get; set; }
-        public string QRCODE { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> InvoiceQuantity { get; set; }
         public Nullable<int> DiscountAmount { get; set; }

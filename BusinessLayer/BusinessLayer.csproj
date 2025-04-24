@@ -78,6 +78,7 @@
     <Compile Include="DataModels\UNIT.cs" />
     <Compile Include="Utils\SYS_GROUP.cs" />
     <Compile Include="Utils\SYS_PARAM.cs" />
+    <Compile Include="Utils\SYS_REPORT.cs" />
     <Compile Include="Utils\SYS_RIGHT.cs" />
     <Compile Include="Utils\SYS_RIGHT_REP.cs" />
     <Compile Include="Utils\SYS_SEQ.cs" />

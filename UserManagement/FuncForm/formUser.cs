@@ -21,7 +21,7 @@ namespace UserManagement.FuncForm
             InitializeComponent();
         }
 
-        formMain objMain = (formMain)Application.OpenForms["formMain"];
+        //formMain objMain = (formMain)Application.OpenForms["formMain"];
         public string _companyID;
         public string _departmentID;
         public int _userID;
@@ -146,7 +146,7 @@ namespace UserManagement.FuncForm
 
                 MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            objMain.LoadUser(_companyID, _departmentID);
+            //objMain.LoadUser(_companyID, _departmentID);
         }
 
         private void btnExit_Click(object sender, EventArgs e)

@@ -207,19 +207,34 @@ namespace STOCK.Controls
 
         private void btnReport_Click(object sender, EventArgs e)
         {
-            if (gvUser.RowCount > 0 && gvUser.SelectedRows.Count > 0)
+            try
             {
-                DataGridViewRow selectedRow = gvUser.SelectedRows[0];
+                if (gvUser.RowCount > 0 && gvUser.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = gvUser.SelectedRows[0];
+                    int userId = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
+                    
+                    // Additional validation before opening the form
+                    if (userId <= 0)
+                    {
+                        MessageBox.Show("Invalid user ID. Please select a valid user.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
-                formReportPer frm = new formReportPer();
-                frm._userID = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
-                frm._cmpID = _companyID;
-                frm._dpID = _departmentID;
-                frm.ShowDialog();
+                    formReportPer frm = new formReportPer();
+                    frm._userID = userId;
+                    frm._cmpID = _companyID;
+                    frm._dpID = _departmentID;
+                    frm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn người dùng cần phân quyền báo cáo", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Vui lòng chọn người dùng cần phân quyền báo cáo", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Error opening report permissions: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

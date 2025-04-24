@@ -72,6 +72,9 @@
       <DependentUpon>INVENTORY.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="R_INVOICE.cs">
+      <DependentUpon>INVENTORY.tt</DependentUpon>
+    </Compile>
     <Compile Include="tb_Company.cs">
       <DependentUpon>INVENTORY.tt</DependentUpon>
     </Compile>

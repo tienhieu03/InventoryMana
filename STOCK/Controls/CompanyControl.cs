@@ -243,5 +243,9 @@ namespace STOCK.Controls
             }
         }
 
+        private void customTextBox1__TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

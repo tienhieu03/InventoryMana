@@ -34,6 +34,7 @@ namespace DataLayer
         public virtual DbSet<tb_Invoice> tb_Invoice { get; set; }
         public virtual DbSet<tb_InvoiceDetail> tb_InvoiceDetail { get; set; }
         public virtual DbSet<tb_Origin> tb_Origin { get; set; }
+        public virtual DbSet<tb_Product> tb_Product { get; set; }
         public virtual DbSet<tb_ProductCategory> tb_ProductCategory { get; set; }
         public virtual DbSet<tb_Supplier> tb_Supplier { get; set; }
         public virtual DbSet<tb_SYS_FUNC> tb_SYS_FUNC { get; set; }
@@ -44,12 +45,12 @@ namespace DataLayer
         public virtual DbSet<tb_SYS_SEQ> tb_SYS_SEQ { get; set; }
         public virtual DbSet<tb_SYS_USER> tb_SYS_USER { get; set; }
         public virtual DbSet<tb_Unit> tb_Unit { get; set; }
+        public virtual DbSet<R_INVOICE> R_INVOICE { get; set; }
         public virtual DbSet<V_FUNC_SYS_RIGHT> V_FUNC_SYS_RIGHT { get; set; }
         public virtual DbSet<V_INVOICE_DETAIL> V_INVOICE_DETAIL { get; set; }
         public virtual DbSet<V_REP_SYS_RIGHT_REP> V_REP_SYS_RIGHT_REP { get; set; }
         public virtual DbSet<V_USER_IN_GROUP> V_USER_IN_GROUP { get; set; }
         public virtual DbSet<V_USER_NOTIN_GROUP> V_USER_NOTIN_GROUP { get; set; }
-        public virtual DbSet<tb_Product> tb_Product { get; set; }
     
         public virtual int Inventory_Balance_by_Branch(Nullable<System.DateTime> dATEC, string departmentID)
         {

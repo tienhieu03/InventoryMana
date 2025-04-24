@@ -39,7 +39,7 @@
             // 
             this.btnRestore.Image = ((System.Drawing.Image)(resources.GetObject("btnRestore.Image")));
             this.btnRestore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRestore.Location = new System.Drawing.Point(259, 118);
+            this.btnRestore.Location = new System.Drawing.Point(259, 156);
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(90, 44);
             this.btnRestore.TabIndex = 7;
@@ -86,7 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 168);
+            this.ClientSize = new System.Drawing.Size(602, 206);
             this.Controls.Add(this.btnRestore);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtURL);

@@ -49,8 +49,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomPanel.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomTextBox.Designer.cs">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="FormBarcodeRDLC.cs">
       <SubType>Form</SubType>
@@ -71,8 +80,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ucCompany.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucCompany.Designer.cs">
+      <DependentUpon>ucCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucDepartment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucDepartment.Designer.cs">
+      <DependentUpon>ucDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucFrom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucFrom.Designer.cs">
+      <DependentUpon>ucFrom.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CustomTextBox.resx">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormBarcodeRDLC.resx">
       <DependentUpon>FormBarcodeRDLC.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,6 +112,15 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucCompany.resx">
+      <DependentUpon>ucCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucDepartment.resx">
+      <DependentUpon>ucDepartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucFrom.resx">
+      <DependentUpon>ucFrom.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +138,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+      <Project>{302d6581-17af-4f4b-96a1-4032088d0954}</Project>
+      <Name>BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{d4ba9678-4ce4-4ecf-bd16-fc77e3bfd61c}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

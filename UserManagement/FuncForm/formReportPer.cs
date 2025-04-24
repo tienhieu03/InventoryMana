@@ -48,34 +48,53 @@ namespace UserManagement.FuncForm
         }
         void loadRepByUser()
         {
-            VIEW_REP_SYS_RIGHT_REP _vFuncRight = new VIEW_REP_SYS_RIGHT_REP();
-            dgvFunction.DataSource = _vFuncRight.getRepByUser(_userID);
-            dgvFunction.ReadOnly = true;
-            for (int i = 0; i < dgvUser.RowCount; i++)
+            try
             {
-                if (int.Parse(dgvUser.Rows[i].Cells["UserID"].Value.ToString()) == _userID)
+                VIEW_REP_SYS_RIGHT_REP _vFuncRight = new VIEW_REP_SYS_RIGHT_REP();
+                
+                // Ensure _userID is valid before proceeding
+                if (_userID <= 0)
                 {
-                    dgvUser.ClearSelection();
-                    dgvUser.Rows[i].Selected = true;
-                    
-                    // Tìm cột visible đầu tiên để tránh lỗi "Current cell cannot be set to an invisible cell"
-                    DataGridViewCell visibleCell = null;
-                    foreach (DataGridViewCell cell in dgvUser.Rows[i].Cells)
+                    MessageBox.Show("Invalid user ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                
+                dgvFunction.DataSource = _vFuncRight.getRepByUser(_userID);
+                dgvFunction.ReadOnly = true;
+                
+                for (int i = 0; i < dgvUser.RowCount; i++)
+                {
+                    // Ensure the cell has a value before parsing
+                    if (dgvUser.Rows[i].Cells["UserID"].Value != null && 
+                        int.Parse(dgvUser.Rows[i].Cells["UserID"].Value.ToString()) == _userID)
                     {
-                        if (cell.Visible && dgvUser.Columns[cell.ColumnIndex].Visible)
+                        dgvUser.ClearSelection();
+                        dgvUser.Rows[i].Selected = true;
+                        
+                        // Tìm cột visible đầu tiên để tránh lỗi "Current cell cannot be set to an invisible cell"
+                        DataGridViewCell visibleCell = null;
+                        foreach (DataGridViewCell cell in dgvUser.Rows[i].Cells)
                         {
-                            visibleCell = cell;
-                            break;
+                            if (cell.Visible && dgvUser.Columns[cell.ColumnIndex].Visible)
+                            {
+                                visibleCell = cell;
+                                break;
+                            }
+                        }
+                        
+                        if (visibleCell != null)
+                        {
+                            dgvUser.CurrentCell = visibleCell;
                         }
                     }
-                    
-                    if (visibleCell != null)
-                    {
-                        dgvUser.CurrentCell = visibleCell;
-                    }
                 }
+                dgvFunction.ClearSelection();
             }
-            dgvFunction.ClearSelection();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading report permissions: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void mnLockFunction_Click(object sender, EventArgs e)

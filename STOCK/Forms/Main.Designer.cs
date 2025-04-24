@@ -124,6 +124,7 @@
             this.btnReport.Size = new System.Drawing.Size(53, 30);
             this.btnReport.TabIndex = 4;
             this.btnReport.UseVisualStyleBackColor = false;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
             // btnCountStock
             // 

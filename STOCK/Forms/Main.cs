@@ -631,5 +631,26 @@ namespace STOCK.Forms
               // Update previous window state for next resize event
               _previousWindowState = this.WindowState;
           }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check if the current user is null
+                if (_currentUser == null)
+                {
+                    MessageBox.Show("User information not available. Please log in again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                
+                // Create the report form and pass the current user
+                formReport frm = new formReport(_currentUser);
+                frm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening report: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

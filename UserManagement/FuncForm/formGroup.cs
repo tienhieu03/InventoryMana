@@ -20,7 +20,6 @@ namespace UserManagement.FuncForm
         {
             InitializeComponent();
         }
-        formMain objMain=(formMain)Application.OpenForms["formMain"];
         public string _companyID;
         public string _departmentID;
         public int _userID;
@@ -121,7 +120,7 @@ namespace UserManagement.FuncForm
                 MessageBox.Show("Group updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             // Reload danh sách user trong form chính
-            objMain.LoadUser(_companyID, _departmentID);
+            //objMain.LoadUser(_companyID, _departmentID);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
